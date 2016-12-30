@@ -3,6 +3,7 @@
 module HeptaTonic =
 
   struct
+
     let scaleData = [
         "z", "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ";
        "j2", "HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ____ AgUr ____ FePu ";
@@ -96,50 +97,52 @@ module HeptaTonic =
 
   end;;
 
+let mdb = HeptaTonic.keySig;;
+
 (* open strings *)
 
 let sBj qp = (
-  (String.sub (HeptaTonic.keySig qp) 50 10) ^
-  (String.sub (HeptaTonic.keySig qp)  0 50)
+  (String.sub (mdb qp) 50 10) ^
+  (String.sub (mdb qp)  0 50)
 );;
 
 let sFn qp = (
-  (String.sub (HeptaTonic.keySig qp) 25 35) ^
-  (String.sub (HeptaTonic.keySig qp)  0 25)
+  (String.sub (mdb qp) 25 35) ^
+  (String.sub (mdb qp)  0 25)
 );;
 
 let sCn qp = (
-  (HeptaTonic.keySig qp)
+  (mdb qp)
 );;
 
 let sGn qp = ( 
-  (String.sub (HeptaTonic.keySig qp) 35 25) ^
-  (String.sub (HeptaTonic.keySig qp)  0 35)
+  (String.sub (mdb qp) 35 25) ^
+  (String.sub (mdb qp)  0 35)
 );;
 
 let sDn qp = (
-  (String.sub (HeptaTonic.keySig qp) 10 50) ^
-  (String.sub (HeptaTonic.keySig qp)  0 10)
+  (String.sub (mdb qp) 10 50) ^
+  (String.sub (mdb qp)  0 10)
 );;
 
 let sAn qp = (
-  (String.sub (HeptaTonic.keySig qp) 45 15) ^
-  (String.sub (HeptaTonic.keySig qp)  0 45)
+  (String.sub (mdb qp) 45 15) ^
+  (String.sub (mdb qp)  0 45)
 );;
 
 let sEn qp = (
-  (String.sub (HeptaTonic.keySig qp) 20 40) ^
-  (String.sub (HeptaTonic.keySig qp)  0 20)
+  (String.sub (mdb qp) 20 40) ^
+  (String.sub (mdb qp)  0 20)
 );;
 
 let sBn qp = (
-  (String.sub (HeptaTonic.keySig qp) 55  5) ^
-  (String.sub (HeptaTonic.keySig qp)  0 55)
+  (String.sub (mdb qp) 55  5) ^
+  (String.sub (mdb qp)  0 55)
 );;
 
 let sFk qp = (
-  (String.sub (HeptaTonic.keySig qp) 30 30) ^
-  (String.sub (HeptaTonic.keySig qp)  0 30)
+  (String.sub (mdb qp) 30 30) ^
+  (String.sub (mdb qp)  0 30)
 );;
 
 (* instrument tunings *)
@@ -191,16 +194,24 @@ let fkbjdn qp =
   scribe (sBj qp);
   scribe (sFk qp);;
 
-(* Semigraphic views *)
+(* semigraphic views *)
 
-print_string "\n\n";;
+let aragonite = ["n0"; "k6"; "j17"; "k6x5"; "j17y2";
+ "j3"; "j34k6"; "j17k2"; "n26y5"; "k26x5"; "j6"; "j36";
+ "k56"; "j136y7"; "k56x4"; "n167x4"; "j3k5x4"; "j167y2";
+ "j2"; "j236"; "j26"; "j23"; "j23k6"; "j2y3"; "j2k6";
+ "j26y3"; "j2k56"; "j246y3"; "j2k56x4"; "k157x6";
+ "j26y34"; "j2k6x5"; "j2k6y3"; "k1j6"; "n345"; "j3k6";
+ "n45y2"; "j3k56x4"; "k2j6"; "n5y2"; "k26"; "k256"];;
 
-  beadgcf "j236";;
+let layOut qp = 
+  print_string "\n";
+  beadgcf qp; (* tuning *)
+  print_string "\n";;
 
-print_string "\n\n";;
-
-  beadgcf "k125";;
-
-print_string "\n\n";;
+let () =
+  print_string "\n";
+  List.iter layOut aragonite;
+  print_string "\n";;
 
 

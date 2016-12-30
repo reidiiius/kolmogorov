@@ -14,7 +14,7 @@ command line
 
     cd kolmogorov
 
-    ocaml thorngate.ml
+    ocaml thorngate.ml | less
 
 ---
 
