@@ -4,14 +4,14 @@
 
 (* semigraphic views *)
 
-print_string "\n\n";;
+vrtsp ();;
 
   eadgbe "j36";;
 
-print_string "\n\n";;
+vrtsp ();;
 
   eadgbe "k15";;
 
-print_string "\n\n";;
+vrtsp ();;
 
 

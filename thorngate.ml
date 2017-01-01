@@ -205,13 +205,13 @@ let aragonite = ["n0"; "k6"; "j17"; "k6x5"; "j17y2";
  "n45y2"; "j3k56x4"; "k2j6"; "n5y2"; "k26"; "k256"];;
 
 let layOut qp = 
-  print_string "\n";
+  print_newline ();
   beadgcf qp; (* tuning *)
-  print_string "\n";;
+  print_newline ();;
 
 let () =
-  print_string "\n";
+  print_newline ();
   List.iter layOut aragonite;
-  print_string "\n";;
+  print_newline ();;
 
 
