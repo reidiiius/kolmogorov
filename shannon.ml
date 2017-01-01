@@ -1,7 +1,5 @@
 
-module SkalaHeptaTonisk =
-
-  struct
+module SkalaHeptaTonisk = struct
 
 let berzelian qp = match qp with
  |      "j2" -> "HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ____ AgUr ____ FePu "
@@ -89,6 +87,6 @@ let berzelian qp = match qp with
  | "k2j56y7" -> "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ "
  |     _     -> "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ";;
 
-  end;;
+end;;
 
 

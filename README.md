@@ -14,6 +14,8 @@ command line
 
     cd kolmogorov
 
+    ocaml chaitin.ml | less
+
     ocaml thorngate.ml | less
 
 ---

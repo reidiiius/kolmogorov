@@ -1,6 +1,8 @@
 
 #use "shannon.ml";;
 
+module Scordatura = struct
+
 let mdb = SkalaHeptaTonisk.berzelian;;
 
 (* open strings *)
@@ -98,10 +100,6 @@ let fkbjdn qp =
   scribe (sBj qp);
   scribe (sFk qp);;
 
-(* format devices *)
-
-let vrtsp () =
-  print_newline ();
-  print_newline ();;
+end;;
 
 
