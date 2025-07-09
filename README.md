@@ -10,13 +10,17 @@ Semigraphics
 ---
 
 ### Usage
-command line
+Command-line
 
     cd kolmogorov
 
-    ocaml chaitin.ml | less
+:
 
-    ocaml thorngate.ml n0 j3
+    ocaml chaitin.ml n0 j3
+
+:
+
+    ocaml thorngate.ml -a | sensible-pager
 
 ---
 

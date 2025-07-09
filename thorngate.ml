@@ -1,8 +1,8 @@
-#!/usr/bin/env ocaml
+#! /usr/bin/env ocaml
 
 module HeptaTonic = struct
 
-    let scaleData = [
+    let scales = [
        "i0", "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ";
        "j2", "HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ____ AgUr ____ FePu ";
        "j3", "HgSn ____ SnHg UrFe ____ PbAg ____ AuAu ____ AgPb ____ FeUr ";
@@ -89,133 +89,132 @@ module HeptaTonic = struct
   "k2j56y7", "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ "
     ];;
 
-    let keySig qp =
-      try List.assoc qp scaleData;
-      with Not_found -> List.assoc "i0" scaleData;;
+    let designate sign =
+      try List.assoc sign scales;
+      with Not_found -> List.assoc "i0" scales;;
 
 end;;
 
 module Scordatura = struct
 
-let mdb = HeptaTonic.keySig;;
+let reveal = HeptaTonic.designate;;
 
 (* open strings *)
 
-let sBj qp = (
-  (String.sub (mdb qp) 50 10) ^
-  (String.sub (mdb qp)  0 50)
+let sBj sign = (
+  (String.sub (reveal sign) 50 10) ^
+  (String.sub (reveal sign)  0 50)
 );;
 
-let sFn qp = (
-  (String.sub (mdb qp) 25 35) ^
-  (String.sub (mdb qp)  0 25)
+let sFn sign = (
+  (String.sub (reveal sign) 25 35) ^
+  (String.sub (reveal sign)  0 25)
 );;
 
-let sCn qp = (
-  (mdb qp)
+let sCn sign = (
+  (reveal sign)
 );;
 
-let sGn qp = ( 
-  (String.sub (mdb qp) 35 25) ^
-  (String.sub (mdb qp)  0 35)
+let sGn sign = (
+  (String.sub (reveal sign) 35 25) ^
+  (String.sub (reveal sign)  0 35)
 );;
 
-let sDn qp = (
-  (String.sub (mdb qp) 10 50) ^
-  (String.sub (mdb qp)  0 10)
+let sDn sign = (
+  (String.sub (reveal sign) 10 50) ^
+  (String.sub (reveal sign)  0 10)
 );;
 
-let sAn qp = (
-  (String.sub (mdb qp) 45 15) ^
-  (String.sub (mdb qp)  0 45)
+let sAn sign = (
+  (String.sub (reveal sign) 45 15) ^
+  (String.sub (reveal sign)  0 45)
 );;
 
-let sEn qp = (
-  (String.sub (mdb qp) 20 40) ^
-  (String.sub (mdb qp)  0 20)
+let sEn sign = (
+  (String.sub (reveal sign) 20 40) ^
+  (String.sub (reveal sign)  0 20)
 );;
 
-let sBn qp = (
-  (String.sub (mdb qp) 55  5) ^
-  (String.sub (mdb qp)  0 55)
+let sBn sign = (
+  (String.sub (reveal sign) 55  5) ^
+  (String.sub (reveal sign)  0 55)
 );;
 
-let sFk qp = (
-  (String.sub (mdb qp) 30 30) ^
-  (String.sub (mdb qp)  0 30)
+let sFk sign = (
+  (String.sub (reveal sign) 30 30) ^
+  (String.sub (reveal sign)  0 30)
 );;
 
 (* instrument tunings *)
 
-let scribe qp =
-  Printf.printf "\t%s\n" qp;;
+let scribe yarn =
+  Printf.printf "\t%s\n" yarn;;
 
-let beadgcf qp =
-  scribe (qp ^ "-beadgcf");
+let beadgcf sign =
+  scribe (sign ^ "-beadgcf");
   List.iter scribe [
-    sFn qp;
-    sCn qp;
-    sGn qp;
-    sDn qp;
-    sAn qp;
-    sEn qp;
-    sBn qp
+    sFn sign;
+    sCn sign;
+    sGn sign;
+    sDn sign;
+    sAn sign;
+    sEn sign;
+    sBn sign
   ];;
 
-let bfbfb qp =
-  scribe (qp ^ "-bfbfb");
+let bfbfb sign =
+  scribe (sign ^ "-bfbfb");
   List.iter scribe [
-    sBn qp;
-    sFn qp;
-    sBn qp;
-    sFn qp;
-    sBn qp
+    sBn sign;
+    sFn sign;
+    sBn sign;
+    sFn sign;
+    sBn sign
   ];;
 
-let cgdae qp =
-  scribe (qp ^ "-cgdae");
+let cgdae sign =
+  scribe (sign ^ "-cgdae");
   List.iter scribe [
-    sEn qp;
-    sAn qp;
-    sDn qp;
-    sGn qp;
-    sCn qp
+    sEn sign;
+    sAn sign;
+    sDn sign;
+    sGn sign;
+    sCn sign
   ];;
  
-let eadgbe qp =
-  scribe (qp ^ "-eadgbe");
+let eadgbe sign =
+  scribe (sign ^ "-eadgbe");
   List.iter scribe [
-    sEn qp;
-    sBn qp;
-    sGn qp;
-    sDn qp;
-    sAn qp;
-    sEn qp
+    sEn sign;
+    sBn sign;
+    sGn sign;
+    sDn sign;
+    sAn sign;
+    sEn sign
   ];;
 
-let fkbjdn qp =
-  scribe (qp ^ "-fkbjdn");
+let fkbjdn sign =
+  scribe (sign ^ "-fkbjdn");
   List.iter scribe [
-    sDn qp;
-    sBj qp;
-    sFk qp;
-    sDn qp;
-    sBj qp;
-    sFk qp
+    sDn sign;
+    sBj sign;
+    sFk sign;
+    sDn sign;
+    sBj sign;
+    sFk sign
   ];;
 
 end;;
 
 (* semigraphic views *)
 
-let aragonite = (fst (List.split HeptaTonic.scaleData));;
-
-let layout qp =
+let layout sign =
   print_newline ();
-  Scordatura.beadgcf qp;; (* tuning *)
+  Scordatura.beadgcf sign;; (* tuning *)
 
 let rec cyclotron niter =
-  let spokes = List.rev aragonite in
+  let keynotes = (fst (List.split HeptaTonic.scales)) in
+  let spokes = List.rev keynotes in
   if niter <= 1 then
     begin
       Printf.printf "\t%s" (List.nth spokes (niter - 1));
@@ -230,13 +229,15 @@ let rec cyclotron niter =
     end;;
 
 let selections () =
-  let niter = (List.length aragonite) in
+  let keynotes = (fst (List.split HeptaTonic.scales)) in
+  let niter = (List.length keynotes) in
     print_newline ();
     cyclotron niter;
     print_newline ();;
 
 let cornucopia () =
-  List.iter layout aragonite;
+  let keynotes = (fst (List.split HeptaTonic.scales)) in
+  List.iter layout keynotes;
   print_newline ();;
 
 let juxtaposed aromas =
