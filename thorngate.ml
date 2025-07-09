@@ -3,7 +3,7 @@
 module HeptaTonic = struct
 
     let scaleData = [
-        "z", "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ";
+       "i0", "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ";
        "j2", "HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ____ AgUr ____ FePu ";
        "j3", "HgSn ____ SnHg UrFe ____ PbAg ____ AuAu ____ AgPb ____ FeUr ";
        "j5", "PbCu ____ AuSn ____ AgHg TiFe FeTi ____ ____ SnAu ____ CuPb ";
@@ -91,7 +91,7 @@ module HeptaTonic = struct
 
     let keySig qp =
       try List.assoc qp scaleData;
-      with Not_found -> List.assoc "z" scaleData;;
+      with Not_found -> List.assoc "i0" scaleData;;
 
 end;;
 
@@ -152,68 +152,123 @@ let scribe qp =
 
 let beadgcf qp =
   scribe (qp ^ "-beadgcf");
-  scribe (sFn qp);
-  scribe (sCn qp);
-  scribe (sGn qp);
-  scribe (sDn qp);
-  scribe (sAn qp);
-  scribe (sEn qp);
-  scribe (sBn qp);;
+  List.iter scribe [
+    sFn qp;
+    sCn qp;
+    sGn qp;
+    sDn qp;
+    sAn qp;
+    sEn qp;
+    sBn qp
+  ];;
 
 let bfbfb qp =
   scribe (qp ^ "-bfbfb");
-  scribe (sBn qp);
-  scribe (sFn qp);
-  scribe (sBn qp);
-  scribe (sFn qp);
-  scribe (sBn qp);;
+  List.iter scribe [
+    sBn qp;
+    sFn qp;
+    sBn qp;
+    sFn qp;
+    sBn qp
+  ];;
 
 let cgdae qp =
   scribe (qp ^ "-cgdae");
-  scribe (sEn qp);
-  scribe (sAn qp);
-  scribe (sDn qp);
-  scribe (sGn qp);
-  scribe (sCn qp);;
+  List.iter scribe [
+    sEn qp;
+    sAn qp;
+    sDn qp;
+    sGn qp;
+    sCn qp
+  ];;
  
 let eadgbe qp =
   scribe (qp ^ "-eadgbe");
-  scribe (sEn qp);
-  scribe (sBn qp);
-  scribe (sGn qp);
-  scribe (sDn qp);
-  scribe (sAn qp);
-  scribe (sEn qp);;
+  List.iter scribe [
+    sEn qp;
+    sBn qp;
+    sGn qp;
+    sDn qp;
+    sAn qp;
+    sEn qp
+  ];;
 
 let fkbjdn qp =
   scribe (qp ^ "-fkbjdn");
-  scribe (sDn qp);
-  scribe (sBj qp);
-  scribe (sFk qp);
-  scribe (sDn qp);
-  scribe (sBj qp);
-  scribe (sFk qp);;
+  List.iter scribe [
+    sDn qp;
+    sBj qp;
+    sFk qp;
+    sDn qp;
+    sBj qp;
+    sFk qp
+  ];;
 
 end;;
 
 (* semigraphic views *)
 
-let aragonite = [ "n0"; "k6"; "j17"; "k6x5"; "j17y2";
- "j3"; "j34k6"; "j17k2"; "n26y5"; "k26x5"; "j6"; "j36";
- "k56"; "j136y7"; "k56x4"; "n167x4"; "j3k5x4"; "j167y2";
- "j2"; "j236"; "j26"; "j23"; "j23k6"; "j2y3"; "j2k6";
- "j26y3"; "j2k56"; "j246y3"; "j26y34"; "j2k6x5"; "j2k6y3";
- "j2k56x4"; "k157x6"; "k1j6"; "n345"; "j3k6"; "n45y2";
- "j3k56x4"; "k2j6"; "n5y2"; "k26"; "k256" ];;
+let aragonite = (fst (List.split HeptaTonic.scaleData));;
 
-let layOut qp = 
+let layout qp =
   print_newline ();
-  Scordatura.beadgcf qp; (* tuning *)
+  Scordatura.beadgcf qp;; (* tuning *)
+
+let rec cyclotron niter =
+  let spokes = List.rev aragonite in
+  if niter <= 1 then
+    begin
+      Printf.printf "\t%s" (List.nth spokes (niter - 1));
+      print_newline ()
+    end
+  else
+    begin
+      let cols = 8 in
+      if (niter mod cols) = 0 then print_newline();
+      Printf.printf "\t%s" (List.nth spokes (niter - 1));
+      cyclotron (niter - 1)
+    end;;
+
+let selections () =
+  let niter = (List.length aragonite) in
+    print_newline ();
+    cyclotron niter;
+    print_newline ();;
+
+let cornucopia () =
+  List.iter layout aragonite;
   print_newline ();;
+
+let juxtaposed aromas =
+  Array.iter layout aromas;
+  print_newline ();;
+
+(* application entryway *)
 
 let () =
-  print_newline ();
-  List.iter layOut aragonite;
-  print_newline ();;
+  let quanta = (Array.length Sys.argv - 1) in
+  let argots = (Array.sub Sys.argv 1 quanta) in
+    if quanta = 0 then
+      selections ()
+    else if quanta = 1 then
+      begin
+        let head = argots.(0) in
+        if head = "all" ||
+           head = "-a" then
+          cornucopia ()
+        else if head = "help" ||
+                head = "-h" then
+          let exec = Sys.argv.(0) in
+          let tips = ["ocaml"; exec; "n0 j3"] in
+          let hint = String.concat "\x20" tips in
+            Printf.printf "\n\t%s\n\n" hint
+        else if head = "keys" ||
+                head = "-k" then
+          selections ()
+        else
+          juxtaposed argots
+      end
+    else
+      juxtaposed argots;;
 
 

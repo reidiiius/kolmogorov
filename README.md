@@ -16,7 +16,7 @@ command line
 
     ocaml chaitin.ml | less
 
-    ocaml thorngate.ml | less
+    ocaml thorngate.ml n0 j3
 
 ---
 
