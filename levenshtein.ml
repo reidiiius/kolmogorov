@@ -6,6 +6,21 @@ module Scordatura = struct
 
 let reveal = SkalaHeptaTonisk.designate;;
 
+let rec columned niter clefs =
+  let items = List.rev clefs in
+  if niter <= 1 then
+    begin
+      Printf.printf "\t%s" (List.nth items (niter - 1));
+      print_newline ()
+    end
+  else
+    begin
+      let cols = 8 in
+      if (niter mod cols) = 0 then print_newline();
+      Printf.printf "\t%s" (List.nth items (niter - 1));
+      columned (niter - 1) clefs
+    end;;
+
 (* open strings *)
 
 let sBj sign = (

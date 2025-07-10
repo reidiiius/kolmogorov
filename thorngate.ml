@@ -2,7 +2,7 @@
 
 module HeptaTonic = struct
 
-    let scales = [
+  let scales = [
        "i0", "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ";
        "j2", "HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ____ AgUr ____ FePu ";
        "j3", "HgSn ____ SnHg UrFe ____ PbAg ____ AuAu ____ AgPb ____ FeUr ";
@@ -87,17 +87,35 @@ module HeptaTonic = struct
   "j3k56x4", "HgTi ____ SnNp UrAu ____ ____ ____ AuUr NpSn ____ TiHg FeFe ";
   "k1j56y7", "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ";
   "k2j56y7", "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ "
-    ];;
+  ];;
 
-    let designate sign =
-      try List.assoc sign scales;
-      with Not_found -> List.assoc "i0" scales;;
+  let designate sign =
+    try List.assoc sign scales;
+    with Not_found -> List.assoc "i0" scales;;
+
+  let keynotes () =
+    fst (List.split scales);;
 
 end;;
 
 module Scordatura = struct
 
 let reveal = HeptaTonic.designate;;
+
+let rec columned niter clefs =
+ let items = List.rev clefs in
+  if niter <= 1 then
+    begin
+      Printf.printf "\t%s" (List.nth items (niter - 1));
+      print_newline ()
+    end
+  else
+    begin
+      let cols = 8 in
+      if (niter mod cols) = 0 then print_newline();
+      Printf.printf "\t%s" (List.nth items (niter - 1));
+      columned (niter - 1) clefs
+    end;;
 
 (* open strings *)
 
@@ -212,32 +230,16 @@ let layout sign =
   print_newline ();
   Scordatura.beadgcf sign;; (* tuning *)
 
-let rec cyclotron niter =
-  let keynotes = (fst (List.split HeptaTonic.scales)) in
-  let spokes = List.rev keynotes in
-  if niter <= 1 then
-    begin
-      Printf.printf "\t%s" (List.nth spokes (niter - 1));
-      print_newline ()
-    end
-  else
-    begin
-      let cols = 8 in
-      if (niter mod cols) = 0 then print_newline();
-      Printf.printf "\t%s" (List.nth spokes (niter - 1));
-      cyclotron (niter - 1)
-    end;;
-
 let selections () =
-  let keynotes = (fst (List.split HeptaTonic.scales)) in
-  let niter = (List.length keynotes) in
+  let clefs = HeptaTonic.keynotes () in
+  let niter = List.length clefs in
     print_newline ();
-    cyclotron niter;
+    Scordatura.columned niter clefs;
     print_newline ();;
 
 let cornucopia () =
-  let keynotes = (fst (List.split HeptaTonic.scales)) in
-  List.iter layout keynotes;
+  let clefs = HeptaTonic.keynotes () in
+  List.iter layout clefs;
   print_newline ();;
 
 let juxtaposed aromas =

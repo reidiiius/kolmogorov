@@ -8,32 +8,16 @@ let layout qp =
   print_newline ();
   Scordatura.eadgbe qp;; (* tuning *)
 
-let rec cyclotron niter =
-  let keynotes = (fst (List.split SkalaHeptaTonisk.berzelian)) in
-  let spokes = List.rev keynotes in
-  if niter <= 1 then
-    begin
-      Printf.printf "\t%s" (List.nth spokes (niter - 1));
-      print_newline ()
-    end
-  else
-    begin
-      let cols = 8 in
-      if (niter mod cols) = 0 then print_newline();
-      Printf.printf "\t%s" (List.nth spokes (niter - 1));
-      cyclotron (niter - 1)
-    end;;
-
 let selections () =
-  let keynotes = (fst (List.split SkalaHeptaTonisk.berzelian)) in
-  let niter = (List.length keynotes) in
+  let clefs = SkalaHeptaTonisk.keynotes () in
+  let niter = List.length clefs in
     print_newline ();
-    cyclotron niter;
+    Scordatura.columned niter clefs;
     print_newline ();;
 
 let cornucopia () =
-  let keynotes = (fst (List.split SkalaHeptaTonisk.berzelian)) in
-  List.iter layout keynotes;
+  let clefs = SkalaHeptaTonisk.keynotes () in
+  List.iter layout clefs;
   print_newline ();;
 
 let juxtaposed aromas =

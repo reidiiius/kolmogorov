@@ -93,6 +93,9 @@ module SkalaHeptaTonisk = struct
     try List.assoc sign berzelian;
     with Not_found -> List.assoc "i0" berzelian;;
 
+  let keynotes () =
+    fst (List.split berzelian);;
+
 end;;
 
 
