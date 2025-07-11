@@ -93,29 +93,39 @@ module HeptaTonic = struct
     try List.assoc sign scales;
     with Not_found -> List.assoc "i0" scales;;
 
+  let membership sign =
+    List.mem_assoc sign scales;;
+
   let keynotes () =
     fst (List.split scales);;
+
+  let rec columned niter clefs =
+   let items = List.rev clefs in
+    if niter <= 1 then
+      begin
+        Printf.printf "\t%s" (List.nth items (niter - 1));
+        print_newline ()
+      end
+    else
+      begin
+        let cols = 8 in
+        if (niter mod cols) = 0 then print_newline();
+        Printf.printf "\t%s" (List.nth items (niter - 1));
+        columned (niter - 1) clefs
+      end;;
+
+  let selections () =
+    let clefs = keynotes () in
+    let niter = List.length clefs in
+      print_newline ();
+      columned niter clefs;
+      print_newline ();;
 
 end;;
 
 module Scordatura = struct
 
 let reveal = HeptaTonic.designate;;
-
-let rec columned niter clefs =
- let items = List.rev clefs in
-  if niter <= 1 then
-    begin
-      Printf.printf "\t%s" (List.nth items (niter - 1));
-      print_newline ()
-    end
-  else
-    begin
-      let cols = 8 in
-      if (niter mod cols) = 0 then print_newline();
-      Printf.printf "\t%s" (List.nth items (niter - 1));
-      columned (niter - 1) clefs
-    end;;
 
 (* open strings *)
 
@@ -228,21 +238,23 @@ end;;
 
 let layout sign =
   print_newline ();
-  Scordatura.beadgcf sign;; (* tuning *)
-
-let selections () =
-  let clefs = HeptaTonic.keynotes () in
-  let niter = List.length clefs in
-    print_newline ();
-    Scordatura.columned niter clefs;
-    print_newline ();;
+  if HeptaTonic.membership sign then
+    Scordatura.beadgcf sign (* tuning *)
+  else
+    Printf.printf "\t%s ?\n" sign;;
 
 let cornucopia () =
   let clefs = HeptaTonic.keynotes () in
-  List.iter layout clefs;
-  print_newline ();;
+    List.iter layout clefs;
+    print_newline ();;
 
-let juxtaposed aromas =
+let tutorial () =
+  let exec = Sys.argv.(0) in
+  let tips = ["ocaml"; exec; "n0 j3"] in
+  let hint = String.concat "\x20" tips in
+    Printf.printf "\n\t%s\n\n" hint;;
+
+let juxtapose aromas =
   Array.iter layout aromas;
   print_newline ();;
 
@@ -252,7 +264,7 @@ let () =
   let quanta = (Array.length Sys.argv - 1) in
   let argots = (Array.sub Sys.argv 1 quanta) in
     if quanta = 0 then
-      selections ()
+      HeptaTonic.selections ()
     else if quanta = 1 then
       begin
         let head = argots.(0) in
@@ -261,17 +273,14 @@ let () =
           cornucopia ()
         else if head = "help" ||
                 head = "-h" then
-          let exec = Sys.argv.(0) in
-          let tips = ["ocaml"; exec; "n0 j3"] in
-          let hint = String.concat "\x20" tips in
-            Printf.printf "\n\t%s\n\n" hint
+          tutorial ()
         else if head = "keys" ||
                 head = "-k" then
-          selections ()
+          HeptaTonic.selections ()
         else
-          juxtaposed argots
+          juxtapose argots
       end
     else
-      juxtaposed argots;;
+      juxtapose argots;;
 
 
