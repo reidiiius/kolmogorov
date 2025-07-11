@@ -4,53 +4,39 @@
 
 module Scordatura = struct
 
-let reveal = SkalaHeptaTonisk.designate;;
+let machine sign spot span =
+  let grab = HeptaTonisk.acquire in
+    (String.sub (grab sign) spot span) ^
+    (String.sub (grab sign)  0 spot);;
 
 (* open strings *)
 
-let sBj sign = (
-  (String.sub (reveal sign) 50 10) ^
-  (String.sub (reveal sign)  0 50)
-);;
+let sBj sign =
+  machine sign 50 10;;
 
-let sFn sign = (
-  (String.sub (reveal sign) 25 35) ^
-  (String.sub (reveal sign)  0 25)
-);;
+let sFn sign =
+  machine sign 25 35;;
 
-let sCn sign = (
-  (reveal sign)
-);;
+let sCn sign =
+  machine sign 0 60;;
 
-let sGn sign = (
-  (String.sub (reveal sign) 35 25) ^
-  (String.sub (reveal sign)  0 35)
-);;
+let sGn sign =
+  machine sign 35 25;;
 
-let sDn sign = (
-  (String.sub (reveal sign) 10 50) ^
-  (String.sub (reveal sign)  0 10)
-);;
+let sDn sign =
+  machine sign 10 50;;
 
-let sAn sign = (
-  (String.sub (reveal sign) 45 15) ^
-  (String.sub (reveal sign)  0 45)
-);;
+let sAn sign =
+  machine sign 45 15;;
 
-let sEn sign = (
-  (String.sub (reveal sign) 20 40) ^
-  (String.sub (reveal sign)  0 20)
-);;
+let sEn sign =
+  machine sign 20 40;;
 
-let sBn sign = (
-  (String.sub (reveal sign) 55  5) ^
-  (String.sub (reveal sign)  0 55)
-);;
+let sBn sign =
+  machine sign 55 5;;
 
-let sFk sign = (
-  (String.sub (reveal sign) 30 30) ^
-  (String.sub (reveal sign)  0 30)
-);;
+let sFk sign =
+  machine sign 30 30;;
 
 (* instrument tunings *)
 

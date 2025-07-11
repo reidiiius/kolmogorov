@@ -1,6 +1,6 @@
 (* shannon.ml *)
 
-module SkalaHeptaTonisk = struct
+module HeptaTonisk = struct
 
   let berzelian = [
       ("i0", "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ");
@@ -89,7 +89,7 @@ module SkalaHeptaTonisk = struct
  ("k2j56y7", "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
   ];;
 
-  let designate sign =
+  let acquire sign =
     try List.assoc sign berzelian;
     with Not_found -> List.assoc "i0" berzelian;;
 
