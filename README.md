@@ -16,11 +16,19 @@ Command-line
 
 :
 
+    ocaml chaitin.ml help
+
+:
+
+    ocaml chaitin.ml keys
+
+:
+
     ocaml chaitin.ml n0 j3
 
 :
 
-    ocaml thorngate.ml -a | sensible-pager
+    ocaml chaitin.ml all | sensible-pager
 
 ---
 

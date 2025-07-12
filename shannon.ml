@@ -45,7 +45,6 @@ module HeptaTonisk = struct
     ("n345", "____ PuFe ____ ____ CuNp PbAu ____ AuPb NpCu ____ TiSn FePu ");
     ("n5y2", "HgMn ____ ____ MnHg CuFe ____ ____ AuNp NpAu ____ TiPb FeCu ");
     ("n6x2", "FeCu HgMn ____ ____ MnHg CuFe PbTi ____ AuNp NpAu ____ ____ ");
-   ("j17k2", "____ ____ ____ MnFe CuTi PbAg ____ AuAu ____ AgPb TiCu FeMn ");
    ("j17y2", "HgAg ____ ____ ____ CuPb PbCu ____ AuSn ____ AgHg TiFe FeTi ");
    ("j23k6", "HgHg PuFe ____ UrAg ____ PbAu ____ AuPb ____ ____ TiSn FePu ");
    ("j25y6", "TiCu FeMn ____ ____ SnHg MnFe CuTi PbAg ____ ____ ____ AgPb ");
@@ -58,6 +57,7 @@ module HeptaTonisk = struct
    ("k17j5", "TiCu FeMn HgSn ____ SnHg MnFe CuTi ____ ____ AuAu ____ ____ ");
    ("k25x1", "____ ____ TiSn FePu HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ");
    ("k26x5", "HgSn ____ ____ MnFe CuTi PbAg ____ ____ ____ AgPb TiCu FeMn ");
+   ("k2j17", "____ ____ ____ MnFe CuTi PbAg ____ AuAu ____ AgPb TiCu FeMn ");
    ("k2j56", "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp ____ ____ AuPb ");
    ("k34x2", "PbCu ____ ____ ____ AgHg TiFe FeTi HgAg ____ SnAu ____ CuPb ");
    ("k56x4", "HgAu ____ SnPb ____ CuUr ____ ____ AuHg NpFe ____ TiAg FeNp ");
@@ -120,6 +120,39 @@ module HeptaTonisk = struct
       print_newline ();
       columned niter clefs;
       print_newline ();;
+
+  let is_sharp item =
+    let glyph = "k" in
+    String.starts_with ~prefix:glyph item;;
+
+  let is_neutral item =
+    let glyph = "n" in
+    String.starts_with ~prefix:glyph item;;
+
+  let is_flat item =
+    let glyph = "j" in
+    String.starts_with ~prefix:glyph item;;
+
+  let all_sharps =
+    let clefs = keynotes () in
+    List.filter is_sharp clefs;;
+
+  let all_neutrals =
+    let clefs = keynotes () in
+    List.filter is_neutral clefs;;
+
+  let all_flats =
+    let clefs = keynotes () in
+    List.filter is_flat clefs;;
+
+  let foxhounds () =
+    print_newline ();
+    columned (List.length all_sharps) all_sharps;
+    print_newline ();
+    columned (List.length all_neutrals) all_neutrals;
+    print_newline ();
+    columned (List.length all_flats) all_flats;
+    print_newline ();;
 
 end;;
 

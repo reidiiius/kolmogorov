@@ -21,10 +21,16 @@ let juxtapose aromas =
   print_newline ();;
 
 let tutorial () =
-  let exec = Sys.argv.(0) in
-  let tips = ["ocaml"; exec; "n0 j3"] in
-  let hint = String.concat "\x20" tips in
-    Printf.printf "\n\t%s\n\n" hint;;
+  let cmd = "ocaml" in
+  let src = Sys.argv.(0) in
+  let fmt = "\n\n\t" in
+  let tip = [
+    cmd; src; "help"; fmt;
+    cmd; src; "keys"; fmt;
+    cmd; src; "n0 j3"; fmt;
+    cmd; src; "all | sensible-pager"] in
+  let hint = String.concat "\x20" tip in
+    Printf.printf "\n\t %s\n\n" hint;;
 
 end;;
 
@@ -46,7 +52,7 @@ let main () =
           Utilitarian.tutorial ()
         else if head = "keys" ||
                 head = "-k" then
-          HeptaTonisk.selections ()
+          HeptaTonisk.foxhounds ()
         else
           Utilitarian.juxtapose argots
       end
