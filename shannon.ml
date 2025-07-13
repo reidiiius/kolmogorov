@@ -121,38 +121,24 @@ module HeptaTonisk = struct
       columned niter clefs;
       print_newline ();;
 
-  let is_sharp item =
-    let glyph = "k" in
-    String.starts_with ~prefix:glyph item;;
+  let frontage ~prefix:graf item =
+    String.starts_with ~prefix:graf item;;
 
-  let is_neutral item =
-    let glyph = "n" in
-    String.starts_with ~prefix:glyph item;;
-
-  let is_flat item =
-    let glyph = "j" in
-    String.starts_with ~prefix:glyph item;;
-
-  let all_sharps =
+  let discern graf =
     let clefs = keynotes () in
-    List.filter is_sharp clefs;;
-
-  let all_neutrals =
-    let clefs = keynotes () in
-    List.filter is_neutral clefs;;
-
-  let all_flats =
-    let clefs = keynotes () in
-    List.filter is_flat clefs;;
+      List.filter (frontage ~prefix:graf) clefs;;
 
   let foxhounds () =
-    print_newline ();
-    columned (List.length all_sharps) all_sharps;
-    print_newline ();
-    columned (List.length all_neutrals) all_neutrals;
-    print_newline ();
-    columned (List.length all_flats) all_flats;
-    print_newline ();;
+    let raised = discern "k" in
+    let native = discern "n" in
+    let lowish = discern "j" in
+      print_newline ();
+      columned (List.length raised) raised;
+      print_newline ();
+      columned (List.length native) native;
+      print_newline ();
+      columned (List.length lowish) lowish;
+      print_newline ();;
 
 end;;
 

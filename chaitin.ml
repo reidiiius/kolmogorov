@@ -21,16 +21,15 @@ let juxtapose aromas =
   print_newline ();;
 
 let tutorial () =
-  let cmd = "ocaml" in
-  let src = Sys.argv.(0) in
-  let fmt = "\n\n\t" in
-  let tip = [
-    cmd; src; "help"; fmt;
-    cmd; src; "keys"; fmt;
-    cmd; src; "n0 j3"; fmt;
-    cmd; src; "all | sensible-pager"] in
-  let hint = String.concat "\x20" tip in
-    Printf.printf "\n\t %s\n\n" hint;;
+  let tips = {etx|
+	ocaml chaitin.ml help
+
+	ocaml chaitin.ml keys
+
+	ocaml chaitin.ml n0 j3
+
+	ocaml chaitin.ml all | sensible-pager
+  |etx} in print_endline tips;;
 
 end;;
 
