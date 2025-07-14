@@ -16,11 +16,15 @@ Command-line
 
 :
 
-    ocaml chaitin.ml help
+    ocaml chaitin.ml --help
 
 :
 
-    ocaml chaitin.ml keys
+    ocaml chaitin.ml --keys
+
+:
+
+    ocaml chaitin.ml --mars
 
 :
 
@@ -28,7 +32,7 @@ Command-line
 
 :
 
-    ocaml chaitin.ml all | sensible-pager
+    ocaml chaitin.ml --all | sensible-pager
 
 ---
 

@@ -121,12 +121,12 @@ module HeptaTonisk = struct
       columned niter clefs;
       print_newline ();;
 
-  let frontage ~prefix:graf item =
-    String.starts_with ~prefix:graf item;;
+  let frontage ~prefix:wire item =
+    String.starts_with ~prefix:wire item;;
 
-  let discern graf =
+  let discern wire =
     let clefs = keynotes () in
-      List.filter (frontage ~prefix:graf) clefs;;
+      List.filter (frontage ~prefix:wire) clefs;;
 
   let foxhounds () =
     let raised = discern "k" in
@@ -138,6 +138,28 @@ module HeptaTonisk = struct
       columned (List.length native) native;
       print_newline ();
       columned (List.length lowish) lowish;
+      print_newline ();;
+
+  let byzantine sign =
+    let spat = Char.chr 32 in
+    let yarn = acquire sign in
+    let labs = String.split_on_char spat yarn in
+      if (frontage ~prefix:"Pb" (List.nth labs 5) ||
+          frontage ~prefix:"Fe" (List.nth labs 11))
+      then sign
+      else String.empty;;
+
+  let dominican () =
+    let lots = List.map byzantine (keynotes ()) in
+      List.filter (frontage ~prefix:"k") lots @ ["\n"] @
+      List.filter (frontage ~prefix:"n") lots @ ["\n"] @
+      List.filter (frontage ~prefix:"j") lots;;
+
+  let marshaled () =
+    let clefs = dominican () in
+    let niter = List.length clefs in
+      print_newline ();
+      columned niter clefs;
       print_newline ();;
 
 end;;

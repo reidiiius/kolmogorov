@@ -22,14 +22,19 @@ let juxtapose aromas =
 
 let tutorial () =
   let tips = {etx|
-	ocaml chaitin.ml help
+	ocaml chaitin.ml --help
 
-	ocaml chaitin.ml keys
+	ocaml chaitin.ml --keys
+
+	ocaml chaitin.ml --mars
 
 	ocaml chaitin.ml n0 j3
 
-	ocaml chaitin.ml all | sensible-pager
+	ocaml chaitin.ml --all | sensible-pager
   |etx} in print_endline tips;;
+
+let sentinel wire aromas =
+  Array.find_opt (String.starts_with ~prefix:wire) aromas;;
 
 end;;
 
@@ -40,23 +45,19 @@ let main () =
   let argots = (Array.sub Sys.argv 1 quanta) in
     if quanta = 0 then
       HeptaTonisk.selections ()
-    else if quanta = 1 then
-      begin
-        let head = argots.(0) in
-        if head = "all" ||
-           head = "-a" then
-          Utilitarian.cornucopia ()
-        else if head = "help" ||
-                head = "-h" then
-          Utilitarian.tutorial ()
-        else if head = "keys" ||
-                head = "-k" then
-          HeptaTonisk.foxhounds ()
-        else
-          Utilitarian.juxtapose argots
-      end
     else
-      Utilitarian.juxtapose argots;;
+      let opted = Utilitarian.sentinel "-" argots in
+        match opted with
+        | Some "--all"
+        | Some "-a" -> Utilitarian.cornucopia ()
+        | Some "--help"
+        | Some "-h" -> Utilitarian.tutorial ()
+        | Some "--keys"
+        | Some "-k" -> HeptaTonisk.foxhounds ()
+        | Some "--mars"
+        | Some "-m" -> HeptaTonisk.marshaled ()
+        | Some _
+        | None -> Utilitarian.juxtapose argots;;
 
 main ();;
 
