@@ -1,6 +1,9 @@
 
 *~
 *.bak
+*.cmi
+*.cmx
+*.o
 *.swp
 _build/
 

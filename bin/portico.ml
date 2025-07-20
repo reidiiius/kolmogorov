@@ -2,21 +2,6 @@
 
 open Kolmogorov
 
-let tutorial () =
-  let hows = "dune exec kolmogorov" in
-  let tips = Printf.sprintf {etx|
-	%s :help
-
-	%s :keys
-
-	%s :mars
-
-	%s n0 j3
-
-	%s :all | sensible-pager
-  |etx} hows hows hows hows hows
-  in print_endline tips;;
-
 (* application entryway *)
 
 let atrium () =
@@ -30,7 +15,7 @@ let atrium () =
         | Some ":all"
         | Some ":a" -> Ministry.cornucopia ()
         | Some ":help"
-        | Some ":h" -> tutorial ()
+        | Some ":h" -> Ministry.tutorial ()
         | Some ":keys"
         | Some ":k" -> Geoffroy.foxhounds ()
         | Some ":mars"

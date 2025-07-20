@@ -19,4 +19,19 @@ let juxtapose aromas =
 let sentinel wire aromas =
   Array.find_opt (String.starts_with ~prefix:wire) aromas;;
 
+let tutorial () =
+  let hows = "dune exec kolmogorov" in
+  let tips = Printf.sprintf {etx|
+	%s :help
+
+	%s :keys
+
+	%s :mars
+
+	%s n0 j3
+
+	%s :all | sensible-pager
+  |etx} hows hows hows hows hows
+  in print_endline tips;;
+
 
