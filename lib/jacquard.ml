@@ -1,11 +1,7 @@
-(* levenshtein.ml *)
-
-#use "shannon.ml";;
-
-module Scordatura = struct
+(* jacquard.ml *)
 
 let machine sign spot span =
-  let grab = HeptaTonisk.acquire in
+  let grab = Geoffroy.acquire in
     (String.sub (grab sign) spot span) ^
     (String.sub (grab sign)  0 spot);;
 
@@ -96,7 +92,5 @@ let fkbjdn sign =
     sBj sign;
     sFk sign
   ];;
-
-end;;
 
 

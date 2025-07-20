@@ -1,6 +1,4 @@
-(* shannon.ml *)
-
-module HeptaTonisk = struct
+(* geoffroy.ml *)
 
   let berzelian = [
       ("i0", "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ");
@@ -162,7 +160,5 @@ module HeptaTonisk = struct
       print_newline ();
       columned numb dons;
       print_newline ();;
-
-end;;
 
 

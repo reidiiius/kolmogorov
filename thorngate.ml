@@ -281,17 +281,20 @@ let juxtapose aromas =
   print_newline ();;
 
 let tutorial () =
-  let tips = {etx|
-	ocaml thorngate.ml --help
+  let path = __FILE__ in
+  let name = Filename.basename path in
+  let tips = Printf.sprintf {etx|
+	ocaml %s --help
 
-	ocaml thorngate.ml --keys
+	ocaml %s --keys
 
-	ocaml thorngate.ml --mars
+	ocaml %s --mars
 
-	ocaml thorngate.ml n0 j3
+	ocaml %s n0 j3
 
-	ocaml thorngate.ml --all | sensible-pager
-  |etx} in print_endline tips;;
+	ocaml %s --all | sensible-pager
+  |etx} name name name name name
+  in print_endline tips;;
 
 let sentinel wire aromas =
   Array.find_opt (String.starts_with ~prefix:wire) aromas;;

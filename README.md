@@ -16,23 +16,51 @@ Command-line
 
 :
 
-    ocaml chaitin.ml --help
+    ocaml thorngate.ml --help
 
 :
 
-    ocaml chaitin.ml --keys
+    ocaml thorngate.ml --keys
 
 :
 
-    ocaml chaitin.ml --mars
+    ocaml thorngate.ml --mars
 
 :
 
-    ocaml chaitin.ml n0 j3
+    ocaml thorngate.ml n0 j3
 
 :
 
-    ocaml chaitin.ml --all | sensible-pager
+    ocaml thorngate.ml --all | sensible-pager
+
+:
+
+    dune build
+
+:
+
+    dune exec kolmogorov
+
+:
+
+    dune exec kolmogorov :help
+
+:
+
+    dune exec kolmogorov :keys
+
+:
+
+    dune exec kolmogorov :mars
+
+:
+
+    dune exec kolmogorov n0 j3
+
+:
+
+    dune exec kolmogorov :all | sensible-pager
 
 ---
 
