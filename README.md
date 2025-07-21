@@ -16,23 +16,27 @@ Command-line
 
 :
 
-    ocaml thorngate.ml --help
+    ocaml spa/thorngate.ml
 
 :
 
-    ocaml thorngate.ml --keys
+    ocaml spa/thorngate.ml --help
 
 :
 
-    ocaml thorngate.ml --mars
+    ocaml spa/thorngate.ml --keys
 
 :
 
-    ocaml thorngate.ml n0 j3
+    ocaml spa/thorngate.ml --mars
 
 :
 
-    ocaml thorngate.ml --all | sensible-pager
+    ocaml spa/thorngate.ml n0 j3
+
+:
+
+    ocaml spa/thorngate.ml --all | sensible-pager
 
 :
 
@@ -61,6 +65,10 @@ Command-line
 :
 
     dune exec kolmogorov :all | sensible-pager
+
+:
+
+    dune clean
 
 ---
 

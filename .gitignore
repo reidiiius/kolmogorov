@@ -2,6 +2,7 @@
 *~
 *.bak
 *.cmi
+*.cmo
 *.cmx
 *.o
 *.swp
