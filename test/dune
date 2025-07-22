@@ -1,2 +1,10 @@
 (test
  (name kolmogorov))
+
+(rule
+ (with-stdout-to portico.output
+  (run ../bin/portico.exe :keys)))
+
+(rule
+ (alias runtest)
+ (action (diff portico.expected portico.output)))

@@ -44,27 +44,27 @@ Command-line
 
 :
 
-    dune exec kolmogorov
+    dune exec stoa
 
 :
 
-    dune exec kolmogorov :help
+    dune exec stoa :help
 
 :
 
-    dune exec kolmogorov :keys
+    dune exec stoa :keys
 
 :
 
-    dune exec kolmogorov :mars
+    dune exec stoa :mars
 
 :
 
-    dune exec kolmogorov n0 j3
+    dune exec stoa n0 j3
 
 :
 
-    dune exec kolmogorov :all | sensible-pager
+    dune exec stoa :all | sensible-pager
 
 :
 

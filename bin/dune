@@ -1,4 +1,4 @@
 (executable
- (public_name kolmogorov)
+ (public_name stoa)
  (name portico)
  (libraries kolmogorov))

@@ -20,7 +20,7 @@ let sentinel wire aromas =
   Array.find_opt (String.starts_with ~prefix:wire) aromas;;
 
 let tutorial () =
-  let hows = "dune exec kolmogorov" in
+  let hows = "dune exec stoa" in
   let tips = Printf.sprintf {etx|
 	%s :help
 
