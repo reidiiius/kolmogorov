@@ -44,6 +44,10 @@ Command-line
 
 :
 
+    dune runtest
+
+:
+
     dune exec stoa
 
 :

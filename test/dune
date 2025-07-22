@@ -1,10 +1,78 @@
 (test
  (name kolmogorov))
 
+;; test_geoffroy
 (rule
- (with-stdout-to portico.output
-  (run ../bin/portico.exe :keys)))
+ (with-stdout-to geoffroy_foxhounds.output
+  (run stoa :keys)))
 
 (rule
  (alias runtest)
- (action (diff portico.expected portico.output)))
+ (action
+  (diff geoffroy_foxhounds.expected geoffroy_foxhounds.output)))
+
+(rule
+ (with-stdout-to geoffroy_marshaled.output
+  (run stoa :mars)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff geoffroy_marshaled.expected geoffroy_marshaled.output)))
+
+(rule
+ (with-stdout-to geoffroy_selections.output
+  (run stoa)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff geoffroy_selections.expected geoffroy_selections.output)))
+
+;; test_jacquard
+(rule
+ (with-stdout-to jacquard_machine.output
+  (run stoa n0)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff jacquard_machine.expected jacquard_machine.output)))
+
+;; test_ministry
+(rule
+ (with-stdout-to ministry_cornucopia.output
+  (run stoa :all)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff ministry_cornucopia.expected ministry_cornucopia.output)))
+
+(rule
+ (with-stdout-to ministry_juxtapose.output
+  (run stoa n0 k9 j3)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff ministry_juxtapose.expected ministry_juxtapose.output)))
+
+(rule
+ (with-stdout-to ministry_tutorial.output
+  (run stoa :help)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff ministry_tutorial.expected ministry_tutorial.output)))
+
+;; test_portico
+(rule
+ (with-stdout-to portico_atrium.output
+  (run stoa)))
+
+(rule
+ (alias runtest)
+ (action (diff portico_atrium.expected portico_atrium.output)))
+
