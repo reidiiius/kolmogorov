@@ -7,13 +7,15 @@ open Kolmogorov
 let atrium () =
   let quanta = (Array.length Sys.argv - 1) in
   let argots = (Array.sub Sys.argv 1 quanta) in
-    if quanta = 0 then
+  let bounds = List.length (Geoffroy.keynotes ()) in
+    if quanta = 0 || quanta >= bounds then
       Geoffroy.selections ()
     else
+      let tuned = "eadgbe" in
       let opted = Ministry.sentinel ":" argots in
         match opted with
         | Some ":all"
-        | Some ":a" -> Ministry.cornucopia ()
+        | Some ":a" -> Ministry.cornucopia tuned
         | Some ":help"
         | Some ":h" -> Ministry.tutorial ()
         | Some ":keys"
@@ -21,7 +23,7 @@ let atrium () =
         | Some ":mars"
         | Some ":m" -> Geoffroy.marshaled ()
         | Some _
-        | None -> Ministry.juxtapose argots;;
+        | None -> Ministry.juxtapose tuned argots;;
 
 atrium ()
 

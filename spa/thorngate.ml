@@ -1,6 +1,6 @@
 #! /usr/bin/env ocaml
 
-module HeptaTonic = struct
+module Polychrome = struct
 
   let scales = [
        "i0", "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ";
@@ -168,7 +168,7 @@ end;;
 module Scordatura = struct
 
 let machine sign spot span =
-  let grab = HeptaTonic.acquire in
+  let grab = Polychrome.acquire in
     (String.sub (grab sign) spot span) ^
     (String.sub (grab sign)  0 spot);;
 
@@ -260,25 +260,39 @@ let fkbjdn sign =
     sFk sign
   ];;
 
+let piano sign =
+  scribe (sign ^ "-piano");
+  scribe (sCn sign);;
+
 end;;
 
 module Utilitarian = struct
 
-let layout sign =
+let layout tuned sign =
   print_newline ();
-  if HeptaTonic.membership sign then
-    Scordatura.beadgcf sign (* tuning *)
+  if Polychrome.membership sign then
+    match tuned with
+    | "beadgcf" -> Scordatura.beadgcf sign
+    | "bfbfb" -> Scordatura.bfbfb sign
+    | "cgdae" -> Scordatura.cgdae sign
+    | "eadgbe" -> Scordatura.eadgbe sign
+    | "fkbjdn" -> Scordatura.fkbjdn sign
+    | "piano" -> Scordatura.piano sign
+    | _ -> Scordatura.piano "i0"
   else
     Printf.printf "\t%s ?\n" sign;;
 
-let cornucopia () =
-  let clefs = HeptaTonic.keynotes () in
-    List.iter layout clefs;
+let cornucopia tuned =
+  let clefs = Polychrome.keynotes () in
+    List.iter (layout tuned) clefs;
     print_newline ();;
 
-let juxtapose aromas =
-  Array.iter layout aromas;
+let juxtapose tuned aromas =
+  Array.iter (layout tuned) aromas;
   print_newline ();;
+
+let sentinel wire aromas =
+  Array.find_opt (String.starts_with ~prefix:wire) aromas;;
 
 let tutorial () =
   let path = __FILE__ in
@@ -296,9 +310,6 @@ let tutorial () =
   |etx} name name name name name
   in print_endline tips;;
 
-let sentinel wire aromas =
-  Array.find_opt (String.starts_with ~prefix:wire) aromas;;
-
 end;;
 
 (* application entryway *)
@@ -306,20 +317,22 @@ end;;
 let () =
   let quanta = (Array.length Sys.argv - 1) in
   let argots = (Array.sub Sys.argv 1 quanta) in
-    if quanta = 0 then
-      HeptaTonic.selections ()
+  let bounds = List.length (Polychrome.keynotes ()) in
+    if quanta = 0 || quanta >= bounds then
+      Polychrome.selections ()
     else
+      let tuned = "beadgcf" in
       let opted = Utilitarian.sentinel "-" argots in
         match opted with
         | Some "--all"
-        | Some "-a" -> Utilitarian.cornucopia ()
+        | Some "-a" -> Utilitarian.cornucopia tuned
         | Some "--help"
         | Some "-h" -> Utilitarian.tutorial ()
         | Some "--keys"
-        | Some "-k" -> HeptaTonic.foxhounds ()
+        | Some "-k" -> Polychrome.foxhounds ()
         | Some "--mars"
-        | Some "-m" -> HeptaTonic.marshaled ()
+        | Some "-m" -> Polychrome.marshaled ()
         | Some _
-        | None -> Utilitarian.juxtapose argots;;
+        | None -> Utilitarian.juxtapose tuned argots;;
 
 

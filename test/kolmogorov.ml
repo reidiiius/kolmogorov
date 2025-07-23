@@ -1,4 +1,3 @@
-
 module Test_Geoffroy = struct
 
 let berzelian = [
@@ -185,34 +184,35 @@ let fkbjdn sign =
     sFk sign
   ];;
 
+let piano sign =
+  scribe (sign ^ "-piano");
+  scribe (sCn sign);;
+
 end;;
 
 module Test_Ministry = struct
 
-let layout sign =
+let layout tuned sign =
   print_newline ();
   if Test_Geoffroy.membership sign then
-    begin
-    Test_Jacquard.beadgcf sign;
-      print_newline ();
-    Test_Jacquard.bfbfb sign;
-      print_newline ();
-    Test_Jacquard.cgdae sign;
-      print_newline ();
-    Test_Jacquard.eadgbe sign;
-      print_newline ();
-    Test_Jacquard.fkbjdn sign
-    end
+    match tuned with
+    | "beadgcf" -> Test_Jacquard.beadgcf sign
+    | "bfbfb" -> Test_Jacquard.bfbfb sign
+    | "cgdae" -> Test_Jacquard.cgdae sign
+    | "eadgbe" -> Test_Jacquard.eadgbe sign
+    | "fkbjdn" -> Test_Jacquard.fkbjdn sign
+    | "piano" -> Test_Jacquard.piano sign
+    | _ -> Test_Jacquard.piano "i0"
   else
     Printf.printf "\t%s ?\n" sign;;
 
-let cornucopia () =
+let cornucopia tuned =
   let clefs = Test_Geoffroy.keynotes () in
-    List.iter layout clefs;
+    List.iter (layout tuned) clefs;
     print_newline ();;
 
-let juxtapose aromas =
-  Array.iter layout aromas;
+let juxtapose tuned aromas =
+  Array.iter (layout tuned) aromas;
   print_newline ();;
 
 let sentinel wire aromas =
@@ -253,30 +253,47 @@ end;;
 
 module Test_Portico = struct
 
+let argv = [|String.empty; "n0"|];;
+
+let atrium () =
+  let quanta = (Array.length argv - 1) in
+  let argots = (Array.sub argv 1 quanta) in
+  let bounds = List.length (Test_Geoffroy.keynotes ()) in
+    if quanta = 0 || quanta >= bounds then
+      Test_Geoffroy.selections ()
+    else
+      let tuned = "fkbjdn" in
+      let opted = Test_Ministry.sentinel ":" argots in
+        match opted with
+        | Some ":all"
+        | Some ":a" -> Test_Ministry.cornucopia tuned
+        | Some ":help"
+        | Some ":h" -> Test_Ministry.tutorial ()
+        | Some ":keys"
+        | Some ":k" -> Test_Geoffroy.foxhounds ()
+        | Some ":mars"
+        | Some ":m" -> Test_Geoffroy.marshaled ()
+        | Some _
+        | None -> Test_Ministry.juxtapose tuned argots;;
+
 let veranda () =
-  Test_Ministry.cornucopia ();
-
-  Test_Ministry.juxtapose [|"n0"; "k9"; "j3"|];
-
+  let tuned = "beadgcf" in
+  Test_Ministry.cornucopia tuned;
+  Test_Ministry.juxtapose tuned [|"n0"; "k9"; "j3"|];
   let args = [|"j17"; "k12"; "j23"; ":mars"|] in
   let opts = Test_Ministry.sentinel ":" args in
   let pols = Bool.to_string (opts = Some ":mars") in
     print_endline pols;
-
   Test_Ministry.tutorial ();
-
   Test_Ministry.tutorial_alt ();
-
   Test_Geoffroy.foxhounds ();
-
   Test_Geoffroy.marshaled ();
-
   Test_Geoffroy.selections ();
-
   ();;
 
 end;;
 
+Test_Portico.atrium ();;
 Test_Portico.veranda ();;
 
 

@@ -1,19 +1,26 @@
 (* ministry.ml *)
 
-let layout sign =
+let layout tuned sign =
   print_newline ();
   if Geoffroy.membership sign then
-    Jacquard.eadgbe sign (* tuning *)
+    match tuned with
+    | "beadgcf" -> Jacquard.beadgcf sign
+    | "bfbfb" -> Jacquard.bfbfb sign
+    | "cgdae" -> Jacquard.cgdae sign
+    | "eadgbe" -> Jacquard.eadgbe sign
+    | "fkbjdn" -> Jacquard.fkbjdn sign
+    | "piano" -> Jacquard.piano sign
+    | _ -> Jacquard.piano "i0"
   else
     Printf.printf "\t%s ?\n" sign;;
 
-let cornucopia () =
+let cornucopia tuned =
   let clefs = Geoffroy.keynotes () in
-    List.iter layout clefs;
+    List.iter (layout tuned) clefs;
     print_newline ();;
 
-let juxtapose aromas =
-  Array.iter layout aromas;
+let juxtapose tuned aromas =
+  Array.iter (layout tuned) aromas;
   print_newline ();;
 
 let sentinel wire aromas =

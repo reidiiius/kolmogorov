@@ -93,4 +93,8 @@ let fkbjdn sign =
     sFk sign
   ];;
 
+let piano sign =
+  scribe (sign ^ "-piano");
+  scribe (sCn sign);;
+
 
