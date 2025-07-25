@@ -19,8 +19,17 @@ let cornucopia tuned =
     List.iter (layout tuned) clefs;
     print_newline ();;
 
-let juxtapose tuned aromas =
-  Array.iter (layout tuned) aromas;
+let governor width argos =
+  let lingos = Array.to_list argos in
+  let tester = fun item -> String.length item <= width in
+  let claves = List.filter tester lingos in
+  if List.length claves = 0 then
+    "Excessive" :: claves
+  else
+    claves;;
+
+let juxtapose tuned clefs =
+  List.iter (layout tuned) clefs;
   print_newline ();;
 
 let sentinel wire aromas =

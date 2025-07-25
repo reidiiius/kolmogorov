@@ -12,6 +12,7 @@ let atrium () =
       Geoffroy.selections ()
     else
       let tuned = "eadgbe" in
+      let clefs = Ministry.governor 9 argots in
       let opted = Ministry.sentinel ":" argots in
         match opted with
         | Some ":all"
@@ -23,7 +24,7 @@ let atrium () =
         | Some ":mars"
         | Some ":m" -> Geoffroy.marshaled ()
         | Some _
-        | None -> Ministry.juxtapose tuned argots;;
+        | None -> Ministry.juxtapose tuned clefs;;
 
 atrium ()
 

@@ -1,3 +1,4 @@
+
 module Test_Geoffroy = struct
 
 let berzelian = [
@@ -211,8 +212,17 @@ let cornucopia tuned =
     List.iter (layout tuned) clefs;
     print_newline ();;
 
-let juxtapose tuned aromas =
-  Array.iter (layout tuned) aromas;
+let governor width argos =
+  let lingos = Array.to_list argos in
+  let tester = fun item -> String.length item <= width in
+  let claves = List.filter tester lingos in
+  if List.length claves = 0 then
+    "Excessive" :: claves
+  else
+    claves;;
+
+let juxtapose tuned clefs =
+  List.iter (layout tuned) clefs;
   print_newline ();;
 
 let sentinel wire aromas =
@@ -263,6 +273,7 @@ let atrium () =
       Test_Geoffroy.selections ()
     else
       let tuned = "fkbjdn" in
+      let clefs = Test_Ministry.governor 9 argots in
       let opted = Test_Ministry.sentinel ":" argots in
         match opted with
         | Some ":all"
@@ -274,16 +285,23 @@ let atrium () =
         | Some ":mars"
         | Some ":m" -> Test_Geoffroy.marshaled ()
         | Some _
-        | None -> Test_Ministry.juxtapose tuned argots;;
+        | None -> Test_Ministry.juxtapose tuned clefs;;
 
 let veranda () =
   let tuned = "beadgcf" in
-  Test_Ministry.cornucopia tuned;
-  Test_Ministry.juxtapose tuned [|"n0"; "k9"; "j3"|];
+    Test_Ministry.cornucopia tuned;
+
+  let arms = Array.make 2 "0123456789" in
+    List.iter print_endline (Test_Ministry.governor 9 arms );
+
+  let clefs = ["n0"; "k9"; "j3"] in
+    Test_Ministry.juxtapose tuned clefs;
+
   let args = [|"j17"; "k12"; "j23"; ":mars"|] in
   let opts = Test_Ministry.sentinel ":" args in
   let pols = Bool.to_string (opts = Some ":mars") in
     print_endline pols;
+
   Test_Ministry.tutorial ();
   Test_Ministry.tutorial_alt ();
   Test_Geoffroy.foxhounds ();
