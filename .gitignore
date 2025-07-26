@@ -7,4 +7,5 @@
 *.o
 *.swp
 _build/
+doc/
 

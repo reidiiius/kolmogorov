@@ -1,9 +1,17 @@
 (* jacquard.ml *)
 
 let machine sign spot span =
-  let grab = Geoffroy.acquire in
-    (String.sub (grab sign) spot span) ^
-    (String.sub (grab sign)  0 spot);;
+  let wire = Geoffroy.acquire sign in
+  let long = String.length wire in
+  let size = 60 in
+    if Int.equal long size then
+      let head = String.sub wire spot span in
+      let tail = String.sub wire 0 spot in
+      let body = String.cat head tail in
+      let grow = String.sub body 0 4 in
+        String.cat body grow
+    else
+      String.make size (Char.chr 45);;
 
 (* open strings *)
 

@@ -1,5 +1,8 @@
-#! /usr/bin/env ocaml
+#! /usr/bin/env ocaml 
+(* mkdir doc && ocamldoc -keep-code -all-params -html -d doc spa/thorngate.ml *)
+(** Module [Thorngate] renders fingerboard matrices for various chordophones. *)
 
+(** Module [Polychrome] supplies a databank and processing functions.*)
 module Polychrome = struct
 
   let scales = [
@@ -165,12 +168,21 @@ module Polychrome = struct
 
 end;;
 
+(** Module [Scordatura] supplies instrument tuning and formatting functions. *)
 module Scordatura = struct
 
 let machine sign spot span =
-  let grab = Polychrome.acquire in
-    (String.sub (grab sign) spot span) ^
-    (String.sub (grab sign)  0 spot);;
+  let wire = Polychrome.acquire sign in
+  let long = String.length wire in
+  let size = 60 in
+    if Int.equal long size then
+      let head = String.sub wire spot span in
+      let tail = String.sub wire 0 spot in
+      let body = String.cat head tail in
+      let grow = String.sub body 0 4 in
+        String.cat body grow
+    else
+      String.make size (Char.chr 45);;
 
 (* open strings *)
 
@@ -266,6 +278,7 @@ let piano sign =
 
 end;;
 
+(** Module [Utilitarian] supplies display and support functions. *)
 module Utilitarian = struct
 
 let layout tuned sign =
@@ -321,9 +334,11 @@ let tutorial () =
 
 end;;
 
-(* application entryway *)
+(** Module [Colonnade] contains the program entry point or main function. *)
+module Colonnade = struct
 
-let () =
+(** Application entryway *)
+let vestibule () =
   let quanta = (Array.length Sys.argv - 1) in
   let argots = (Array.sub Sys.argv 1 quanta) in
   let bounds = List.length (Polychrome.keynotes ()) in
@@ -344,5 +359,9 @@ let () =
         | Some "-m" -> Polychrome.marshaled ()
         | Some _
         | None -> Utilitarian.juxtapose tuned clefs;;
+
+end;;
+
+Colonnade.vestibule ();;
 
 
