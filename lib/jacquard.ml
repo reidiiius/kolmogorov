@@ -47,6 +47,14 @@ let sFk sign =
 let attunes () =
   ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"];;
 
+let pegboxes () =
+  print_newline ();
+  let funky = (fun item ->
+    Printf.printf "  %s" item) in
+  let gears = attunes () in
+  List.iter funky gears;
+  print_newline ();;
+
 let stockade spot =
   let harps = attunes () in
   let width = List.length harps in

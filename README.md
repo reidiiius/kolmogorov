@@ -36,6 +36,14 @@ Command-line
 
 :
 
+    ocaml spa/thorngate.ml n0 j3 --cgdae
+
+:
+
+    ocaml spa/thorngate.ml n0 j3 --eadgbe
+
+:
+
     ocaml spa/thorngate.ml --all | sensible-pager
 
 :
@@ -65,6 +73,14 @@ Command-line
 :
 
     dune exec stoa n0 j3
+
+:
+
+    dune exec stoa n0 j3 :cgdae
+
+:
+
+    dune exec stoa n0 j3 :beadgcf
 
 :
 

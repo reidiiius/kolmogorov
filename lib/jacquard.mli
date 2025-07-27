@@ -1,5 +1,6 @@
 
 val attunes : unit -> string list
+val pegboxes : unit -> unit
 val stockade : int -> string
 val beadgcf : string -> unit
 val bfbfb : string -> unit

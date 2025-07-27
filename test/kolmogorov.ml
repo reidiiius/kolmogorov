@@ -139,6 +139,14 @@ let sFk sign =
 let attunes () =
   ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"];;
 
+let pegboxes () =
+  print_newline ();
+  let funky = (fun item ->
+    Printf.printf "  %s" item) in
+  let gears = attunes () in
+  List.iter funky gears;
+  print_newline ();;
+
 let stockade spot =
   let harps = attunes () in
   let width = List.length harps in
@@ -250,10 +258,34 @@ let juxtapose tuned clefs =
   List.iter (layout tuned) clefs;
   print_newline ();;
 
+let gearbox spot clefs =
+  let harps = Test_Jacquard.attunes () in
+  let tuned = List.nth harps spot in
+  let funky = (fun item -> not
+  (String.starts_with ~prefix:":" item)) in
+  let finds = List.filter funky clefs in
+    if List.length finds > 0 then
+      juxtapose tuned finds
+    else
+      Test_Geoffroy.foxhounds ();;
+
+let rec cyclotron spot size =
+  let keys = Test_Geoffroy.keynotes () in
+  if spot >= (size - 1) then
+    begin
+      gearbox spot keys
+    end
+  else
+    begin
+      gearbox spot keys;
+      cyclotron (spot + 1) size
+    end;;
+
 let sentinel wire aromas =
   Array.find_opt (String.starts_with ~prefix:wire) aromas;;
 
 let tutorial () =
+  Test_Jacquard.pegboxes ();
   let hows = "dune exec stoa" in
   let tips = Printf.sprintf {etx|
 	%s :help
@@ -264,24 +296,34 @@ let tutorial () =
 
 	%s n0 j3
 
+	%s n0 j3 :cgdae
+
+	%s n0 j3 :beadgcf
+
 	%s :all | sensible-pager
-  |etx} hows hows hows hows hows
+  |etx} hows hows hows hows hows hows hows
   in print_endline tips;;
 
-let tutorial_alt () =
+let tutorial_utility () =
+  Test_Jacquard.pegboxes ();
   let path = __FILE__ in
   let name = Filename.basename path in
+  let post = String.cat "ocaml " name in
   let tips = Printf.sprintf {etx|
-	ocaml %s --help
+	%s --help
 
-	ocaml %s --keys
+	%s --keys
 
-	ocaml %s --mars
+	%s --mars
 
-	ocaml %s n0 j3
+	%s n0 j3
 
-	ocaml %s --all | sensible-pager
-  |etx} name name name name name
+	%s n0 j3 --cgdae
+
+	%s n0 j3 --eadgbe
+
+	%s --all | sensible-pager
+  |etx} post post post post post post post
   in print_endline tips;;
 
 end;;
@@ -303,12 +345,29 @@ let atrium () =
         match opted with
         | Some ":all"
         | Some ":a" -> Test_Ministry.cornucopia tuned
+        | Some ":b5"
+        | Some ":bfbfb" -> Test_Ministry.gearbox 1 clefs
+        | Some ":bass"
+        | Some ":beadgcf" -> Test_Ministry.gearbox 0 clefs
+        | Some ":cello"
+        | Some ":cgdae" -> Test_Ministry.gearbox 2 clefs
+        | Some ":gtr"
+        | Some ":guitar"
+        | Some ":eadgbe" -> Test_Ministry.gearbox 3 clefs
         | Some ":help"
         | Some ":h" -> Test_Ministry.tutorial ()
+        | Some ":fkbjdn" -> Test_Ministry.gearbox 4 clefs
         | Some ":keys"
         | Some ":k" -> Test_Geoffroy.foxhounds ()
+        | Some ":m3" -> Test_Ministry.gearbox 4 clefs
         | Some ":mars"
         | Some ":m" -> Test_Geoffroy.marshaled ()
+        | Some ":p4" -> Test_Ministry.gearbox 0 clefs
+        | Some ":p5" -> Test_Ministry.gearbox 2 clefs
+        | Some ":piano"
+        | Some ":u" -> Test_Ministry.gearbox 5 clefs
+        | Some ":viola"
+        | Some ":violin" -> Test_Ministry.gearbox 2 clefs
         | Some _
         | None -> Test_Ministry.juxtapose tuned clefs;;
 
@@ -322,13 +381,17 @@ let veranda () =
   let clefs = ["n0"; "k9"; "j3"] in
     Test_Ministry.juxtapose tuned clefs;
 
+  let ouds = Test_Jacquard.attunes () in
+  let size = List.length ouds in
+    Test_Ministry.cyclotron 0 size;
+
   let args = [|"j17"; "k12"; "j23"; ":mars"|] in
   let opts = Test_Ministry.sentinel ":" args in
   let pols = Bool.to_string (opts = Some ":mars") in
     print_endline pols;
 
   Test_Ministry.tutorial ();
-  Test_Ministry.tutorial_alt ();
+  Test_Ministry.tutorial_utility ();
   Test_Geoffroy.foxhounds ();
   Test_Geoffroy.marshaled ();
   Test_Geoffroy.selections ();

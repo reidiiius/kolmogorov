@@ -32,10 +32,22 @@ let juxtapose tuned clefs =
   List.iter (layout tuned) clefs;
   print_newline ();;
 
+let gearbox spot clefs =
+  let harps = Jacquard.attunes () in
+  let tuned = List.nth harps spot in
+  let funky = (fun item -> not
+  (String.starts_with ~prefix:":" item)) in
+  let finds = List.filter funky clefs in
+    if List.length finds > 0 then
+      juxtapose tuned finds
+    else
+      Geoffroy.foxhounds ();;
+
 let sentinel wire aromas =
   Array.find_opt (String.starts_with ~prefix:wire) aromas;;
 
 let tutorial () =
+  Jacquard.pegboxes ();
   let hows = "dune exec stoa" in
   let tips = Printf.sprintf {etx|
 	%s :help
@@ -46,8 +58,12 @@ let tutorial () =
 
 	%s n0 j3
 
+	%s n0 j3 :cgdae
+
+	%s n0 j3 :beadgcf
+
 	%s :all | sensible-pager
-  |etx} hows hows hows hows hows
+  |etx} hows hows hows hows hows hows hows
   in print_endline tips;;
 
 

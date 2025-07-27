@@ -1,4 +1,6 @@
 
+  beadgcf  bfbfb  cgdae  eadgbe  fkbjdn  piano
+
 	dune exec stoa :help
 
 	dune exec stoa :keys
@@ -6,6 +8,10 @@
 	dune exec stoa :mars
 
 	dune exec stoa n0 j3
+
+	dune exec stoa n0 j3 :cgdae
+
+	dune exec stoa n0 j3 :beadgcf
 
 	dune exec stoa :all | sensible-pager
   
