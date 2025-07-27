@@ -136,11 +136,28 @@ let sFk sign =
 
 (* instrument tunings *)
 
+let attunes () =
+  ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"];;
+
+let stockade spot =
+  let harps = attunes () in
+  let width = List.length harps in
+  if width > 0 then
+    if (spot >= 0) && (spot < width) then
+      List.nth harps spot
+    else
+      List.hd harps
+  else
+    "piano";;
+
+let diadem sign pegs =
+  String.concat "-" [sign; pegs];;
+
 let scribe yarn =
   Printf.printf "\t%s\n" yarn;;
 
 let beadgcf sign =
-  scribe (sign ^ "-beadgcf");
+  scribe (diadem sign "beadgcf");
   List.iter scribe [
     sFn sign;
     sCn sign;
@@ -152,7 +169,7 @@ let beadgcf sign =
   ];;
 
 let bfbfb sign =
-  scribe (sign ^ "-bfbfb");
+  scribe (diadem sign "bfbfb");
   List.iter scribe [
     sBn sign;
     sFn sign;
@@ -162,7 +179,7 @@ let bfbfb sign =
   ];;
 
 let cgdae sign =
-  scribe (sign ^ "-cgdae");
+  scribe (diadem sign "cgdae");
   List.iter scribe [
     sEn sign;
     sAn sign;
@@ -172,7 +189,7 @@ let cgdae sign =
   ];;
 
 let eadgbe sign =
-  scribe (sign ^ "-eadgbe");
+  scribe (diadem sign "eadgbe");
   List.iter scribe [
     sEn sign;
     sBn sign;
@@ -183,7 +200,7 @@ let eadgbe sign =
   ];;
 
 let fkbjdn sign =
-  scribe (sign ^ "-fkbjdn");
+  scribe (diadem sign "fkbjdn");
   List.iter scribe [
     sDn sign;
     sBj sign;
@@ -194,7 +211,7 @@ let fkbjdn sign =
   ];;
 
 let piano sign =
-  scribe (sign ^ "-piano");
+  scribe (diadem sign "piano");
   scribe (sCn sign);;
 
 end;;
@@ -280,7 +297,7 @@ let atrium () =
     if quanta = 0 || quanta >= bounds then
       Test_Geoffroy.selections ()
     else
-      let tuned = "fkbjdn" in
+      let tuned = Test_Jacquard.stockade 4 in
       let clefs = Test_Ministry.governor 9 argots in
       let opted = Test_Ministry.sentinel ":" argots in
         match opted with
@@ -296,7 +313,7 @@ let atrium () =
         | None -> Test_Ministry.juxtapose tuned clefs;;
 
 let veranda () =
-  let tuned = "beadgcf" in
+  let tuned = Test_Jacquard.stockade 0 in
     Test_Ministry.cornucopia tuned;
 
   let arms = Array.make 2 "0123456789" in

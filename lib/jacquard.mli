@@ -1,4 +1,6 @@
 
+val attunes : unit -> string list
+val stockade : int -> string
 val beadgcf : string -> unit
 val bfbfb : string -> unit
 val cgdae : string -> unit

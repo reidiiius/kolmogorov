@@ -11,7 +11,7 @@ let atrium () =
     if quanta = 0 || quanta >= bounds then
       Geoffroy.selections ()
     else
-      let tuned = "eadgbe" in
+      let tuned = Jacquard.stockade 3 in
       let clefs = Ministry.governor 9 argots in
       let opted = Ministry.sentinel ":" argots in
         match opted with

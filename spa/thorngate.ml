@@ -215,13 +215,27 @@ let sFk sign =
 
 (* instrument tunings *)
 
+let attunes () =
+  ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"];;
+
+let pegboxes () =
+  print_newline ();
+  let funky = (fun item ->
+    Printf.printf "  %s" item) in
+  let gears = attunes () in
+  List.iter funky gears;
+  print_newline ();;
+
 let stockade spot =
-  let harps = ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"] in
+  let harps = attunes () in
   let width = List.length harps in
+  if width > 0 then
     if (spot >= 0) && (spot < width) then
       List.nth harps spot
     else
-      List.hd harps;;
+      List.hd harps
+  else
+    "piano";;
 
 let randomize () =
   Random.self_init ();
@@ -330,23 +344,40 @@ let juxtapose tuned clefs =
   List.iter (layout tuned) clefs;
   print_newline ();;
 
+let gearbox spot clefs =
+  let harps = Scordatura.attunes () in
+  let tuned = List.nth harps spot in
+  let funky = (fun item -> not
+  (String.starts_with ~prefix:"-" item)) in
+  let finds = List.filter funky clefs in
+    if List.length finds > 0 then
+      juxtapose tuned finds
+    else
+      Polychrome.foxhounds ();;
+
 let sentinel wire aromas =
   Array.find_opt (String.starts_with ~prefix:wire) aromas;;
 
 let tutorial () =
+  Scordatura.pegboxes ();
   let path = __FILE__ in
   let name = Filename.basename path in
+  let post = String.cat "ocaml " name in
   let tips = Printf.sprintf {etx|
-	ocaml %s --help
+	%s --help
 
-	ocaml %s --keys
+	%s --keys
 
-	ocaml %s --mars
+	%s --mars
 
-	ocaml %s n0 j3
+	%s n0 j3
 
-	ocaml %s --all | sensible-pager
-  |etx} name name name name name
+	%s n0 j3 --cgdae
+
+	%s n0 j3 --eadgbe
+
+	%s --all | sensible-pager
+  |etx} post post post post post post post
   in print_endline tips;;
 
 end;;
@@ -366,14 +397,31 @@ let vestibule () =
       let clefs = Utilitarian.governor 9 argots in
       let opted = Utilitarian.sentinel "-" argots in
         match opted with
-        | Some "--all"
-        | Some "-a" -> Utilitarian.cornucopia tuned
-        | Some "--help"
-        | Some "-h" -> Utilitarian.tutorial ()
-        | Some "--keys"
-        | Some "-k" -> Polychrome.foxhounds ()
-        | Some "--mars"
-        | Some "-m" -> Polychrome.marshaled ()
+        | Some "-a"
+        | Some "--all" -> Utilitarian.cornucopia tuned
+        | Some "-b5"
+        | Some "--bfbfb" -> Utilitarian.gearbox 1 clefs
+        | Some "-bass"
+        | Some "--beadgcf" -> Utilitarian.gearbox 0 clefs
+        | Some "-cello"
+        | Some "--cgdae" -> Utilitarian.gearbox 2 clefs
+        | Some "-gtr"
+        | Some "-guitar"
+        | Some "--eadgbe" -> Utilitarian.gearbox 3 clefs
+        | Some "-h"
+        | Some "--help" -> Utilitarian.tutorial ()
+        | Some "-k"
+        | Some "--keys" -> Polychrome.foxhounds ()
+        | Some "--fkbjdn"
+        | Some "-m3" -> Utilitarian.gearbox 4 clefs
+        | Some "-m"
+        | Some "--mars" -> Polychrome.marshaled ()
+        | Some "-p4" -> Utilitarian.gearbox 0 clefs
+        | Some "-p5" -> Utilitarian.gearbox 2 clefs
+        | Some "--piano"
+        | Some "-u" -> Utilitarian.gearbox 5 clefs
+        | Some "-viola"
+        | Some "-violin" -> Utilitarian.gearbox 2 clefs
         | Some _
         | None -> Utilitarian.juxtapose tuned clefs;;
 
