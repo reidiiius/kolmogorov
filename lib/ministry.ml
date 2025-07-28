@@ -28,23 +28,23 @@ let governor width argos =
   else
     claves;;
 
-let juxtapose tuned clefs =
-  List.iter (layout tuned) clefs;
+let juxtapose tuned words =
+  List.iter (layout tuned) words;
   print_newline ();;
 
-let gearbox spot clefs =
+let gearbox spot words =
   let harps = Jacquard.attunes () in
   let tuned = List.nth harps spot in
   let funky = (fun item -> not
   (String.starts_with ~prefix:":" item)) in
-  let finds = List.filter funky clefs in
+  let finds = List.filter funky words in
     if List.length finds > 0 then
       juxtapose tuned finds
     else
       Geoffroy.foxhounds ();;
 
-let sentinel wire aromas =
-  Array.find_opt (String.starts_with ~prefix:wire) aromas;;
+let sentinel face words =
+  List.find_opt (String.starts_with ~prefix:face) words;;
 
 let tutorial () =
   Jacquard.pegboxes ();

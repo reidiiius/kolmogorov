@@ -24,6 +24,10 @@ let membership sign =
 let keynotes () =
   fst (List.split berzelian);;
 
+let bankroll () =
+  let clefs = keynotes () in
+    List.length clefs;;
+
 let rec columned size ways =
   let yaws = List.rev ways in
   if size <= 1 then
@@ -41,7 +45,7 @@ let rec columned size ways =
 
 let selections () =
   let clefs = keynotes () in
-  let niter = List.length clefs in
+  let niter = bankroll () in
     print_newline ();
     columned niter clefs;
     print_newline ();;
@@ -254,16 +258,16 @@ let governor width argos =
   else
     claves;;
 
-let juxtapose tuned clefs =
-  List.iter (layout tuned) clefs;
+let juxtapose tuned words =
+  List.iter (layout tuned) words;
   print_newline ();;
 
-let gearbox spot clefs =
+let gearbox spot words =
   let harps = Test_Jacquard.attunes () in
   let tuned = List.nth harps spot in
   let funky = (fun item -> not
   (String.starts_with ~prefix:":" item)) in
-  let finds = List.filter funky clefs in
+  let finds = List.filter funky words in
     if List.length finds > 0 then
       juxtapose tuned finds
     else
@@ -281,8 +285,8 @@ let rec cyclotron spot size =
       cyclotron (spot + 1) size
     end;;
 
-let sentinel wire aromas =
-  Array.find_opt (String.starts_with ~prefix:wire) aromas;;
+let sentinel face words =
+  List.find_opt (String.starts_with ~prefix:face) words;;
 
 let tutorial () =
   Test_Jacquard.pegboxes ();
@@ -335,41 +339,41 @@ let argv = [|String.empty; "n0"|];;
 let atrium () =
   let quanta = (Array.length argv - 1) in
   let argots = (Array.sub argv 1 quanta) in
-  let bounds = List.length (Test_Geoffroy.keynotes ()) in
+  let bounds = Test_Geoffroy.bankroll () in
     if quanta = 0 || quanta >= bounds then
       Test_Geoffroy.selections ()
     else
       let tuned = Test_Jacquard.stockade 4 in
-      let clefs = Test_Ministry.governor 9 argots in
-      let opted = Test_Ministry.sentinel ":" argots in
+      let words = Test_Ministry.governor 9 argots in
+      let opted = Test_Ministry.sentinel ":" words in
         match opted with
         | Some ":all"
         | Some ":a" -> Test_Ministry.cornucopia tuned
         | Some ":b5"
-        | Some ":bfbfb" -> Test_Ministry.gearbox 1 clefs
+        | Some ":bfbfb" -> Test_Ministry.gearbox 1 words
         | Some ":bass"
-        | Some ":beadgcf" -> Test_Ministry.gearbox 0 clefs
+        | Some ":beadgcf" -> Test_Ministry.gearbox 0 words
         | Some ":cello"
-        | Some ":cgdae" -> Test_Ministry.gearbox 2 clefs
+        | Some ":cgdae" -> Test_Ministry.gearbox 2 words
         | Some ":gtr"
         | Some ":guitar"
-        | Some ":eadgbe" -> Test_Ministry.gearbox 3 clefs
+        | Some ":eadgbe" -> Test_Ministry.gearbox 3 words
         | Some ":help"
         | Some ":h" -> Test_Ministry.tutorial ()
-        | Some ":fkbjdn" -> Test_Ministry.gearbox 4 clefs
+        | Some ":fkbjdn" -> Test_Ministry.gearbox 4 words
         | Some ":keys"
         | Some ":k" -> Test_Geoffroy.foxhounds ()
-        | Some ":m3" -> Test_Ministry.gearbox 4 clefs
+        | Some ":m3" -> Test_Ministry.gearbox 4 words
         | Some ":mars"
         | Some ":m" -> Test_Geoffroy.marshaled ()
-        | Some ":p4" -> Test_Ministry.gearbox 0 clefs
-        | Some ":p5" -> Test_Ministry.gearbox 2 clefs
+        | Some ":p4" -> Test_Ministry.gearbox 0 words
+        | Some ":p5" -> Test_Ministry.gearbox 2 words
         | Some ":piano"
-        | Some ":u" -> Test_Ministry.gearbox 5 clefs
+        | Some ":u" -> Test_Ministry.gearbox 5 words
         | Some ":viola"
-        | Some ":violin" -> Test_Ministry.gearbox 2 clefs
+        | Some ":violin" -> Test_Ministry.gearbox 2 words
         | Some _
-        | None -> Test_Ministry.juxtapose tuned clefs;;
+        | None -> Test_Ministry.juxtapose tuned words;;
 
 let veranda () =
   let tuned = Test_Jacquard.stockade 0 in
@@ -378,14 +382,14 @@ let veranda () =
   let arms = Array.make 2 "0123456789" in
     List.iter print_endline (Test_Ministry.governor 9 arms);
 
-  let clefs = ["n0"; "k9"; "j3"] in
-    Test_Ministry.juxtapose tuned clefs;
+  let words = ["n0"; "k9"; "j3"] in
+    Test_Ministry.juxtapose tuned words;
 
   let ouds = Test_Jacquard.attunes () in
   let size = List.length ouds in
     Test_Ministry.cyclotron 0 size;
 
-  let args = [|"j17"; "k12"; "j23"; ":mars"|] in
+  let args = ["j17"; "k12"; "j23"; ":mars"] in
   let opts = Test_Ministry.sentinel ":" args in
   let pols = Bool.to_string (opts = Some ":mars") in
     print_endline pols;

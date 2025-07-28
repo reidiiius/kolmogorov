@@ -102,6 +102,10 @@ module Polychrome = struct
   let keynotes () =
     fst (List.split scales);;
 
+  let bankroll () =
+    let clefs = keynotes () in
+      List.length clefs;;
+
   let rec columned size ways =
     let yaws = List.rev ways in
     if size <= 1 then
@@ -119,7 +123,7 @@ module Polychrome = struct
 
   let selections () =
     let clefs = keynotes () in
-    let niter = List.length clefs in
+    let niter = bankroll () in
       print_newline ();
       columned niter clefs;
       print_newline ();;
@@ -340,23 +344,23 @@ let governor width argos =
   else
     claves;;
 
-let juxtapose tuned clefs =
-  List.iter (layout tuned) clefs;
+let juxtapose tuned words =
+  List.iter (layout tuned) words;
   print_newline ();;
 
-let gearbox spot clefs =
+let gearbox spot words =
   let harps = Scordatura.attunes () in
   let tuned = List.nth harps spot in
   let funky = (fun item -> not
   (String.starts_with ~prefix:"-" item)) in
-  let finds = List.filter funky clefs in
+  let finds = List.filter funky words in
     if List.length finds > 0 then
       juxtapose tuned finds
     else
       Polychrome.foxhounds ();;
 
-let sentinel wire aromas =
-  Array.find_opt (String.starts_with ~prefix:wire) aromas;;
+let sentinel face words =
+  List.find_opt (String.starts_with ~prefix:face) words;;
 
 let tutorial () =
   Scordatura.pegboxes ();
@@ -389,41 +393,41 @@ module Colonnade = struct
 let vestibule () =
   let quanta = (Array.length Sys.argv - 1) in
   let argots = (Array.sub Sys.argv 1 quanta) in
-  let bounds = List.length (Polychrome.keynotes ()) in
+  let bounds = Polychrome.bankroll () in
     if quanta = 0 || quanta >= bounds then
       Polychrome.selections ()
     else
       let tuned = Scordatura.stockade 0 in
-      let clefs = Utilitarian.governor 9 argots in
-      let opted = Utilitarian.sentinel "-" argots in
+      let words = Utilitarian.governor 9 argots in
+      let opted = Utilitarian.sentinel "-" words in
         match opted with
         | Some "-a"
         | Some "--all" -> Utilitarian.cornucopia tuned
         | Some "-b5"
-        | Some "--bfbfb" -> Utilitarian.gearbox 1 clefs
+        | Some "--bfbfb" -> Utilitarian.gearbox 1 words
         | Some "-bass"
-        | Some "--beadgcf" -> Utilitarian.gearbox 0 clefs
+        | Some "--beadgcf" -> Utilitarian.gearbox 0 words
         | Some "-cello"
-        | Some "--cgdae" -> Utilitarian.gearbox 2 clefs
+        | Some "--cgdae" -> Utilitarian.gearbox 2 words
         | Some "-gtr"
         | Some "-guitar"
-        | Some "--eadgbe" -> Utilitarian.gearbox 3 clefs
+        | Some "--eadgbe" -> Utilitarian.gearbox 3 words
         | Some "-h"
         | Some "--help" -> Utilitarian.tutorial ()
         | Some "-k"
         | Some "--keys" -> Polychrome.foxhounds ()
         | Some "--fkbjdn"
-        | Some "-m3" -> Utilitarian.gearbox 4 clefs
+        | Some "-m3" -> Utilitarian.gearbox 4 words
         | Some "-m"
         | Some "--mars" -> Polychrome.marshaled ()
-        | Some "-p4" -> Utilitarian.gearbox 0 clefs
-        | Some "-p5" -> Utilitarian.gearbox 2 clefs
+        | Some "-p4" -> Utilitarian.gearbox 0 words
+        | Some "-p5" -> Utilitarian.gearbox 2 words
         | Some "--piano"
-        | Some "-u" -> Utilitarian.gearbox 5 clefs
+        | Some "-u" -> Utilitarian.gearbox 5 words
         | Some "-viola"
-        | Some "-violin" -> Utilitarian.gearbox 2 clefs
+        | Some "-violin" -> Utilitarian.gearbox 2 words
         | Some _
-        | None -> Utilitarian.juxtapose tuned clefs;;
+        | None -> Utilitarian.juxtapose tuned words;;
 
 end;;
 

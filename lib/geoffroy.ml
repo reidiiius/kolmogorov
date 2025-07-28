@@ -97,6 +97,10 @@
   let keynotes () =
     fst (List.split berzelian);;
 
+  let bankroll () =
+    let clefs = keynotes () in
+      List.length clefs;;
+
   let rec columned size ways =
     let yaws = List.rev ways in
     if size <= 1 then
@@ -114,7 +118,7 @@
 
   let selections () =
     let clefs = keynotes () in
-    let niter = List.length clefs in
+    let niter = bankroll () in
       print_newline ();
       columned niter clefs;
       print_newline ();;
