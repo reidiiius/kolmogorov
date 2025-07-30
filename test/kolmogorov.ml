@@ -21,8 +21,11 @@ let acquire sign =
 let membership sign =
   List.mem_assoc sign berzelian;;
 
+let ordnance stems =
+  List.sort String.compare stems;;
+
 let keynotes () =
-  fst (List.split berzelian);;
+  ordnance (fst (List.split berzelian));;
 
 let bankroll () =
   let clefs = keynotes () in
@@ -161,9 +164,15 @@ let stockade spot =
       List.hd harps
   else
     "piano";;
+(*
+let randomize () =
+  Random.self_init ();
+  Random.full_int Int.max_int;;
+*)
+let variant = Int.to_string 284630983437452750;; (* (randomize ()) *)
 
 let diadem sign pegs =
-  String.concat "-" [sign; pegs];;
+  String.concat "-" [sign; pegs; variant];;
 
 let scribe yarn =
   Printf.printf "\t%s\n" yarn;;
@@ -226,28 +235,64 @@ let piano sign =
   scribe (diadem sign "piano");
   scribe (sCn sign);;
 
-end;;
-
-module Test_Ministry = struct
+(* presentation composition *)
 
 let layout tuned sign =
   print_newline ();
   if Test_Geoffroy.membership sign then
     match tuned with
-    | "beadgcf" -> Test_Jacquard.beadgcf sign
-    | "bfbfb" -> Test_Jacquard.bfbfb sign
-    | "cgdae" -> Test_Jacquard.cgdae sign
-    | "eadgbe" -> Test_Jacquard.eadgbe sign
-    | "fkbjdn" -> Test_Jacquard.fkbjdn sign
-    | "piano" -> Test_Jacquard.piano sign
-    | _ -> Test_Jacquard.piano "i0"
+    | "beadgcf" -> beadgcf sign
+    | "bfbfb" -> bfbfb sign
+    | "cgdae" -> cgdae sign
+    | "eadgbe" -> eadgbe sign
+    | "fkbjdn" -> fkbjdn sign
+    | "piano" -> piano sign
+    | _ -> piano "i0"
   else
     Printf.printf "\t%s ?\n" sign;;
+
+let juxtapose tuned words =
+  List.iter (layout tuned) words;
+  print_newline ();;
+
+let gearbox spot words =
+  let harps = attunes () in
+  let tuned = List.nth harps spot in
+  let funky = (fun item -> not
+  (String.starts_with ~prefix:"-" item)) in
+  let finds = List.filter funky words in
+    if List.length finds > 0 then
+      juxtapose tuned finds
+    else
+      Test_Geoffroy.foxhounds ();;
 
 let cornucopia tuned =
   let clefs = Test_Geoffroy.keynotes () in
     List.iter (layout tuned) clefs;
     print_newline ();;
+
+let rec dumpster posit =
+  let clefs = Test_Geoffroy.keynotes () in
+  let harps = attunes () in
+  let audit = List.length harps in
+  if posit >= (audit - 1) then
+    begin
+      List.iter (
+        fun sign -> layout (List.nth harps posit) sign
+      ) clefs;
+      print_newline ()
+    end
+  else
+    begin
+      List.iter (
+        fun sign -> layout (List.nth harps posit) sign
+      ) clefs;
+      dumpster (posit + 1)
+    end;;
+
+end;;
+
+module Test_Ministry = struct
 
 let governor width argos =
   let lingos = Array.to_list argos in
@@ -258,30 +303,15 @@ let governor width argos =
   else
     claves;;
 
-let juxtapose tuned words =
-  List.iter (layout tuned) words;
-  print_newline ();;
-
-let gearbox spot words =
-  let harps = Test_Jacquard.attunes () in
-  let tuned = List.nth harps spot in
-  let funky = (fun item -> not
-  (String.starts_with ~prefix:":" item)) in
-  let finds = List.filter funky words in
-    if List.length finds > 0 then
-      juxtapose tuned finds
-    else
-      Test_Geoffroy.foxhounds ();;
-
 let rec cyclotron spot size =
   let keys = Test_Geoffroy.keynotes () in
   if spot >= (size - 1) then
     begin
-      gearbox spot keys
+      Test_Jacquard.gearbox spot keys
     end
   else
     begin
-      gearbox spot keys;
+      Test_Jacquard.gearbox spot keys;
       cyclotron (spot + 1) size
     end;;
 
@@ -348,42 +378,45 @@ let atrium () =
       let opted = Test_Ministry.sentinel ":" words in
         match opted with
         | Some ":all"
-        | Some ":a" -> Test_Ministry.cornucopia tuned
+        | Some ":a" -> Test_Jacquard.cornucopia tuned
+        | Some ":a4"
         | Some ":b5"
-        | Some ":bfbfb" -> Test_Ministry.gearbox 1 words
+        | Some ":bfbfb" -> Test_Jacquard.gearbox 1 words
         | Some ":bass"
-        | Some ":beadgcf" -> Test_Ministry.gearbox 0 words
+        | Some ":beadgcf" -> Test_Jacquard.gearbox 0 words
         | Some ":cello"
-        | Some ":cgdae" -> Test_Ministry.gearbox 2 words
+        | Some ":cgdae" -> Test_Jacquard.gearbox 2 words
+        | Some ":dump" -> Test_Jacquard.dumpster 0
+        | Some ":d5" -> Test_Jacquard.gearbox 1 words
         | Some ":gtr"
         | Some ":guitar"
-        | Some ":eadgbe" -> Test_Ministry.gearbox 3 words
+        | Some ":eadgbe" -> Test_Jacquard.gearbox 3 words
         | Some ":help"
         | Some ":h" -> Test_Ministry.tutorial ()
-        | Some ":fkbjdn" -> Test_Ministry.gearbox 4 words
+        | Some ":fkbjdn" -> Test_Jacquard.gearbox 4 words
         | Some ":keys"
         | Some ":k" -> Test_Geoffroy.foxhounds ()
-        | Some ":m3" -> Test_Ministry.gearbox 4 words
+        | Some ":m3" -> Test_Jacquard.gearbox 4 words
         | Some ":mars"
         | Some ":m" -> Test_Geoffroy.marshaled ()
-        | Some ":p4" -> Test_Ministry.gearbox 0 words
-        | Some ":p5" -> Test_Ministry.gearbox 2 words
+        | Some ":p4" -> Test_Jacquard.gearbox 0 words
+        | Some ":p5" -> Test_Jacquard.gearbox 2 words
         | Some ":piano"
-        | Some ":u" -> Test_Ministry.gearbox 5 words
+        | Some ":u" -> Test_Jacquard.gearbox 5 words
         | Some ":viola"
-        | Some ":violin" -> Test_Ministry.gearbox 2 words
+        | Some ":violin" -> Test_Jacquard.gearbox 2 words
         | Some _
-        | None -> Test_Ministry.juxtapose tuned words;;
+        | None -> Test_Jacquard.juxtapose tuned words;;
 
 let veranda () =
   let tuned = Test_Jacquard.stockade 0 in
-    Test_Ministry.cornucopia tuned;
+    Test_Jacquard.cornucopia tuned;
 
   let arms = Array.make 2 "0123456789" in
     List.iter print_endline (Test_Ministry.governor 9 arms);
 
   let words = ["n0"; "k9"; "j3"] in
-    Test_Ministry.juxtapose tuned words;
+    Test_Jacquard.juxtapose tuned words;
 
   let ouds = Test_Jacquard.attunes () in
   let size = List.length ouds in

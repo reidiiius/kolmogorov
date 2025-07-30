@@ -65,9 +65,15 @@ let stockade spot =
       List.hd harps
   else
     "piano";;
+(*
+let randomize () =
+  Random.self_init ();
+  Random.full_int Int.max_int;;
+*)
+let variant = Int.to_string 3971809718987134967;; (* (randomize ()) *)
 
 let diadem sign pegs =
-  String.concat "-" [sign; pegs];;
+  String.concat "-" [sign; pegs; variant];;
 
 let scribe yarn =
   Printf.printf "\t%s\n" yarn;;
@@ -129,5 +135,60 @@ let fkbjdn sign =
 let piano sign =
   scribe (diadem sign "piano");
   scribe (sCn sign);;
+
+(* presentation composition *)
+
+let layout tuned sign =
+  print_newline ();
+  if Geoffroy.membership sign then
+    match tuned with
+    | "beadgcf" -> beadgcf sign
+    | "bfbfb" -> bfbfb sign
+    | "cgdae" -> cgdae sign
+    | "eadgbe" -> eadgbe sign
+    | "fkbjdn" -> fkbjdn sign
+    | "piano" -> piano sign
+    | _ -> piano "i0"
+  else
+    Printf.printf "\t%s ?\n" sign;;
+
+let juxtapose tuned words =
+  List.iter (layout tuned) words;
+  print_newline ();;
+
+let gearbox spot words =
+  let harps = attunes () in
+  let tuned = List.nth harps spot in
+  let funky = (fun item -> not
+  (String.starts_with ~prefix:":" item)) in
+  let finds = List.filter funky words in
+    if List.length finds > 0 then
+      juxtapose tuned finds
+    else
+      Geoffroy.foxhounds ();;
+
+let cornucopia tuned =
+  let clefs = Geoffroy.keynotes () in
+    List.iter (layout tuned) clefs;
+    print_newline ();;
+
+let rec dumpster posit =
+  let clefs = Geoffroy.keynotes () in
+  let harps = attunes () in
+  let audit = List.length harps in
+  if posit >= (audit - 1) then
+    begin
+      List.iter (
+        fun sign -> layout (List.nth harps posit) sign
+      ) clefs;
+      print_newline ()
+    end
+  else
+    begin
+      List.iter (
+        fun sign -> layout (List.nth harps posit) sign
+      ) clefs;
+      dumpster (posit + 1)
+    end;;
 
 

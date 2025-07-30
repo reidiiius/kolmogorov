@@ -39,25 +39,43 @@
  (action
   (diff jacquard_machine.expected jacquard_machine.output)))
 
-;; test_ministry
 (rule
- (with-stdout-to ministry_cornucopia.output
-  (run stoa :all)))
-
-(rule
- (alias runtest)
- (action
-  (diff ministry_cornucopia.expected ministry_cornucopia.output)))
-
-(rule
- (with-stdout-to ministry_juxtapose.output
+ (with-stdout-to jacquard_juxtapose.output
   (run stoa n0 k9 j3)))
 
 (rule
  (alias runtest)
  (action
-  (diff ministry_juxtapose.expected ministry_juxtapose.output)))
+  (diff jacquard_juxtapose.expected jacquard_juxtapose.output)))
 
+(rule
+ (with-stdout-to jacquard_gearbox.output
+  (run stoa n0 j23 :fkbjdn)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff jacquard_gearbox.expected jacquard_gearbox.output)))
+
+(rule
+ (with-stdout-to jacquard_cornucopia.output
+  (run stoa :all)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff jacquard_cornucopia.expected jacquard_cornucopia.output)))
+
+(rule
+ (with-stdout-to jacquard_dumpster.output
+  (run stoa :dump)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff jacquard_dumpster.expected jacquard_dumpster.output)))
+
+;; test_ministry
 (rule
  (with-stdout-to ministry_tutorial.output
   (run stoa :help)))

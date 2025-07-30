@@ -16,32 +16,35 @@ let atrium () =
       let opted = Ministry.sentinel ":" words in
         match opted with
         | Some ":all"
-        | Some ":a" -> Ministry.cornucopia tuned
+        | Some ":a" -> Jacquard.cornucopia tuned
+        | Some ":a4"
         | Some ":b5"
-        | Some ":bfbfb" -> Ministry.gearbox 1 words
+        | Some ":bfbfb" -> Jacquard.gearbox 1 words
         | Some ":bass"
-        | Some ":beadgcf" -> Ministry.gearbox 0 words
+        | Some ":beadgcf" -> Jacquard.gearbox 0 words
         | Some ":cello"
-        | Some ":cgdae" -> Ministry.gearbox 2 words
+        | Some ":cgdae" -> Jacquard.gearbox 2 words
+        | Some ":dump" -> Jacquard.dumpster 0
+        | Some ":d5" -> Jacquard.gearbox 1 words
         | Some ":gtr"
         | Some ":guitar"
-        | Some ":eadgbe" -> Ministry.gearbox 3 words
+        | Some ":eadgbe" -> Jacquard.gearbox 3 words
         | Some ":help"
         | Some ":h" -> Ministry.tutorial ()
-        | Some ":fkbjdn" -> Ministry.gearbox 4 words
+        | Some ":fkbjdn" -> Jacquard.gearbox 4 words
         | Some ":keys"
         | Some ":k" -> Geoffroy.foxhounds ()
-        | Some ":m3" -> Ministry.gearbox 4 words
+        | Some ":m3" -> Jacquard.gearbox 4 words
         | Some ":mars"
         | Some ":m" -> Geoffroy.marshaled ()
-        | Some ":p4" -> Ministry.gearbox 0 words
-        | Some ":p5" -> Ministry.gearbox 2 words
+        | Some ":p4" -> Jacquard.gearbox 0 words
+        | Some ":p5" -> Jacquard.gearbox 2 words
         | Some ":piano"
-        | Some ":u" -> Ministry.gearbox 5 words
+        | Some ":u" -> Jacquard.gearbox 5 words
         | Some ":viola"
-        | Some ":violin" -> Ministry.gearbox 2 words
+        | Some ":violin" -> Jacquard.gearbox 2 words
         | Some _
-        | None -> Ministry.juxtapose tuned words;;
+        | None -> Jacquard.juxtapose tuned words;;
 
 atrium ()
 

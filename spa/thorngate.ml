@@ -99,8 +99,11 @@ module Polychrome = struct
   let membership sign =
     List.mem_assoc sign scales;;
 
+  let ordnance stems =
+    List.sort String.compare stems;;
+
   let keynotes () =
-    fst (List.split scales);;
+    ordnance (fst (List.split scales));;
 
   let bankroll () =
     let clefs = keynotes () in
@@ -311,45 +314,28 @@ let piano sign =
   scribe (diadem sign "piano");
   scribe (sCn sign);;
 
-end;;
-
-(** Module [Utilitarian] supplies display and support functions. *)
-module Utilitarian = struct
+(* presentation composition *)
 
 let layout tuned sign =
   print_newline ();
   if Polychrome.membership sign then
     match tuned with
-    | "beadgcf" -> Scordatura.beadgcf sign
-    | "bfbfb" -> Scordatura.bfbfb sign
-    | "cgdae" -> Scordatura.cgdae sign
-    | "eadgbe" -> Scordatura.eadgbe sign
-    | "fkbjdn" -> Scordatura.fkbjdn sign
-    | "piano" -> Scordatura.piano sign
-    | _ -> Scordatura.piano "i0"
+    | "beadgcf" -> beadgcf sign
+    | "bfbfb" -> bfbfb sign
+    | "cgdae" -> cgdae sign
+    | "eadgbe" -> eadgbe sign
+    | "fkbjdn" -> fkbjdn sign
+    | "piano" -> piano sign
+    | _ -> piano "i0"
   else
     Printf.printf "\t%s ?\n" sign;;
-
-let cornucopia tuned =
-  let clefs = Polychrome.keynotes () in
-    List.iter (layout tuned) clefs;
-    print_newline ();;
-
-let governor width argos =
-  let lingos = Array.to_list argos in
-  let tester = fun item -> String.length item <= width in
-  let claves = List.filter tester lingos in
-  if List.length claves = 0 then
-    "Excessive" :: claves
-  else
-    claves;;
 
 let juxtapose tuned words =
   List.iter (layout tuned) words;
   print_newline ();;
 
 let gearbox spot words =
-  let harps = Scordatura.attunes () in
+  let harps = attunes () in
   let tuned = List.nth harps spot in
   let funky = (fun item -> not
   (String.starts_with ~prefix:"-" item)) in
@@ -359,8 +345,46 @@ let gearbox spot words =
     else
       Polychrome.foxhounds ();;
 
+let cornucopia tuned =
+  let clefs = Polychrome.keynotes () in
+    List.iter (layout tuned) clefs;
+    print_newline ();;
+
+let rec dumpster posit =
+  let clefs = Polychrome.keynotes () in
+  let harps = attunes () in
+  let audit = List.length harps in
+  if posit >= (audit - 1) then
+    begin
+      List.iter (
+        fun sign -> layout (List.nth harps posit) sign
+      ) clefs;
+      print_newline ()
+    end
+  else
+    begin
+      List.iter (
+        fun sign -> layout (List.nth harps posit) sign
+      ) clefs;
+      dumpster (posit + 1)
+    end;;
+
+end;;
+
+(** Module [Utilitarian] supplies display and support functions. *)
+module Utilitarian = struct
+
 let sentinel face words =
   List.find_opt (String.starts_with ~prefix:face) words;;
+
+let governor width argos =
+  let lingos = Array.to_list argos in
+  let tester = fun item -> String.length item <= width in
+  let claves = List.filter tester lingos in
+  if List.length claves = 0 then
+    "Excessive" :: claves
+  else
+    claves;;
 
 let tutorial () =
   Scordatura.pegboxes ();
@@ -402,32 +426,35 @@ let vestibule () =
       let opted = Utilitarian.sentinel "-" words in
         match opted with
         | Some "-a"
-        | Some "--all" -> Utilitarian.cornucopia tuned
+        | Some "--all" -> Scordatura.cornucopia tuned
+        | Some "-a4"
         | Some "-b5"
-        | Some "--bfbfb" -> Utilitarian.gearbox 1 words
+        | Some "--bfbfb" -> Scordatura.gearbox 1 words
         | Some "-bass"
-        | Some "--beadgcf" -> Utilitarian.gearbox 0 words
+        | Some "--beadgcf" -> Scordatura.gearbox 0 words
         | Some "-cello"
-        | Some "--cgdae" -> Utilitarian.gearbox 2 words
+        | Some "--cgdae" -> Scordatura.gearbox 2 words
+        | Some "--dump" -> Scordatura.dumpster 0
+        | Some "-d5" -> Scordatura.gearbox 1 words
         | Some "-gtr"
         | Some "-guitar"
-        | Some "--eadgbe" -> Utilitarian.gearbox 3 words
+        | Some "--eadgbe" -> Scordatura.gearbox 3 words
         | Some "-h"
         | Some "--help" -> Utilitarian.tutorial ()
         | Some "-k"
         | Some "--keys" -> Polychrome.foxhounds ()
         | Some "--fkbjdn"
-        | Some "-m3" -> Utilitarian.gearbox 4 words
+        | Some "-m3" -> Scordatura.gearbox 4 words
         | Some "-m"
         | Some "--mars" -> Polychrome.marshaled ()
-        | Some "-p4" -> Utilitarian.gearbox 0 words
-        | Some "-p5" -> Utilitarian.gearbox 2 words
+        | Some "-p4" -> Scordatura.gearbox 0 words
+        | Some "-p5" -> Scordatura.gearbox 2 words
         | Some "--piano"
-        | Some "-u" -> Utilitarian.gearbox 5 words
+        | Some "-u" -> Scordatura.gearbox 5 words
         | Some "-viola"
-        | Some "-violin" -> Utilitarian.gearbox 2 words
+        | Some "-violin" -> Scordatura.gearbox 2 words
         | Some _
-        | None -> Utilitarian.juxtapose tuned words;;
+        | None -> Scordatura.juxtapose tuned words;;
 
 end;;
 

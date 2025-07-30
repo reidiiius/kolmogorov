@@ -94,8 +94,11 @@
   let membership sign =
     List.mem_assoc sign berzelian;;
 
+  let ordnance stems =
+    List.sort String.compare stems;;
+
   let keynotes () =
-    fst (List.split berzelian);;
+    ordnance (fst (List.split berzelian));;
 
   let bankroll () =
     let clefs = keynotes () in
