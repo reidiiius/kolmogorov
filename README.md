@@ -44,7 +44,7 @@ Command-line
 
 :
 
-    ocaml thorngate.ml --alloys
+    ocaml spa/thorngate.ml --alloys
 
 :
 
