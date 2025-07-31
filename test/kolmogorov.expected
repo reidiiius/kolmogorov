@@ -548,8 +548,6 @@ Excessive
 
 true
 
-		beadgcf	bfbfb	cgdae	eadgbe	fkbjdn	piano
-
 	dune exec stoa :help
 
 	dune exec stoa :keys
@@ -562,10 +560,10 @@ true
 
 	dune exec stoa n0 j3 :beadgcf
 
+	dune exec stoa :alloys
+
 	dune exec stoa :all | sensible-pager
   
-
-		beadgcf	bfbfb	cgdae	eadgbe	fkbjdn	piano
 
 	ocaml kolmogorov.ml --help
 
@@ -579,10 +577,12 @@ true
 
 	ocaml kolmogorov.ml n0 j3 --eadgbe
 
+	ocaml kolmogorov.ml --alloys
+
 	ocaml kolmogorov.ml --all | sensible-pager
   
 
-		beadgcf	bfbfb	cgdae	eadgbe	fkbjdn	piano
+          :beadgcf   :bfbfb   :cgdae   :eadgbe   :fkbjdn   :piano
 
 	k1	k2	k5	k6
 
@@ -591,7 +591,7 @@ true
 	j2	j3	j5	j6
 
 
-		beadgcf	bfbfb	cgdae	eadgbe	fkbjdn	piano
+          :beadgcf   :bfbfb   :cgdae   :eadgbe   :fkbjdn   :piano
 
 	k6	
 	n0	
@@ -619,4 +619,9 @@ true
 	FePu	FeTi	FeUr	HgAg	HgAu	HgCu	HgHg	HgSn
 	NpCu	NpFe	PbAg	PbAu	PbCu	PbFe	PbSn	PuFe
 	SnAu	SnHg	SnPb	SnSn	TiFe	UrAg	UrCu	UrFe
+
+
+          :beadgcf   :bfbfb   :cgdae   :eadgbe   :fkbjdn   :piano
+
+        --beadgcf   --bfbfb   --cgdae   --eadgbe   --fkbjdn   --piano
 

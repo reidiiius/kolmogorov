@@ -44,6 +44,10 @@ Command-line
 
 :
 
+    ocaml thorngate.ml --alloys
+
+:
+
     ocaml spa/thorngate.ml --all | sensible-pager
 
 :
@@ -81,6 +85,10 @@ Command-line
 :
 
     dune exec stoa n0 j3 :beadgcf
+
+:
+
+    dune exec stoa :alloys
 
 :
 

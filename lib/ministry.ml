@@ -13,7 +13,6 @@ let governor width argos =
     claves;;
 
 let tutorial () =
-  Jacquard.pegboxes ();
   let hows = "dune exec stoa" in
   let tips = Printf.sprintf {etx|
 	%s :help
@@ -28,8 +27,10 @@ let tutorial () =
 
 	%s n0 j3 :beadgcf
 
+	%s :alloys
+
 	%s :all | sensible-pager
-  |etx} hows hows hows hows hows hows hows
+  |etx} hows hows hows hows hows hows hows hows
   in print_endline tips;;
 
 let keystone () =

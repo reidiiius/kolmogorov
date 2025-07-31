@@ -163,9 +163,18 @@ let attunes () =
 
 let pegboxes () =
   print_newline ();
-  print_char '\t';
-  let funky = (fun item ->
-    Printf.printf "\t%s" item) in
+  print_string (Char.chr 32 |> String.make 7);
+  let funky = (fun cord ->
+    Printf.printf "   :%s" cord) in
+  let gears = attunes () in
+  List.iter funky gears;
+  print_newline ();;
+
+let pegboxes_hyphens () =
+  print_newline ();
+  print_string (Char.chr 32 |> String.make 5);
+  let funky = (fun cord ->
+    Printf.printf "   --%s" cord) in
   let gears = attunes () in
   List.iter funky gears;
   print_newline ();;
@@ -335,7 +344,6 @@ let sentinel face words =
   List.find_opt (String.starts_with ~prefix:face) words;;
 
 let tutorial () =
-  Test_Jacquard.pegboxes ();
   let hows = "dune exec stoa" in
   let tips = Printf.sprintf {etx|
 	%s :help
@@ -350,15 +358,16 @@ let tutorial () =
 
 	%s n0 j3 :beadgcf
 
+	%s :alloys
+
 	%s :all | sensible-pager
-  |etx} hows hows hows hows hows hows hows
+  |etx} hows hows hows hows hows hows hows hows
   in print_endline tips;;
 
 let tutorial_utility () =
-  Test_Jacquard.pegboxes ();
-  let path = __FILE__ in
-  let name = Filename.basename path in
-  let post = String.cat "ocaml " name in
+  let exec = "ocaml" in
+  let file = Filename.basename __FILE__ in
+  let post = Printf.sprintf "%s %s" exec file in
   let tips = Printf.sprintf {etx|
 	%s --help
 
@@ -372,8 +381,10 @@ let tutorial_utility () =
 
 	%s n0 j3 --eadgbe
 
+	%s --alloys
+
 	%s --all | sensible-pager
-  |etx} post post post post post post post
+  |etx} post post post post post post post post
   in print_endline tips;;
 
 let keystone () =
@@ -404,6 +415,7 @@ let atrium () =
       let words = Test_Ministry.governor 9 argots in
       let opted = Test_Ministry.sentinel ":" words in
         match opted with
+        | Some ":alloys" -> Test_Geoffroy.elemental ()
         | Some ":all"
         | Some ":a" -> Test_Jacquard.cornucopia tuned
         | Some ":a4"
@@ -464,7 +476,10 @@ let veranda () =
   Test_Geoffroy.foxhounds ();
   Test_Geoffroy.marshaled ();
   Test_Geoffroy.elemental ();
-  ();;
+
+  Test_Jacquard.pegboxes ();
+  Test_Jacquard.pegboxes_hyphens ();
+  print_newline ();;
 
 end;;
 

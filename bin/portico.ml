@@ -18,6 +18,7 @@ let atrium () =
       let words = Ministry.governor 9 argots in
       let opted = Ministry.sentinel ":" words in
         match opted with
+        | Some ":alloys" -> Geoffroy.elemental ()
         | Some ":all"
         | Some ":a" -> Jacquard.cornucopia tuned
         | Some ":a4"

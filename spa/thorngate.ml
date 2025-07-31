@@ -242,9 +242,9 @@ let attunes () =
 
 let pegboxes () =
   print_newline ();
-  print_char '\t';
-  let funky = (fun item ->
-    Printf.printf "\t%s" item) in
+  print_string (Char.chr 32 |> String.make 5);
+  let funky = (fun cord ->
+    Printf.printf "   --%s" cord) in
   let gears = attunes () in
   List.iter funky gears;
   print_newline ();;
@@ -403,10 +403,9 @@ let governor width argos =
     claves;;
 
 let tutorial () =
-  Scordatura.pegboxes ();
-  let path = __FILE__ in
-  let name = Filename.basename path in
-  let post = String.cat "ocaml " name in
+  let exec = Filename.basename Sys.executable_name in
+  let file = Filename.basename __FILE__ in
+  let post = Printf.sprintf "%s %s" exec file in
   let tips = Printf.sprintf {etx|
 	%s --help
 
@@ -420,8 +419,10 @@ let tutorial () =
 
 	%s n0 j3 --eadgbe
 
+	%s --alloys
+
 	%s --all | sensible-pager
-  |etx} post post post post post post post
+  |etx} post post post post post post post post
   in print_endline tips;;
 
 let keystone () =
@@ -452,8 +453,9 @@ let vestibule () =
       let words = Utilitarian.governor 9 argots in
       let opted = Utilitarian.sentinel "-" words in
         match opted with
-        | Some "-a"
-        | Some "--all" -> Scordatura.cornucopia tuned
+        | Some "--alloys" -> Polychrome.elemental ()
+        | Some "--all"
+        | Some "-a" -> Scordatura.cornucopia tuned
         | Some "-a4"
         | Some "-b5"
         | Some "--bfbfb" -> Scordatura.gearbox 1 words
