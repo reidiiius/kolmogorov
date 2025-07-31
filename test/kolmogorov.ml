@@ -95,6 +95,21 @@ let marshaled () =
     columned numb dons;
     print_newline ();;
 
+let uniforms () =
+  let dice = fun wire -> String.split_on_char '\x20' wire in
+  let pans = snd (List.split berzelian) in
+  let urns = List.map dice pans in
+  let lots = List.flatten urns in
+  let lint = fun yarn -> not (frontage ~prefix:"\x5F" yarn) in
+  let rock = List.filter lint lots in
+    List.sort_uniq String.compare rock;;
+
+let elemental () =
+  let ores = uniforms () in
+  let size = List.length ores in
+    columned size ores;
+    print_newline ();;
+
 end;;
 
 module Test_Jacquard = struct
@@ -148,8 +163,9 @@ let attunes () =
 
 let pegboxes () =
   print_newline ();
+  print_char '\t';
   let funky = (fun item ->
-    Printf.printf "  %s" item) in
+    Printf.printf "\t%s" item) in
   let gears = attunes () in
   List.iter funky gears;
   print_newline ();;
@@ -360,6 +376,14 @@ let tutorial_utility () =
   |etx} post post post post post post post
   in print_endline tips;;
 
+let keystone () =
+  Test_Jacquard.pegboxes ();
+  Test_Geoffroy.foxhounds ();;
+
+let solarium () =
+  Test_Jacquard.pegboxes ();
+  Test_Geoffroy.marshaled ();;
+
 end;;
 
 module Test_Portico = struct
@@ -371,7 +395,10 @@ let atrium () =
   let argots = (Array.sub argv 1 quanta) in
   let bounds = Test_Geoffroy.bankroll () in
     if quanta = 0 || quanta >= bounds then
-      Test_Geoffroy.selections ()
+      begin
+        Test_Jacquard.pegboxes ();
+        Test_Geoffroy.selections ()
+      end
     else
       let tuned = Test_Jacquard.stockade 4 in
       let words = Test_Ministry.governor 9 argots in
@@ -395,10 +422,11 @@ let atrium () =
         | Some ":h" -> Test_Ministry.tutorial ()
         | Some ":fkbjdn" -> Test_Jacquard.gearbox 4 words
         | Some ":keys"
-        | Some ":k" -> Test_Geoffroy.foxhounds ()
+        | Some ":k" -> Test_Ministry.keystone ()
         | Some ":m3" -> Test_Jacquard.gearbox 4 words
-        | Some ":mars"
-        | Some ":m" -> Test_Geoffroy.marshaled ()
+        | Some ":m"
+        | Some ":mars" -> Test_Ministry.solarium ()
+        | Some ":metals" -> Test_Geoffroy.elemental ()
         | Some ":p4" -> Test_Jacquard.gearbox 0 words
         | Some ":p5" -> Test_Jacquard.gearbox 2 words
         | Some ":piano"
@@ -429,9 +457,13 @@ let veranda () =
 
   Test_Ministry.tutorial ();
   Test_Ministry.tutorial_utility ();
+  Test_Ministry.keystone ();
+  Test_Ministry.solarium ();
+
+  Test_Geoffroy.selections ();
   Test_Geoffroy.foxhounds ();
   Test_Geoffroy.marshaled ();
-  Test_Geoffroy.selections ();
+  Test_Geoffroy.elemental ();
   ();;
 
 end;;

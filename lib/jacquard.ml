@@ -49,8 +49,9 @@ let attunes () =
 
 let pegboxes () =
   print_newline ();
+  print_char '\t';
   let funky = (fun item ->
-    Printf.printf "  %s" item) in
+    Printf.printf "\t%s" item) in
   let gears = attunes () in
   List.iter funky gears;
   print_newline ();;

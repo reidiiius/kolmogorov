@@ -168,4 +168,19 @@
       columned numb dons;
       print_newline ();;
 
+  let uniforms () =
+    let dice = fun wire -> String.split_on_char '\x20' wire in
+    let pans = snd (List.split berzelian) in
+    let urns = List.map dice pans in
+    let lots = List.flatten urns in
+    let lint = fun yarn -> not (frontage ~prefix:"\x5F" yarn) in
+    let rock = List.filter lint lots in
+      List.sort_uniq String.compare rock;;
+
+  let elemental () =
+    let ores = uniforms () in
+    let size = List.length ores in
+      columned size ores;
+      print_newline ();;
+
 

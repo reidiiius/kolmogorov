@@ -173,6 +173,21 @@ module Polychrome = struct
       columned numb dons;
       print_newline ();;
 
+  let uniforms () =
+    let dice = fun wire -> String.split_on_char '\x20' wire in
+    let pans = snd (List.split scales) in
+    let urns = List.map dice pans in
+    let lots = List.flatten urns in
+    let lint = fun yarn -> not (frontage ~prefix:"\x5F" yarn) in
+    let rock = List.filter lint lots in
+      List.sort_uniq String.compare rock;;
+
+  let elemental () =
+    let ores = uniforms () in
+    let size = List.length ores in
+      columned size ores;
+      print_newline ();;
+
 end;;
 
 (** Module [Scordatura] supplies instrument tuning and formatting functions. *)
@@ -227,8 +242,9 @@ let attunes () =
 
 let pegboxes () =
   print_newline ();
+  print_char '\t';
   let funky = (fun item ->
-    Printf.printf "  %s" item) in
+    Printf.printf "\t%s" item) in
   let gears = attunes () in
   List.iter funky gears;
   print_newline ();;
@@ -408,6 +424,14 @@ let tutorial () =
   |etx} post post post post post post post
   in print_endline tips;;
 
+let keystone () =
+  Scordatura.pegboxes ();
+  Polychrome.foxhounds ();;
+
+let solarium () =
+  Scordatura.pegboxes ();
+  Polychrome.marshaled ();;
+
 end;;
 
 (** Module [Colonnade] contains the program entry point or main function. *)
@@ -419,7 +443,10 @@ let vestibule () =
   let argots = (Array.sub Sys.argv 1 quanta) in
   let bounds = Polychrome.bankroll () in
     if quanta = 0 || quanta >= bounds then
-      Polychrome.selections ()
+      begin
+        Scordatura.pegboxes ();
+        Polychrome.selections ()
+      end
     else
       let tuned = Scordatura.stockade 0 in
       let words = Utilitarian.governor 9 argots in
@@ -442,11 +469,12 @@ let vestibule () =
         | Some "-h"
         | Some "--help" -> Utilitarian.tutorial ()
         | Some "-k"
-        | Some "--keys" -> Polychrome.foxhounds ()
+        | Some "--keys" -> Utilitarian.keystone ()
         | Some "--fkbjdn"
         | Some "-m3" -> Scordatura.gearbox 4 words
         | Some "-m"
-        | Some "--mars" -> Polychrome.marshaled ()
+        | Some "--mars" -> Utilitarian.solarium ()
+        | Some "--metals" -> Polychrome.elemental ()
         | Some "-p4" -> Scordatura.gearbox 0 words
         | Some "-p5" -> Scordatura.gearbox 2 words
         | Some "--piano"

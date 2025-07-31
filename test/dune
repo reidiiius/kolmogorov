@@ -3,6 +3,15 @@
 
 ;; test_geoffroy
 (rule
+ (with-stdout-to geoffroy_elemental.output
+  (run stoa :metals)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff geoffroy_elemental.expected geoffroy_elemental.output)))
+
+(rule
  (with-stdout-to geoffroy_foxhounds.output
   (run stoa :keys)))
 

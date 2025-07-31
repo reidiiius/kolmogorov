@@ -32,4 +32,12 @@ let tutorial () =
   |etx} hows hows hows hows hows hows hows
   in print_endline tips;;
 
+let keystone () =
+  Jacquard.pegboxes ();
+  Geoffroy.foxhounds ();;
+
+let solarium () =
+  Jacquard.pegboxes ();
+  Geoffroy.marshaled ();;
+
 
