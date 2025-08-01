@@ -29,8 +29,10 @@ let tutorial () =
 
 	%s :alloys
 
+	%s :find FeNp FePu
+
 	%s :all | sensible-pager
-  |etx} hows hows hows hows hows hows hows hows
+  |etx} hows hows hows hows hows hows hows hows hows
   in print_endline tips;;
 
 let keystone () =

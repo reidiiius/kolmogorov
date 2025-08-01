@@ -30,6 +30,8 @@ let atrium () =
         | Some ":cgdae" -> Jacquard.gearbox 2 words
         | Some ":dump" -> Jacquard.dumpster 0
         | Some ":d5" -> Jacquard.gearbox 1 words
+        | Some ":f"
+        | Some ":find" -> Geoffroy.grouper words
         | Some ":gtr"
         | Some ":guitar"
         | Some ":eadgbe" -> Jacquard.gearbox 3 words

@@ -48,6 +48,10 @@ Command-line
 
 :
 
+    ocaml spa/thorngate.ml --find FeNp FePu
+
+:
+
     ocaml spa/thorngate.ml --all | sensible-pager
 
 :
@@ -89,6 +93,10 @@ Command-line
 :
 
     dune exec stoa :alloys
+
+:
+
+    dune exec stoa :find FeNp FePu
 
 :
 

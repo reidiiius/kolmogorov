@@ -548,6 +548,11 @@ Excessive
 
 true
 
+	k5	j6
+
+	k2	j2
+
+
 	dune exec stoa :help
 
 	dune exec stoa :keys
@@ -559,6 +564,8 @@ true
 	dune exec stoa n0 j3 :cgdae
 
 	dune exec stoa n0 j3 :beadgcf
+
+	dune exec stoa :alloys
 
 	dune exec stoa :alloys
 
@@ -578,6 +585,8 @@ true
 	ocaml kolmogorov.ml n0 j3 --eadgbe
 
 	ocaml kolmogorov.ml --alloys
+
+	ocaml kolmogorov.ml --find FeNp FePu
 
 	ocaml kolmogorov.ml --all | sensible-pager
   

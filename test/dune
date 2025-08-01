@@ -12,6 +12,15 @@
   (diff geoffroy_elemental.expected geoffroy_elemental.output)))
 
 (rule
+ (with-stdout-to geoffroy_grouper.output
+  (run stoa :find FeNp FePu)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff geoffroy_grouper.expected geoffroy_grouper.output)))
+
+(rule
  (with-stdout-to geoffroy_foxhounds.output
   (run stoa :keys)))
 

@@ -110,6 +110,39 @@ let elemental () =
     columned size ores;
     print_newline ();;
 
+let scrubber wire =
+  List.filter (fun stem -> not
+    (String.starts_with ~prefix:"_" stem))
+    (String.split_on_char '\x20' wire);;
+
+let inventory spat =
+  let numb = ref 0 in
+  let hold = Stack.create () in
+  List.iter (fun pair ->
+    List.iter (fun stem ->
+      if String.equal spat stem then
+        Stack.push (fst pair) hold
+    ) (scrubber (snd pair))
+  ) berzelian;
+  if not (Stack.is_empty hold) then
+    begin
+      Stack.iter (fun clef ->
+        if !numb mod 8 = 0 then print_newline ();
+        Printf.printf "\t%s" clef;
+        numb := !numb + 1) hold;
+      print_newline ()
+    end
+  else
+    Printf.printf "\n\t%s ?\n" spat;;
+
+let grouper lints =
+  List.iter (fun spat ->
+    if not (String.starts_with ~prefix:":" spat)
+    then inventory spat
+    else ()
+  ) lints;
+  print_newline ();;
+
 end;;
 
 module Test_Jacquard = struct
@@ -360,8 +393,10 @@ let tutorial () =
 
 	%s :alloys
 
+	%s :alloys
+
 	%s :all | sensible-pager
-  |etx} hows hows hows hows hows hows hows hows
+  |etx} hows hows hows hows hows hows hows hows hows
   in print_endline tips;;
 
 let tutorial_utility () =
@@ -383,8 +418,10 @@ let tutorial_utility () =
 
 	%s --alloys
 
+	%s --find FeNp FePu
+
 	%s --all | sensible-pager
-  |etx} post post post post post post post post
+  |etx} post post post post post post post post post
   in print_endline tips;;
 
 let keystone () =
@@ -427,6 +464,8 @@ let atrium () =
         | Some ":cgdae" -> Test_Jacquard.gearbox 2 words
         | Some ":dump" -> Test_Jacquard.dumpster 0
         | Some ":d5" -> Test_Jacquard.gearbox 1 words
+        | Some ":f"
+        | Some ":find" -> Test_Geoffroy.grouper words
         | Some ":gtr"
         | Some ":guitar"
         | Some ":eadgbe" -> Test_Jacquard.gearbox 3 words
@@ -466,6 +505,9 @@ let veranda () =
   let opts = Test_Ministry.sentinel ":" args in
   let pols = Bool.to_string (opts = Some ":mars") in
     print_endline pols;
+
+  let lints = ["FeNp"; "FePu"; ":find"] in
+    Test_Geoffroy.grouper lints;
 
   Test_Ministry.tutorial ();
   Test_Ministry.tutorial_utility ();

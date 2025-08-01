@@ -183,4 +183,37 @@
       columned size ores;
       print_newline ();;
 
+  let scrubber wire =
+    List.filter (fun stem -> not
+      (String.starts_with ~prefix:"_" stem))
+      (String.split_on_char '\x20' wire);;
+
+  let inventory spat =
+    let numb = ref 0 in
+    let hold = Stack.create () in
+    List.iter (fun pair ->
+      List.iter (fun stem ->
+        if String.equal spat stem then
+          Stack.push (fst pair) hold
+      ) (scrubber (snd pair))
+    ) berzelian;
+    if not (Stack.is_empty hold) then
+      begin
+        Stack.iter (fun clef ->
+          if !numb mod 8 = 0 then print_newline ();
+          Printf.printf "\t%s" clef;
+          numb := !numb + 1) hold;
+        print_newline ()
+      end
+    else
+      Printf.printf "\n\t%s ?\n" spat;;
+
+  let grouper lints =
+    List.iter (fun spat ->
+      if not (String.starts_with ~prefix:":" spat)
+      then inventory spat
+      else ()
+    ) lints;
+    print_newline ();;
+
 
