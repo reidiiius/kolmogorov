@@ -14,9 +14,12 @@ let atrium () =
         Geoffroy.selections ()
       end
     else
+      let front = ":" in
       let tuned = Jacquard.stockade 3 in
       let words = Ministry.governor 9 argots in
-      let opted = Ministry.sentinel ":" words in
+      let flags = Ministry.switches front words in
+    if List.length flags > 0 then
+      let opted = Ministry.sentinel front words in
         match opted with
         | Some ":alloys" -> Geoffroy.elemental ()
         | Some ":all"
@@ -51,7 +54,9 @@ let atrium () =
         | Some ":viola"
         | Some ":violin" -> Jacquard.gearbox 2 words
         | Some _
-        | None -> Jacquard.juxtapose tuned words;;
+        | None -> Jacquard.juxtapose tuned words
+    else
+      Jacquard.juxtapose tuned words;;
 
 atrium ()
 

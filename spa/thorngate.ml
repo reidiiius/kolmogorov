@@ -196,12 +196,13 @@ module Polychrome = struct
   let inventory spat =
     let numb = ref 0 in
     let hold = Stack.create () in
+    let duos = List.rev scales in
     List.iter (fun pair ->
       List.iter (fun stem ->
         if String.equal spat stem then
           Stack.push (fst pair) hold
       ) (scrubber (snd pair))
-    ) scales;
+    ) duos;
     if not (Stack.is_empty hold) then
       begin
         Stack.iter (fun clef ->
@@ -214,8 +215,12 @@ module Polychrome = struct
       Printf.printf "\n\t%s ?\n" spat;;
 
   let grouper lints =
+    let first = String.starts_with in
     List.iter (fun spat ->
-      if not (String.starts_with ~prefix:"-" spat)
+      if not (first ~prefix:"-" spat) &&
+         not (first ~prefix:"j" spat) &&
+         not (first ~prefix:"k" spat) &&
+         not (first ~prefix:"n" spat)
       then inventory spat
       else ()
     ) lints;
@@ -423,8 +428,11 @@ end;;
 (** Module [Utilitarian] supplies display and support functions. *)
 module Utilitarian = struct
 
-let sentinel face words =
-  List.find_opt (String.starts_with ~prefix:face) words;;
+let sentinel front words =
+  List.find_opt (String.starts_with ~prefix:front) words;;
+
+let switches front words =
+  List.filter (String.starts_with ~prefix:front) words;;
 
 let governor width argos =
   let lingos = Array.to_list argos in
@@ -484,9 +492,12 @@ let vestibule () =
         Polychrome.selections ()
       end
     else
+      let front = "-" in
       let tuned = Scordatura.stockade 0 in
       let words = Utilitarian.governor 9 argots in
-      let opted = Utilitarian.sentinel "-" words in
+      let flags = Utilitarian.switches front words in
+    if List.length flags > 0 then
+      let opted = Utilitarian.sentinel front words in
         match opted with
         | Some "--alloys" -> Polychrome.elemental ()
         | Some "--all"
@@ -521,7 +532,9 @@ let vestibule () =
         | Some "-viola"
         | Some "-violin" -> Scordatura.gearbox 2 words
         | Some _
-        | None -> Scordatura.juxtapose tuned words;;
+        | None -> Scordatura.juxtapose tuned words
+    else
+      Scordatura.juxtapose tuned words;;
 
 end;;
 

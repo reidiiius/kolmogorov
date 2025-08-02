@@ -191,12 +191,13 @@
   let inventory spat =
     let numb = ref 0 in
     let hold = Stack.create () in
+    let duos = List.rev berzelian in
     List.iter (fun pair ->
       List.iter (fun stem ->
         if String.equal spat stem then
           Stack.push (fst pair) hold
       ) (scrubber (snd pair))
-    ) berzelian;
+    ) duos;
     if not (Stack.is_empty hold) then
       begin
         Stack.iter (fun clef ->
@@ -209,8 +210,12 @@
       Printf.printf "\n\t%s ?\n" spat;;
 
   let grouper lints =
+    let first = String.starts_with in
     List.iter (fun spat ->
-      if not (String.starts_with ~prefix:":" spat)
+      if not (first ~prefix:":" spat) &&
+         not (first ~prefix:"j" spat) &&
+         not (first ~prefix:"k" spat) &&
+         not (first ~prefix:"n" spat)
       then inventory spat
       else ()
     ) lints;

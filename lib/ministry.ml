@@ -1,7 +1,10 @@
 (* ministry.ml *)
 
-let sentinel face words =
-  List.find_opt (String.starts_with ~prefix:face) words;;
+let sentinel front words =
+  List.find_opt (String.starts_with ~prefix:front) words;;
+
+let switches front words =
+  List.filter (String.starts_with ~prefix:front) words;;
 
 let governor width argos =
   let lingos = Array.to_list argos in
