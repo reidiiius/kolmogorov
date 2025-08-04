@@ -327,10 +327,27 @@ let gearbox spot words =
     else
       Test_Geoffroy.foxhounds ();;
 
-let cornucopia tuned =
+let rec separate flags count =
+  let harps = attunes () in
+  let audit = List.length harps in
+  let noted = List.nth harps count in
+  let sieve = (fun item ->
+    String.ends_with ~suffix:noted item) in
+  let found = List.exists sieve flags in
+  if count >= (audit - 1) || found then
+    noted
+  else
+    separate flags (count + 1);;
+
+let cornucopia tuned flags =
   let clefs = Test_Geoffroy.keynotes () in
+  let quant = List.length flags in
+  if quant > 1 then
+    let raked = separate flags 0 in
+    List.iter (layout raked) clefs
+  else
     List.iter (layout tuned) clefs;
-    print_newline ();;
+  print_newline ();;
 
 let rec dumpster posit =
   let clefs = Test_Geoffroy.keynotes () in
@@ -378,6 +395,9 @@ let rec cyclotron spot size =
 
 let sentinel face words =
   List.find_opt (String.starts_with ~prefix:face) words;;
+
+let switches front words =
+  List.filter (String.starts_with ~prefix:front) words;;
 
 let tutorial () =
   let hows = "dune exec stoa" in
@@ -439,7 +459,7 @@ end;;
 
 module Test_Portico = struct
 
-let argv = [|String.empty; "n0"|];;
+let argv = [|__FILE__; "n0"; "xylophones"|];;
 
 let atrium () =
   let quanta = (Array.length argv - 1) in
@@ -451,13 +471,16 @@ let atrium () =
         Test_Geoffroy.selections ()
       end
     else
+      let front = ":" in
       let tuned = Test_Jacquard.stockade 4 in
       let words = Test_Ministry.governor 9 argots in
-      let opted = Test_Ministry.sentinel ":" words in
+      let flags = Test_Ministry.switches front words in
+    if List.length flags > 0 then
+      let opted = Test_Ministry.sentinel front words in
         match opted with
         | Some ":alloys" -> Test_Geoffroy.elemental ()
         | Some ":all"
-        | Some ":a" -> Test_Jacquard.cornucopia tuned
+        | Some ":a" -> Test_Jacquard.cornucopia tuned flags
         | Some ":a4"
         | Some ":b5"
         | Some ":bfbfb" -> Test_Jacquard.gearbox 1 words
@@ -488,11 +511,25 @@ let atrium () =
         | Some ":viola"
         | Some ":violin" -> Test_Jacquard.gearbox 2 words
         | Some _
-        | None -> Test_Jacquard.juxtapose tuned words;;
+        | None -> Test_Jacquard.juxtapose tuned words
+    else
+      Test_Jacquard.juxtapose tuned words;;
 
 let veranda () =
+  let argots = [|"k5"; ":all"; ":beadgcf"|] in
+  let quanta = Array.length argots in
+  let bounds = Test_Geoffroy.bankroll () in
+    if quanta = 0 || quanta >= bounds then
+      begin
+        Test_Jacquard.pegboxes ();
+        Test_Geoffroy.selections ()
+      end
+    else
+  let front = ":" in
   let tuned = Test_Jacquard.stockade 0 in
-    Test_Jacquard.cornucopia tuned;
+  let words = Test_Ministry.governor 9 argots in
+  let flags = Test_Ministry.switches front words in
+    Test_Jacquard.cornucopia tuned flags;
 
   let arms = Array.make 2 "0123456789" in
     List.iter print_endline (Test_Ministry.governor 9 arms);
