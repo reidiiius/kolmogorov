@@ -85,6 +85,15 @@
   (diff jacquard_cornucopia.expected jacquard_cornucopia.output)))
 
 (rule
+ (with-stdout-to jacquard_separate.output
+  (run stoa :all :cgdae)))
+
+(rule
+ (alias runtest)
+ (action
+  (diff jacquard_separate.expected jacquard_separate.output)))
+
+(rule
  (with-stdout-to jacquard_dumpster.output
   (run stoa :dump)))
 

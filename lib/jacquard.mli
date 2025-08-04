@@ -10,6 +10,6 @@ val fkbjdn : string -> unit
 val piano : string -> unit
 val juxtapose : string -> string list -> unit
 val gearbox : int -> string list -> unit
-val cornucopia : string -> unit
+val cornucopia : string -> string list -> unit
 val dumpster : int -> unit
 

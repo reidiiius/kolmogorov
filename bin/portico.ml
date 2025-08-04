@@ -23,7 +23,7 @@ let atrium () =
         match opted with
         | Some ":alloys" -> Geoffroy.elemental ()
         | Some ":all"
-        | Some ":a" -> Jacquard.cornucopia tuned
+        | Some ":a" -> Jacquard.cornucopia tuned flags
         | Some ":a4"
         | Some ":b5"
         | Some ":bfbfb" -> Jacquard.gearbox 1 words

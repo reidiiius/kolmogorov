@@ -190,7 +190,7 @@ module Polychrome = struct
 
   let scrubber wire =
     List.filter (fun stem -> not
-      (String.starts_with ~prefix:"_" stem))
+      (frontage ~prefix:"\x5F" stem))
       (String.split_on_char '\x20' wire);;
 
   let inventory spat =
@@ -215,12 +215,11 @@ module Polychrome = struct
       Printf.printf "\n\t%s ?\n" spat;;
 
   let grouper lints =
-    let first = String.starts_with in
     List.iter (fun spat ->
-      if not (first ~prefix:"-" spat) &&
-         not (first ~prefix:"j" spat) &&
-         not (first ~prefix:"k" spat) &&
-         not (first ~prefix:"n" spat)
+      if not (frontage ~prefix:"-" spat) &&
+         not (frontage ~prefix:"j" spat) &&
+         not (frontage ~prefix:"k" spat) &&
+         not (frontage ~prefix:"n" spat)
       then inventory spat
       else ()
     ) lints;
@@ -399,10 +398,27 @@ let gearbox spot words =
     else
       Polychrome.foxhounds ();;
 
-let cornucopia tuned =
+let rec separate flags count =
+  let harps = attunes () in
+  let audit = List.length harps in
+  let noted = List.nth harps count in
+  let sieve = (fun item ->
+    String.ends_with ~suffix:noted item) in
+  let found = List.exists sieve flags in
+  if count >= (audit - 1) || found then
+    noted
+  else
+    separate flags (count + 1);;
+
+let cornucopia tuned flags =
   let clefs = Polychrome.keynotes () in
+  let quant = List.length flags in
+  if quant > 1 then
+    let raked = separate flags 0 in
+    List.iter (layout raked) clefs
+  else
     List.iter (layout tuned) clefs;
-    print_newline ();;
+  print_newline ();;
 
 let rec dumpster posit =
   let clefs = Polychrome.keynotes () in
@@ -501,7 +517,7 @@ let vestibule () =
         match opted with
         | Some "--alloys" -> Polychrome.elemental ()
         | Some "--all"
-        | Some "-a" -> Scordatura.cornucopia tuned
+        | Some "-a" -> Scordatura.cornucopia tuned flags
         | Some "-a4"
         | Some "-b5"
         | Some "--bfbfb" -> Scordatura.gearbox 1 words

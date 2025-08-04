@@ -112,7 +112,7 @@ let elemental () =
 
 let scrubber wire =
   List.filter (fun stem -> not
-    (String.starts_with ~prefix:"_" stem))
+    (frontage ~prefix:"\x5F" stem))
     (String.split_on_char '\x20' wire);;
 
 let inventory spat =
@@ -137,7 +137,10 @@ let inventory spat =
 
 let grouper lints =
   List.iter (fun spat ->
-    if not (String.starts_with ~prefix:":" spat)
+    if not (frontage ~prefix:":" spat) &&
+       not (frontage ~prefix:"j" spat) &&
+       not (frontage ~prefix:"k" spat) &&
+       not (frontage ~prefix:"n" spat)
     then inventory spat
     else ()
   ) lints;

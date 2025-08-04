@@ -168,10 +168,27 @@ let gearbox spot words =
     else
       Geoffroy.foxhounds ();;
 
-let cornucopia tuned =
+let rec separate flags count =
+  let harps = attunes () in
+  let audit = List.length harps in
+  let noted = List.nth harps count in
+  let sieve = (fun item ->
+    String.ends_with ~suffix:noted item) in
+  let found = List.exists sieve flags in
+  if count >= (audit - 1) || found then
+    noted
+  else
+    separate flags (count + 1);;
+
+let cornucopia tuned flags =
   let clefs = Geoffroy.keynotes () in
+  let quant = List.length flags in
+  if quant > 1 then
+    let raked = separate flags 0 in
+    List.iter (layout raked) clefs
+  else
     List.iter (layout tuned) clefs;
-    print_newline ();;
+  print_newline ();;
 
 let rec dumpster posit =
   let clefs = Geoffroy.keynotes () in
