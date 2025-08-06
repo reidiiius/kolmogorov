@@ -215,20 +215,30 @@ module Polychrome = struct
       Printf.printf "\n\t%s ?\n" spat;;
 
   let grouper lints =
-    if (List.length lints) < 2 then
-      elemental ()
-    else
-      begin
-        List.iter (fun spat ->
-          if not (frontage ~prefix:"-" spat) &&
-             not (frontage ~prefix:"j" spat) &&
-             not (frontage ~prefix:"k" spat) &&
-             not (frontage ~prefix:"n" spat)
-          then inventory spat
-          else ()
-        ) lints;
-        print_newline ()
-      end;;
+    if (List.length lints) < 2 then elemental ()
+    else begin
+      List.iter (fun skid ->
+        if not (frontage ~prefix:"-" skid) &&
+           not (frontage ~prefix:"j" skid) &&
+           not (frontage ~prefix:"k" skid) &&
+           not (frontage ~prefix:"n" skid)
+        then inventory skid
+        else
+          if membership skid then
+            let wire = acquire skid in
+            let lugs = String.split_on_char '\x20' wire in
+            let urns = List.sort_uniq String.compare lugs in
+            let labs = List.filter (fun stem ->
+              not (frontage ~prefix:"_" stem)) urns in
+            let chem = String.concat "\x20" labs in
+              Printf.printf "\n\t%s {%s }\n" skid chem
+          else
+            if not (frontage ~prefix:"-" skid) then
+              Printf.printf "\n\t%s ?\n" skid
+            else ()
+      ) lints;
+      print_newline ()
+    end;;
 
 end;;
 
