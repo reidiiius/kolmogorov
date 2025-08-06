@@ -591,6 +591,8 @@ true
 	ocaml kolmogorov.ml --all | sensible-pager
   
 
+            :all    :alloys    :find    :help    :keys    :mars
+
           :beadgcf   :bfbfb   :cgdae   :eadgbe   :fkbjdn   :piano
 
 	k1	k2	k5	k6
@@ -599,6 +601,8 @@ true
 
 	j2	j3	j5	j6
 
+
+            :all    :alloys    :find    :help    :keys    :mars
 
           :beadgcf   :bfbfb   :cgdae   :eadgbe   :fkbjdn   :piano
 

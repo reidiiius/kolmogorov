@@ -5,4 +5,5 @@ val governor : int -> string array -> string list
 val tutorial : unit -> unit
 val keystone : unit -> unit
 val solarium : unit -> unit
+val preamble : unit -> unit
 

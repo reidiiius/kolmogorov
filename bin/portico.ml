@@ -9,10 +9,7 @@ let atrium () =
   let argots = (Array.sub Sys.argv 1 quanta) in
   let bounds = Geoffroy.bankroll () in
     if quanta = 0 || quanta >= bounds then
-      begin
-        Jacquard.pegboxes ();
-        Geoffroy.selections ()
-      end
+      Ministry.preamble ()
     else
       let front = ":" in
       let tuned = Jacquard.stockade 3 in

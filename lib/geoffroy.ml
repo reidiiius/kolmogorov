@@ -210,14 +210,19 @@
       Printf.printf "\n\t%s ?\n" spat;;
 
   let grouper lints =
-    List.iter (fun spat ->
-      if not (frontage ~prefix:":" spat) &&
-         not (frontage ~prefix:"j" spat) &&
-         not (frontage ~prefix:"k" spat) &&
-         not (frontage ~prefix:"n" spat)
-      then inventory spat
-      else ()
-    ) lints;
-    print_newline ();;
+    if (List.length lints) < 2 then
+      elemental ()
+    else
+      begin
+        List.iter (fun spat ->
+          if not (frontage ~prefix:":" spat) &&
+             not (frontage ~prefix:"j" spat) &&
+             not (frontage ~prefix:"k" spat) &&
+             not (frontage ~prefix:"n" spat)
+          then inventory spat
+          else ()
+        ) lints;
+        print_newline ()
+      end;;
 
 

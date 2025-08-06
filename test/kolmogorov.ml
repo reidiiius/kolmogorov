@@ -136,15 +136,20 @@ let inventory spat =
     Printf.printf "\n\t%s ?\n" spat;;
 
 let grouper lints =
-  List.iter (fun spat ->
-    if not (frontage ~prefix:":" spat) &&
-       not (frontage ~prefix:"j" spat) &&
-       not (frontage ~prefix:"k" spat) &&
-       not (frontage ~prefix:"n" spat)
-    then inventory spat
-    else ()
-  ) lints;
-  print_newline ();;
+  if (List.length lints) < 2 then
+    elemental ()
+  else
+    begin
+      List.iter (fun spat ->
+        if not (frontage ~prefix:":" spat) &&
+           not (frontage ~prefix:"j" spat) &&
+           not (frontage ~prefix:"k" spat) &&
+           not (frontage ~prefix:"n" spat)
+        then inventory spat
+        else ()
+      ) lints;
+      print_newline ()
+    end;;
 
 end;;
 
@@ -372,14 +377,17 @@ end;;
 
 module Test_Ministry = struct
 
-let governor width argos =
-  let lingos = Array.to_list argos in
-  let tester = fun item -> String.length item <= width in
-  let claves = List.filter tester lingos in
-  if List.length claves = 0 then
-    "Excessive" :: claves
-  else
-    claves;;
+let utensils () =
+  ["all"; "alloys"; "find"; "help"; "keys"; "mars"];;
+
+let toolbars () =
+  print_newline ();
+  print_string (Char.chr 32 |> String.make 8);
+  let funky = (fun cord ->
+    Printf.printf "    :%s" cord) in
+  let tools = utensils () in
+  List.iter funky tools;
+  print_newline ();;
 
 let rec cyclotron spot size =
   let keys = Test_Geoffroy.keynotes () in
@@ -398,6 +406,15 @@ let sentinel face words =
 
 let switches front words =
   List.filter (String.starts_with ~prefix:front) words;;
+
+let governor width argos =
+  let lingos = Array.to_list argos in
+  let tester = fun item -> String.length item <= width in
+  let claves = List.filter tester lingos in
+  if List.length claves = 0 then
+    "Excessive" :: claves
+  else
+    claves;;
 
 let tutorial () =
   let hows = "dune exec stoa" in
@@ -422,7 +439,7 @@ let tutorial () =
   |etx} hows hows hows hows hows hows hows hows hows
   in print_endline tips;;
 
-let tutorial_utility () =
+let tutorial_hyphens () =
   let exec = "ocaml" in
   let file = Filename.basename __FILE__ in
   let post = Printf.sprintf "%s %s" exec file in
@@ -448,12 +465,19 @@ let tutorial_utility () =
   in print_endline tips;;
 
 let keystone () =
+  toolbars ();
   Test_Jacquard.pegboxes ();
   Test_Geoffroy.foxhounds ();;
 
 let solarium () =
+  toolbars ();
   Test_Jacquard.pegboxes ();
   Test_Geoffroy.marshaled ();;
+
+let preamble () =
+  toolbars ();
+  Test_Jacquard.pegboxes ();
+  Test_Geoffroy.selections ();;
 
 end;;
 
@@ -466,10 +490,7 @@ let atrium () =
   let argots = (Array.sub argv 1 quanta) in
   let bounds = Test_Geoffroy.bankroll () in
     if quanta = 0 || quanta >= bounds then
-      begin
-        Test_Jacquard.pegboxes ();
-        Test_Geoffroy.selections ()
-      end
+      Test_Ministry.preamble ()
     else
       let front = ":" in
       let tuned = Test_Jacquard.stockade 4 in
@@ -550,7 +571,7 @@ let veranda () =
     Test_Geoffroy.grouper lints;
 
   Test_Ministry.tutorial ();
-  Test_Ministry.tutorial_utility ();
+  Test_Ministry.tutorial_hyphens ();
   Test_Ministry.keystone ();
   Test_Ministry.solarium ();
 

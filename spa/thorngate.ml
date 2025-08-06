@@ -215,15 +215,20 @@ module Polychrome = struct
       Printf.printf "\n\t%s ?\n" spat;;
 
   let grouper lints =
-    List.iter (fun spat ->
-      if not (frontage ~prefix:"-" spat) &&
-         not (frontage ~prefix:"j" spat) &&
-         not (frontage ~prefix:"k" spat) &&
-         not (frontage ~prefix:"n" spat)
-      then inventory spat
-      else ()
-    ) lints;
-    print_newline ();;
+    if (List.length lints) < 2 then
+      elemental ()
+    else
+      begin
+        List.iter (fun spat ->
+          if not (frontage ~prefix:"-" spat) &&
+             not (frontage ~prefix:"j" spat) &&
+             not (frontage ~prefix:"k" spat) &&
+             not (frontage ~prefix:"n" spat)
+          then inventory spat
+          else ()
+        ) lints;
+        print_newline ()
+      end;;
 
 end;;
 
@@ -441,8 +446,20 @@ let rec dumpster posit =
 
 end;;
 
-(** Module [Utilitarian] supplies display and support functions. *)
-module Utilitarian = struct
+(** Module [Technician] supplies display and support functions. *)
+module Technician = struct
+
+let utensils () =
+  ["all"; "alloys"; "find"; "help"; "keys"; "mars"];;
+
+let toolbars () =
+  print_newline ();
+  print_string (Char.chr 32 |> String.make 6);
+  let funky = (fun cord ->
+    Printf.printf "    --%s" cord) in
+  let tools = utensils () in
+  List.iter funky tools;
+  print_newline ();;
 
 let sentinel front words =
   List.find_opt (String.starts_with ~prefix:front) words;;
@@ -485,12 +502,19 @@ let tutorial () =
   in print_endline tips;;
 
 let keystone () =
+  toolbars ();
   Scordatura.pegboxes ();
   Polychrome.foxhounds ();;
 
 let solarium () =
+  toolbars ();
   Scordatura.pegboxes ();
   Polychrome.marshaled ();;
+
+let preamble () =
+  toolbars ();
+  Scordatura.pegboxes ();
+  Polychrome.selections ();;
 
 end;;
 
@@ -503,17 +527,14 @@ let vestibule () =
   let argots = (Array.sub Sys.argv 1 quanta) in
   let bounds = Polychrome.bankroll () in
     if quanta = 0 || quanta >= bounds then
-      begin
-        Scordatura.pegboxes ();
-        Polychrome.selections ()
-      end
+      Technician.preamble ()
     else
       let front = "-" in
       let tuned = Scordatura.stockade 0 in
-      let words = Utilitarian.governor 9 argots in
-      let flags = Utilitarian.switches front words in
+      let words = Technician.governor 9 argots in
+      let flags = Technician.switches front words in
     if List.length flags > 0 then
-      let opted = Utilitarian.sentinel front words in
+      let opted = Technician.sentinel front words in
         match opted with
         | Some "--alloys" -> Polychrome.elemental ()
         | Some "--all"
@@ -533,13 +554,13 @@ let vestibule () =
         | Some "-guitar"
         | Some "--eadgbe" -> Scordatura.gearbox 3 words
         | Some "-h"
-        | Some "--help" -> Utilitarian.tutorial ()
+        | Some "--help" -> Technician.tutorial ()
         | Some "-k"
-        | Some "--keys" -> Utilitarian.keystone ()
+        | Some "--keys" -> Technician.keystone ()
         | Some "--fkbjdn"
         | Some "-m3" -> Scordatura.gearbox 4 words
         | Some "-m"
-        | Some "--mars" -> Utilitarian.solarium ()
+        | Some "--mars" -> Technician.solarium ()
         | Some "--metals" -> Polychrome.elemental ()
         | Some "-p4" -> Scordatura.gearbox 0 words
         | Some "-p5" -> Scordatura.gearbox 2 words

@@ -1,5 +1,17 @@
 (* ministry.ml *)
 
+let utensils () =
+  ["all"; "alloys"; "find"; "help"; "keys"; "mars"];;
+
+let toolbars () =
+  print_newline ();
+  print_string (Char.chr 32 |> String.make 8);
+  let funky = (fun cord ->
+    Printf.printf "    :%s" cord) in
+  let tools = utensils () in
+  List.iter funky tools;
+  print_newline ();;
+
 let sentinel front words =
   List.find_opt (String.starts_with ~prefix:front) words;;
 
@@ -39,11 +51,18 @@ let tutorial () =
   in print_endline tips;;
 
 let keystone () =
+  toolbars ();
   Jacquard.pegboxes ();
   Geoffroy.foxhounds ();;
 
 let solarium () =
+  toolbars ();
   Jacquard.pegboxes ();
   Geoffroy.marshaled ();;
+
+let preamble () =
+  toolbars ();
+  Jacquard.pegboxes ();
+  Geoffroy.selections ();;
 
 
