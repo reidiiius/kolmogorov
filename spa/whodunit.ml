@@ -19,7 +19,7 @@ let presenter name trio =
   abacus.failed <- Int.succ abacus.failed;
   Printf.printf "Failed:\t%s\n" name;
   let (loc, row, col) = trio in
-    Printf.printf "\tFile:\t%s\n\tRow:\t%d\n\tColumn:\t%d\n\n" loc row col;;
+  Printf.printf "\tFile:\t%s\n\tRow:\t%d\n\tColumn:\t%d\n\n" loc row col;;
 
 let anomaly name kind =
   abacus.failed <- Int.succ abacus.failed;
@@ -46,26 +46,21 @@ let stringent name exam vary =
   with Assert_failure trio ->
     presenter name trio;;
 
-let banked = Polychrome.scales;;
-let sample = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb ";;
-
 (************ polychrome ************)
 
 let test_polychrome_scales () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    exam = sample and
-    vary = try List.assoc "n0" banked with Not_found ->
-    String.make 60 (Char.chr 45) in
-    stringent name exam vary;;
- 
+  let name = __FUNCTION__
+  and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
+  and vary = try List.assoc "n0" Polychrome.scales with Not_found ->
+    String.empty in stringent name exam vary;;
+
 let test_polychrome_acquire () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    exam = sample and
-    vary = (Polychrome.acquire "n0") in
-    stringent name exam vary;;
-    
+  let name = __FUNCTION__
+  and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
+  and vary = Polychrome.acquire "n0" in stringent name exam vary;;
+
 let test_polychrome_membership () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ in
@@ -76,16 +71,15 @@ let test_polychrome_membership () =
 
 let test_polychrome_ordnance () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    exam = ["j3"; "k6"; "n0"] and
-    vary = Polychrome.ordnance ["k6"; "n0"; "j3"] in
-    checklist name exam vary;;
+  let name = __FUNCTION__
+  and exam = ["j3"; "k6"; "n0"]
+  and vary = Polychrome.ordnance ["k6"; "n0"; "j3"]
+  in checklist name exam vary;;
 
 let test_polychrome_keynotes () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    keys = Polychrome.keynotes () in
-  let size = List.length keys in
+  let name = __FUNCTION__
+  and size = List.length (Polychrome.keynotes ()) in
   try
     assert (size = 84)
   with Assert_failure trio ->
@@ -93,8 +87,8 @@ let test_polychrome_keynotes () =
 
 let test_polychrome_bankroll () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    size = Polychrome.bankroll () in
+  let name = __FUNCTION__
+  and size = Polychrome.bankroll () in
   try
     assert (size = 84)
   with Assert_failure trio ->
@@ -102,8 +96,8 @@ let test_polychrome_bankroll () =
 
 let test_polychrome_columned () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    ways = ["head"; "tail"; "last"] in
+  let name = __FUNCTION__
+  and ways = ["head"; "tail"; "last"] in
   let size = List.length ways in
   try
     Polychrome.columned size ways
@@ -120,9 +114,7 @@ let test_polychrome_selections () =
 
 let test_polychrome_frontage () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    face = "-" and
-    word = "--all" in
+  let name = __FUNCTION__ and face = "-" and word = "--all" in
   try
     assert (Polychrome.frontage ~prefix:face word)
   with Assert_failure trio ->
@@ -130,13 +122,12 @@ let test_polychrome_frontage () =
 
 let test_polychrome_discern () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    keys = Polychrome.keynotes () and
-    face = "n" and
-    exam = ["n0"; "n167"; "n167m4"; "n25m6"; "n26w5";
-    "n345"; "n345w7"; "n45w2"; "n5w2"; "n67m2"; "n6m2"] in
-  let vary = Polychrome.discern face keys in
-    checklist name exam vary;;
+  let name = __FUNCTION__
+  and exam = ["n0"; "n167"; "n167m4"; "n25m6"; "n26w5";
+    "n345"; "n345w7"; "n45w2"; "n5w2"; "n67m2"; "n6m2"]
+  and keys = Polychrome.keynotes () and face = "n" in
+  let vary = Polychrome.discern face keys
+  in checklist name exam vary;;
 
 let test_polychrome_foxhounds () =
   abacus.tested <- Int.succ abacus.tested;
@@ -148,22 +139,20 @@ let test_polychrome_foxhounds () =
 
 let test_polychrome_byzantine () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    exam = "k6" and
-    vary = (Polychrome.byzantine "k6") in
-    stringent name exam vary;;
- 
+  let name = __FUNCTION__ and exam = "k6" in
+  let vary = Polychrome.byzantine exam
+  in stringent name exam vary;;
+
 let test_polychrome_dominican () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    exam = ["k157m6"; "k1j6"; "k256"; "k26"; "k26m5"; "k2j17"; "k2j6";
+  let name = __FUNCTION__
+  and exam = ["k157m6"; "k1j6"; "k256"; "k26"; "k26m5"; "k2j17"; "k2j6";
     "k56"; "k56m4"; "k6"; "k6m5"; "\n"; "n0"; "n167m4"; "n26w5"; "n345";
     "n45w2"; "n5w2";"\n"; "j136w7"; "j167w2"; "j17"; "j17w2"; "j2"; "j23";
     "j236"; "j23k6"; "j246w3"; "j26"; "j26w3"; "j26w34"; "j2k56"; "j2k56m4";
     "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3"; "j3"; "j34k6"; "j36"; "j3k56m4";
-    "j3k5m4"; "j3k6"; "j6"] and
-    vary = Polychrome.dominican () in
-    checklist name exam vary;;
+    "j3k5m4"; "j3k6"; "j6"]
+  and vary = Polychrome.dominican () in checklist name exam vary;;
 
 let test_polychrome_marshaled () =
   abacus.tested <- Int.succ abacus.tested;
@@ -183,8 +172,8 @@ let test_polychrome_uniforms () =
     "MnHg"; "NpAu"; "NpCu"; "NpFe"; "NpSn"; "PbAg"; "PbAu"; "PbCu"; "PbFe";
     "PbPb"; "PbSn"; "PbTi"; "PuFe"; "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn";
     "SnTi"; "TiAg"; "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn"; "UrAg"; "UrAu";
-    "UrCu"; "UrFe"] and vary = Polychrome.uniforms () in
-    checklist name exam vary;;
+    "UrCu"; "UrFe"]
+  and vary = Polychrome.uniforms () in checklist name exam vary;;
 
 let test_polychrome_elemental () =
   abacus.tested <- Int.succ abacus.tested;
@@ -197,10 +186,9 @@ let test_polychrome_elemental () =
 let test_polychrome_scrubber () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and void = String.empty in
-  let exam = [
-    "HgCu"; "SnSn"; "CuHg"; "PbFe"; "AuAg"; "AgAu"; "FePb"; void] and
-    vary = Polychrome.scrubber sample in
-    checklist name exam vary;;
+  let exam = ["HgCu"; "SnSn"; "CuHg"; "PbFe"; "AuAg"; "AgAu"; "FePb"; void]
+  and wire = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
+  in let vary = Polychrome.scrubber wire in checklist name exam vary;;
 
 let test_polychrome_inventory () =
   abacus.tested <- Int.succ abacus.tested;
@@ -212,8 +200,7 @@ let test_polychrome_inventory () =
 
 let test_polychrome_grouper () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and spat = "PbAu" in
-  let lints = ["--find"; spat] in
+  let name = __FUNCTION__ and lints = ["--find"; "PbAu"] in
   try
     Polychrome.grouper lints
   with kind ->
@@ -223,100 +210,80 @@ let test_polychrome_grouper () =
 
 let test_scordatura_machine () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and spot = 25 and span = 35 and
-  exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe" in
-  try
-    assert (String.equal exam (Scordatura.machine sign spot span))
-  with kind ->
-    excusable name kind;;
+  let sign = "n0" and spot = 25 and span = 35 in
+  let vary = Scordatura.machine sign spot span
+  and name = __FUNCTION__
+  and exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe"
+  in stringent name exam vary;;
 
 let test_scordatura_sBj () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____" in
-  try
-    assert (String.equal exam (Scordatura.sBj sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____"
+  and sign = "n0" in
+  let vary = Scordatura.sBj sign in stringent name exam vary;;
 
 let test_scordatura_sFn () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe" in
-  try
-    assert (String.equal exam (Scordatura.sFn sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe"
+  and sign = "n0" in
+  let vary = Scordatura.sFn sign in stringent name exam vary;;
 
 let test_scordatura_sCn () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu" in
-  try
-    assert (String.equal exam (Scordatura.sCn sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu"
+  and sign = "n0" in
+  let vary = Scordatura.sCn sign in stringent name exam vary;;
 
 let test_scordatura_sGn () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg" in
-  try
-    assert (String.equal exam (Scordatura.sGn sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg"
+  and sign = "n0" in
+  let vary = Scordatura.sGn sign in stringent name exam vary;;
 
 let test_scordatura_sDn () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn" in
-  try
-    assert (String.equal exam (Scordatura.sDn sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn"
+  and sign = "n0" in
+  let vary = Scordatura.sDn sign in stringent name exam vary;;
 
 let test_scordatura_sAn () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu" in
-  try
-    assert (String.equal exam (Scordatura.sAn sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu"
+  and sign = "n0" in
+  let vary = Scordatura.sAn sign in stringent name exam vary;;
 
 let test_scordatura_sEn () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg" in
-  try
-    assert (String.equal exam (Scordatura.sEn sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg"
+  and sign = "n0" in
+  let vary = Scordatura.sEn sign in stringent name exam vary;;
 
 let test_scordatura_sBn () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb" in
-  try
-    assert (String.equal exam (Scordatura.sBn sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb"
+  and sign = "n0" in
+  let vary = Scordatura.sBn sign in stringent name exam vary;;
 
 let test_scordatura_sFk () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and sign = "n0" and
-  exam = "____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____" in
-  try
-    assert (String.equal exam (Scordatura.sFk sign))
-  with kind ->
-    excusable name kind;;
+  let name = __FUNCTION__
+  and exam = "____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____"
+  and sign = "n0" in
+  let vary = Scordatura.sFk sign in stringent name exam vary;;
 
 let test_scordatura_attunes () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    exam = ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"] and
-    vary = Scordatura.attunes () in
-    checklist name exam vary;;
+  let name = __FUNCTION__
+  and exam = ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"]
+  and vary = Scordatura.attunes () in checklist name exam vary;;
 
 let test_scordatura_pegboxes () =
   abacus.tested <- Int.succ abacus.tested;
@@ -329,10 +296,7 @@ let test_scordatura_pegboxes () =
 let test_scordatura_stockade () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "beadgcf" and spot = 0 in
-  try
-    assert (String.equal exam (Scordatura.stockade spot))
-  with kind ->
-    excusable name kind;;
+  let vary = Scordatura.stockade spot in stringent name exam vary;;
 
 let test_scordatura_randomize () =
   abacus.tested <- Int.succ abacus.tested;
@@ -361,9 +325,10 @@ let test_scordatura_diadem () =
 
 let test_scordatura_scribe () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ in
+  let name = __FUNCTION__
+  and wire = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb " in
   try
-    Scordatura.scribe sample
+    Scordatura.scribe wire
   with kind ->
     excusable name kind;;
 
@@ -463,13 +428,9 @@ let test_scordatura_gearbox () =
 
 let test_scordatura_separate () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and exam = "fkbjdn"
+  let name = __FUNCTION__ and exam = "fkbjdn" and count = 0
   and flags = ["--find"; "--keys"; "--fkbjdn"; "--mars"] in
-  let count = 0 in
-  try
-    assert (String.equal exam (Scordatura.separate flags count))
-  with kind ->
-    excusable name kind;;
+  let vary = Scordatura.separate flags count in stringent name exam vary;;
 
 let test_scordatura_cornucopia () =
   abacus.tested <- Int.succ abacus.tested;
@@ -493,10 +454,9 @@ let test_scordatura_dumpster () =
 
 let test_technician_utensils () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and
-    exam = ["all"; "alloys"; "find"; "help"; "keys"; "mars"] and
-    vary = Technician.utensils () in
-    checklist name exam vary;;
+  let name = __FUNCTION__
+  and exam = ["all"; "alloys"; "find"; "help"; "keys"; "mars"]
+  and vary = Technician.utensils () in checklist name exam vary;;
 
 let test_technician_toolbars () =
   abacus.tested <- Int.succ abacus.tested;
@@ -523,19 +483,20 @@ let test_technician_sentinel () =
 
 let test_technician_switches () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and front = "-"
+  let name = __FUNCTION__
+  and exam = ["--all"; "--bfbfb"]
   and words = ["n0"; "j3"; "--all"; "--bfbfb"]
-  and exam = ["--all"; "--bfbfb"] in
-  let vary = Technician.switches front words in
-    checklist name exam vary;;
+  and front = "-" in
+  let vary = Technician.switches front words
+  in checklist name exam vary;;
 
 let test_technician_governor () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and span = 9
+  let name = __FUNCTION__
   and args = [|"n0"; "j3"; "0123456789"; "--beadgcf"|]
-  and exam = ["n0"; "j3"; "--beadgcf"] in
-  let vary = Technician.governor span args in
-    checklist name exam vary;;
+  and exam = ["n0"; "j3"; "--beadgcf"] and span = 9 in
+  let vary = Technician.governor span args
+  in checklist name exam vary;;
 
 let test_technician_tutorial () =
   abacus.tested <- Int.succ abacus.tested;
@@ -573,7 +534,7 @@ let test_technician_preamble () =
 
 let clockwork start : float =
   let ticks = Sys.time () in
-    Float.sub ticks start;;
+  Float.sub ticks start;;
 
 let millipede start : float =
   Float.mul (clockwork start) 1000.;;
@@ -655,13 +616,16 @@ let initiate start : float =
   runabout_technician start;
   millipede start;;
 
-let softest () =
-  let start = Sys.time () in
-  let after = initiate start and paddy = String.make 5 (Char.chr 32) in
-  abacus.passed <- (Int.sub abacus.tested abacus.failed);
+let printout after =
+  abacus.passed <- Int.sub abacus.tested abacus.failed;
   Printf.printf "\t%s\n\n" (String.make 61 (Char.chr 45));
+  let paddy = String.make 5 (Char.chr 32) in
   Printf.printf "\t%sElapsed: %.3fms, Failed: %d, Passed: %d, Tested: %d\n\n"
     paddy after abacus.failed abacus.passed abacus.tested;;
+
+let softest () =
+  let start = Sys.time () in
+  let after = initiate start in printout after;;
 
 softest ();;
 
