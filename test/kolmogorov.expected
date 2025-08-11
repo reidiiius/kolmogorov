@@ -72,8 +72,6 @@
 	j2k6m5	j2k6w3	j346w5	k157m6	k257m1	k25m17	k2j5m1	k2j5w6
 	j2k56m4	k2j56w7
 
-	--find ?
-
 	j2	k2	j23	j26	k12	k25	j236	j2k6
 	j2w3	j3k5	k125	k1j6	k2j5	k2m1	n167	n345
 	j23k6	j26w3	j2k56	k12j5	k25m1	j2k6m5	j2k6w3	k157m6
@@ -171,42 +169,42 @@
 
             :all    :alloys    :find    :help    :keys    :mars
 
-	dune exec stoa :help
+	kolmogorov.ml :help
 
-	dune exec stoa :keys
+	kolmogorov.ml :keys
 
-	dune exec stoa :mars
+	kolmogorov.ml :mars
 
-	dune exec stoa n0 j3
+	kolmogorov.ml n0 j3
 
-	dune exec stoa n0 j3 :cgdae
+	kolmogorov.ml n0 j3 :cgdae
 
-	dune exec stoa n0 j3 :beadgcf
+	kolmogorov.ml n0 j3 :beadgcf
 
-	dune exec stoa :alloys
+	kolmogorov.ml :alloys
 
-	dune exec stoa :find FeNp FePu
+	kolmogorov.ml :find FeNp FePu
 
-	dune exec stoa :all | sensible-pager
+	kolmogorov.ml :all | sensible-pager
   
 
-	dune exec stoa :help
+	kolmogorov.ml :help
 
-	dune exec stoa :keys
+	kolmogorov.ml :keys
 
-	dune exec stoa :mars
+	kolmogorov.ml :mars
 
-	dune exec stoa n0 j3
+	kolmogorov.ml n0 j3
 
-	dune exec stoa n0 j3 :cgdae
+	kolmogorov.ml n0 j3 :cgdae
 
-	dune exec stoa n0 j3 :beadgcf
+	kolmogorov.ml n0 j3 :beadgcf
 
-	dune exec stoa :alloys
+	kolmogorov.ml :alloys
 
-	dune exec stoa :find FeNp FePu
+	kolmogorov.ml :find FeNp FePu
 
-	dune exec stoa :all | sensible-pager
+	kolmogorov.ml :all | sensible-pager
   
 
             :all    :alloys    :find    :help    :keys    :mars

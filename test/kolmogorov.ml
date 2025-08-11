@@ -481,7 +481,8 @@ let governor width argos =
     claves;;
 
 let tutorial () =
-  let hows = "dune exec stoa" in
+(*  let hows = "dune exec stoa" in *)
+  let hows = Filename.basename __FILE__ in
   let tips = Printf.sprintf {etx|
 	%s :help
 
@@ -692,7 +693,7 @@ let test_geoffroy_selections () =
 
 let test_geoffroy_frontage () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and face = "-" and word = "--all" in
+  let name = __FUNCTION__ and face = ":" and word = ":all" in
   try
     assert (Geoffroy.frontage ~prefix:face word)
   with Assert_failure trio ->
@@ -778,7 +779,7 @@ let test_geoffroy_inventory () =
 
 let test_geoffroy_grouper () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and lints = ["--find"; "PbAu"] in
+  let name = __FUNCTION__ and lints = [":find"; "PbAu"] in
   try
     Geoffroy.grouper lints
   with kind ->
@@ -1008,14 +1009,14 @@ let test_jacquard_gearbox () =
 let test_jacquard_separate () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "fkbjdn" and count = 0
-  and flags = ["--find"; "--keys"; "--fkbjdn"; "--mars"] in
+  and flags = [":find"; ":keys"; ":fkbjdn"; ":mars"] in
   let vary = Jacquard.separate flags count in stringent name exam vary;;
 
 let test_jacquard_cornucopia () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and tuned = Jacquard.stockade 0
-  and flags = ["--find"; "--keys"; "--fkbjdn"; "--mars"] in
+  and flags = [":find"; ":keys"; ":fkbjdn"; ":mars"] in
   try
     Jacquard.cornucopia tuned flags
   with kind ->
@@ -1047,14 +1048,14 @@ let test_ministry_toolbars () =
 
 let test_ministry_sentinel () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and front = "-"
-  and words = ["n0"; "j3"; "--help"] in
+  let name = __FUNCTION__ and front = ":"
+  and words = ["n0"; "j3"; ":help"] in
   try
     let opted = Ministry.sentinel front words in
       match opted with
-      | Some "--help" -> Ministry.tutorial ()
-      | Some "--keys" -> Ministry.keystone ()
-      | Some "--mars" -> Ministry.solarium ()
+      | Some ":help" -> Ministry.tutorial ()
+      | Some ":keys" -> Ministry.keystone ()
+      | Some ":mars" -> Ministry.solarium ()
       | Some _ -> print_endline "\n\tSomething?\n"
       | None -> print_endline "\n\tNothingness!\n"
   with kind ->
@@ -1063,17 +1064,17 @@ let test_ministry_sentinel () =
 let test_ministry_switches () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
-  and exam = ["--all"; "--bfbfb"]
-  and words = ["n0"; "j3"; "--all"; "--bfbfb"]
-  and front = "-" in
+  and exam = [":all"; ":bfbfb"]
+  and words = ["n0"; "j3"; ":all"; ":bfbfb"]
+  and front = ":" in
   let vary = Ministry.switches front words
   in checklist name exam vary;;
 
 let test_ministry_governor () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
-  and args = [|"n0"; "j3"; "0123456789"; "--beadgcf"|]
-  and exam = ["n0"; "j3"; "--beadgcf"] and span = 9 in
+  and args = [|"n0"; "j3"; "0123456789"; ":beadgcf"|]
+  and exam = ["n0"; "j3"; ":beadgcf"] and span = 9 in
   let vary = Ministry.governor span args
   in checklist name exam vary;;
 
