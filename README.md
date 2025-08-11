@@ -52,7 +52,15 @@ Command-line
 
 :
 
+    ocaml spa/thorngate.ml --find j6 k2
+
+:
+
     ocaml spa/thorngate.ml --all | sensible-pager
+
+:
+
+    ocaml spa/thorngate.ml --all --cgdae | sensible-pager
 
 :
 
@@ -100,7 +108,15 @@ Command-line
 
 :
 
+    dune exec stoa :find j6 k2
+
+:
+
     dune exec stoa :all | sensible-pager
+
+:
+
+    dune exec stoa :all :cgdae | sensible-pager
 
 :
 
