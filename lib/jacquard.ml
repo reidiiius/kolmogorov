@@ -110,7 +110,7 @@ let cgdae sign =
     sGn sign;
     sCn sign
   ];;
- 
+
 let eadgbe sign =
   scribe (diadem sign "eadgbe");
   List.iter scribe [
