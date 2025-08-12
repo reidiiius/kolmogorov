@@ -241,19 +241,19 @@ end;;
 module Jacquard = struct
 
 let zodiac = [
-  ("oph", (60,  0));
-  ("cap", (55,  5));
   ("aqr", (50, 10));
-  ("psc", (45, 15));
   ("ari", (40, 20));
-  ("tau", (35, 25));
-  ("gem", (30, 30));
+  ("cap", (55,  5));
   ("cnc", (25, 35));
+  ("gem", (30, 30));
   ("leo", (20, 40));
-  ("vir", (15, 45));
   ("lib", (10, 50));
+  ("oph", ( 0, 60));
+  ("psc", (45, 15));
   ("sco", ( 5, 55));
-  ("sgr", ( 0, 60))
+  ("sgr", (60,  0));
+  ("tau", (35, 25));
+  ("vir", (15, 45))
 ];;
 
 let obtain stem =
@@ -777,6 +777,16 @@ let test_jacquard_obtain () =
   with kind ->
     excusable name kind;;
 
+let test_jacquard_obtain_non () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ and stem = "zoo"
+  and zero = 0 and numb = 60 in
+  try
+    let (spot, span) = Jacquard.obtain stem in
+    assert ((Int.equal spot zero) && (Int.equal span numb))
+  with kind ->
+    excusable name kind;;
+
 let test_jacquard_machine () =
   abacus.tested <- Int.succ abacus.tested;
   let sign = "n0" and spot = 25 and span = 35 in
@@ -850,7 +860,10 @@ let test_jacquard_lattice () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and sign = "n0"
-  and sols = ["aqr"; "cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"; "gem"] in
+  and sols = [
+    "ari"; "vir"; "aqr"; "cnc";
+    "sgr"; "tau"; "lib"; "psc";
+    "leo"; "cap"; "gem"; "sco"] in
   try
     Jacquard.lattice sign sols
   with kind ->
@@ -1091,6 +1104,7 @@ let runabout_geoffroy start =
 let runabout_jacquard start =
   test_jacquard_zodiac ();
   test_jacquard_obtain ();
+  test_jacquard_obtain_non ();
   test_jacquard_machine ();
   test_jacquard_tensile ();
   test_jacquard_attunes ();

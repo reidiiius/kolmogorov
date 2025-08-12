@@ -225,6 +225,16 @@ let test_scordatura_obtain () =
   with kind ->
     excusable name kind;;
 
+let test_scordatura_obtain_non () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ and stem = "zoo"
+  and zero = 0 and numb = 60 in
+  try
+    let (spot, span) = Scordatura.obtain stem in
+    assert ((Int.equal spot zero) && (Int.equal span numb))
+  with kind ->
+    excusable name kind;;
+
 let test_scordatura_machine () =
   abacus.tested <- Int.succ abacus.tested;
   let sign = "n0" and spot = 25 and span = 35 in
@@ -297,7 +307,10 @@ let test_scordatura_lattice () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and sign = "n0"
-  and sols = ["aqr"; "cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"; "gem"] in
+  and sols = [
+    "ari"; "vir"; "aqr"; "cnc";
+    "sgr"; "tau"; "lib"; "psc";
+    "leo"; "cap"; "gem"; "sco"] in
   try
     Scordatura.lattice sign sols
   with kind ->
@@ -536,6 +549,7 @@ let runabout_polychrome start =
 let runabout_scordatura start =
   test_scordatura_zodiac ();
   test_scordatura_obtain ();
+  test_scordatura_obtain_non ();
   test_scordatura_machine ();
   test_scordatura_tensile ();
   test_scordatura_attunes ();
