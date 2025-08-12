@@ -208,6 +208,23 @@ let test_polychrome_grouper () =
 
 (************ scordatura ************)
 
+let test_scordatura_zodiac () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ in
+  try
+    assert ((List.length Scordatura.zodiac) = 13)
+  with kind ->
+    excusable name kind;;
+
+let test_scordatura_obtain () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ and stem = "gem" and numb = 30 in
+  try
+    let (spot, span) = Scordatura.obtain stem in
+    assert ((Int.equal spot numb) && (Int.equal span numb))
+  with kind ->
+    excusable name kind;;
+
 let test_scordatura_machine () =
   abacus.tested <- Int.succ abacus.tested;
   let sign = "n0" and spot = 25 and span = 35 in
@@ -216,68 +233,12 @@ let test_scordatura_machine () =
   and exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe"
   in stringent name exam vary;;
 
-let test_scordatura_sBj () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____"
-  and sign = "n0" in
-  let vary = Scordatura.sBj sign in stringent name exam vary;;
-
-let test_scordatura_sFn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe"
-  and sign = "n0" in
-  let vary = Scordatura.sFn sign in stringent name exam vary;;
-
-let test_scordatura_sCn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu"
-  and sign = "n0" in
-  let vary = Scordatura.sCn sign in stringent name exam vary;;
-
-let test_scordatura_sGn () =
+let test_scordatura_tensile () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = "AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg"
-  and sign = "n0" in
-  let vary = Scordatura.sGn sign in stringent name exam vary;;
-
-let test_scordatura_sDn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn"
-  and sign = "n0" in
-  let vary = Scordatura.sDn sign in stringent name exam vary;;
-
-let test_scordatura_sAn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu"
-  and sign = "n0" in
-  let vary = Scordatura.sAn sign in stringent name exam vary;;
-
-let test_scordatura_sEn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg"
-  and sign = "n0" in
-  let vary = Scordatura.sEn sign in stringent name exam vary;;
-
-let test_scordatura_sBn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb"
-  and sign = "n0" in
-  let vary = Scordatura.sBn sign in stringent name exam vary;;
-
-let test_scordatura_sFk () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____"
-  and sign = "n0" in
-  let vary = Scordatura.sFk sign in stringent name exam vary;;
+  and sign = "n0" and stem = "tau" in
+  let vary = Scordatura.tensile sign stem in stringent name exam vary;;
 
 let test_scordatura_attunes () =
   abacus.tested <- Int.succ abacus.tested;
@@ -329,6 +290,16 @@ let test_scordatura_scribe () =
   and wire = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb " in
   try
     Scordatura.scribe wire
+  with kind ->
+    excusable name kind;;
+
+let test_scordatura_lattice () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and sign = "n0"
+  and sols = ["aqr"; "cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"; "gem"] in
+  try
+    Scordatura.lattice sign sols
   with kind ->
     excusable name kind;;
 
@@ -563,16 +534,10 @@ let runabout_polychrome start =
   Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;;
 
 let runabout_scordatura start =
+  test_scordatura_zodiac ();
+  test_scordatura_obtain ();
   test_scordatura_machine ();
-  test_scordatura_sBj ();
-  test_scordatura_sFn ();
-  test_scordatura_sCn ();
-  test_scordatura_sGn ();
-  test_scordatura_sDn ();
-  test_scordatura_sAn ();
-  test_scordatura_sEn ();
-  test_scordatura_sBn ();
-  test_scordatura_sFk ();
+  test_scordatura_tensile ();
   test_scordatura_attunes ();
   test_scordatura_pegboxes ();
   test_scordatura_stockade ();
@@ -580,6 +545,7 @@ let runabout_scordatura start =
   test_scordatura_variant ();
   test_scordatura_diadem ();
   test_scordatura_scribe ();
+  test_scordatura_lattice ();
   test_scordatura_beadgcf ();
   test_scordatura_bfbfb ();
   test_scordatura_cgdae ();

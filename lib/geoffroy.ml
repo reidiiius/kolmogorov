@@ -224,7 +224,7 @@
             let lugs = String.split_on_char '\x20' wire in
             let urns = List.sort_uniq String.compare lugs in
             let labs = List.filter (fun stem ->
-              not (frontage ~prefix:"_" stem)) urns in
+              not (frontage ~prefix:"\x5F" stem)) urns in
             let chem = String.concat "\x20" labs in
               Printf.printf "\n\t%s {%s }\n" skid chem
           else

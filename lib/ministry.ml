@@ -40,14 +40,16 @@ let tutorial () =
 
 	%s n0 j3 :cgdae
 
-	%s n0 j3 :beadgcf
-
 	%s :alloys
 
 	%s :find FeNp FePu
 
+	%s :find j6 k2
+
 	%s :all | sensible-pager
-  |etx} hows hows hows hows hows hows hows hows hows
+
+	%s :all :cgdae | sensible-pager
+  |etx} hows hows hows hows hows hows hows hows hows hows
   in print_endline tips;;
 
 let keystone () =

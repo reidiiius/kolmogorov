@@ -16,6 +16,10 @@ Command-line
 
 :
 
+    ocaml spa/whodunit.ml
+
+:
+
     ocaml spa/thorngate.ml
 
 :
@@ -37,10 +41,6 @@ Command-line
 :
 
     ocaml spa/thorngate.ml n0 j3 --cgdae
-
-:
-
-    ocaml spa/thorngate.ml n0 j3 --eadgbe
 
 :
 
@@ -93,10 +93,6 @@ Command-line
 :
 
     dune exec stoa n0 j3 :cgdae
-
-:
-
-    dune exec stoa n0 j3 :beadgcf
 
 :
 

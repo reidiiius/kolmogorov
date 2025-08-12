@@ -1,5 +1,25 @@
 (* jacquard.ml *)
 
+let zodiac = [
+  ("oph", (60,  0));
+  ("cap", (55,  5));
+  ("aqr", (50, 10));
+  ("psc", (45, 15));
+  ("ari", (40, 20));
+  ("tau", (35, 25));
+  ("gem", (30, 30));
+  ("cnc", (25, 35));
+  ("leo", (20, 40));
+  ("vir", (15, 45));
+  ("lib", (10, 50));
+  ("sco", ( 5, 55));
+  ("sgr", ( 0, 60))
+];;
+
+let obtain stem =
+  try List.assoc stem zodiac;
+  with Not_found -> List.assoc "oph" zodiac;;
+
 let machine sign spot span =
   let wire = Geoffroy.acquire sign in
   let long = String.length wire in
@@ -13,34 +33,9 @@ let machine sign spot span =
     else
       String.make size (Char.chr 45);;
 
-(* open strings *)
-
-let sBj sign =
-  machine sign 50 10;;
-
-let sFn sign =
-  machine sign 25 35;;
-
-let sCn sign =
-  machine sign 0 60;;
-
-let sGn sign =
-  machine sign 35 25;;
-
-let sDn sign =
-  machine sign 10 50;;
-
-let sAn sign =
-  machine sign 45 15;;
-
-let sEn sign =
-  machine sign 20 40;;
-
-let sBn sign =
-  machine sign 55 5;;
-
-let sFk sign =
-  machine sign 30 30;;
+let tensile sign stem =
+  let (spot, span) = obtain stem
+  in machine sign spot span;;
 
 (* instrument tunings *)
 
@@ -79,63 +74,39 @@ let diadem sign pegs =
 let scribe yarn =
   Printf.printf "\t%s\n" yarn;;
 
+let lattice sign sols =
+  List.iter (fun stem ->
+    scribe (tensile sign stem)) sols;;
+
 let beadgcf sign =
   scribe (diadem sign "beadgcf");
-  List.iter scribe [
-    sFn sign;
-    sCn sign;
-    sGn sign;
-    sDn sign;
-    sAn sign;
-    sEn sign;
-    sBn sign
-  ];;
+  let sols = ["cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"]
+  in lattice sign sols;;
 
 let bfbfb sign =
   scribe (diadem sign "bfbfb");
-  List.iter scribe [
-    sBn sign;
-    sFn sign;
-    sBn sign;
-    sFn sign;
-    sBn sign
-  ];;
+  let sols = ["cap"; "cnc"; "cap"; "cnc"; "cap"]
+  in lattice sign sols;;
 
 let cgdae sign =
   scribe (diadem sign "cgdae");
-  List.iter scribe [
-    sEn sign;
-    sAn sign;
-    sDn sign;
-    sGn sign;
-    sCn sign
-  ];;
+  let sols = ["leo"; "psc"; "lib"; "tau"; "sgr"]
+  in lattice sign sols;;
 
 let eadgbe sign =
   scribe (diadem sign "eadgbe");
-  List.iter scribe [
-    sEn sign;
-    sBn sign;
-    sGn sign;
-    sDn sign;
-    sAn sign;
-    sEn sign
-  ];;
+  let sols = ["leo"; "cap"; "tau"; "lib"; "psc"; "leo"]
+  in lattice sign sols;;
 
 let fkbjdn sign =
   scribe (diadem sign "fkbjdn");
-  List.iter scribe [
-    sDn sign;
-    sBj sign;
-    sFk sign;
-    sDn sign;
-    sBj sign;
-    sFk sign
-  ];;
+  let sols = ["lib"; "aqr"; "gem"; "lib"; "aqr"; "gem"]
+  in lattice sign sols;;
 
 let piano sign =
   scribe (diadem sign "piano");
-  scribe (sCn sign);;
+  let sols = ["sgr"]
+  in lattice sign sols;;
 
 (* presentation composition *)
 

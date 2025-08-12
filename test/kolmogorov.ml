@@ -225,7 +225,7 @@ module Geoffroy = struct
             let lugs = String.split_on_char '\x20' wire in
             let urns = List.sort_uniq String.compare lugs in
             let labs = List.filter (fun stem ->
-              not (frontage ~prefix:"_" stem)) urns in
+              not (frontage ~prefix:"\x5F" stem)) urns in
             let chem = String.concat "\x20" labs in
               Printf.printf "\n\t%s {%s }\n" skid chem
           else
@@ -240,6 +240,26 @@ end;;
 
 module Jacquard = struct
 
+let zodiac = [
+  ("oph", (60,  0));
+  ("cap", (55,  5));
+  ("aqr", (50, 10));
+  ("psc", (45, 15));
+  ("ari", (40, 20));
+  ("tau", (35, 25));
+  ("gem", (30, 30));
+  ("cnc", (25, 35));
+  ("leo", (20, 40));
+  ("vir", (15, 45));
+  ("lib", (10, 50));
+  ("sco", ( 5, 55));
+  ("sgr", ( 0, 60))
+];;
+
+let obtain stem =
+  try List.assoc stem zodiac;
+  with Not_found -> List.assoc "oph" zodiac;;
+
 let machine sign spot span =
   let wire = Geoffroy.acquire sign in
   let long = String.length wire in
@@ -253,34 +273,9 @@ let machine sign spot span =
     else
       String.make size (Char.chr 45);;
 
-(* open strings *)
-
-let sBj sign =
-  machine sign 50 10;;
-
-let sFn sign =
-  machine sign 25 35;;
-
-let sCn sign =
-  machine sign 0 60;;
-
-let sGn sign =
-  machine sign 35 25;;
-
-let sDn sign =
-  machine sign 10 50;;
-
-let sAn sign =
-  machine sign 45 15;;
-
-let sEn sign =
-  machine sign 20 40;;
-
-let sBn sign =
-  machine sign 55 5;;
-
-let sFk sign =
-  machine sign 30 30;;
+let tensile sign stem =
+  let (spot, span) = obtain stem
+  in machine sign spot span;;
 
 (* instrument tunings *)
 
@@ -319,63 +314,39 @@ let diadem sign pegs =
 let scribe yarn =
   Printf.printf "\t%s\n" yarn;;
 
+let lattice sign sols =
+  List.iter (fun stem ->
+    scribe (tensile sign stem)) sols;;
+
 let beadgcf sign =
   scribe (diadem sign "beadgcf");
-  List.iter scribe [
-    sFn sign;
-    sCn sign;
-    sGn sign;
-    sDn sign;
-    sAn sign;
-    sEn sign;
-    sBn sign
-  ];;
+  let sols = ["cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"]
+  in lattice sign sols;;
 
 let bfbfb sign =
   scribe (diadem sign "bfbfb");
-  List.iter scribe [
-    sBn sign;
-    sFn sign;
-    sBn sign;
-    sFn sign;
-    sBn sign
-  ];;
+  let sols = ["cap"; "cnc"; "cap"; "cnc"; "cap"]
+  in lattice sign sols;;
 
 let cgdae sign =
   scribe (diadem sign "cgdae");
-  List.iter scribe [
-    sEn sign;
-    sAn sign;
-    sDn sign;
-    sGn sign;
-    sCn sign
-  ];;
+  let sols = ["leo"; "psc"; "lib"; "tau"; "sgr"]
+  in lattice sign sols;;
 
 let eadgbe sign =
   scribe (diadem sign "eadgbe");
-  List.iter scribe [
-    sEn sign;
-    sBn sign;
-    sGn sign;
-    sDn sign;
-    sAn sign;
-    sEn sign
-  ];;
+  let sols = ["leo"; "cap"; "tau"; "lib"; "psc"; "leo"]
+  in lattice sign sols;;
 
 let fkbjdn sign =
   scribe (diadem sign "fkbjdn");
-  List.iter scribe [
-    sDn sign;
-    sBj sign;
-    sFk sign;
-    sDn sign;
-    sBj sign;
-    sFk sign
-  ];;
+  let sols = ["lib"; "aqr"; "gem"; "lib"; "aqr"; "gem"]
+  in lattice sign sols;;
 
 let piano sign =
   scribe (diadem sign "piano");
-  scribe (sCn sign);;
+  let sols = ["sgr"]
+  in lattice sign sols;;
 
 (* presentation composition *)
 
@@ -494,14 +465,16 @@ let tutorial () =
 
 	%s n0 j3 :cgdae
 
-	%s n0 j3 :beadgcf
-
 	%s :alloys
 
 	%s :find FeNp FePu
 
+	%s :find j6 k2
+
 	%s :all | sensible-pager
-  |etx} hows hows hows hows hows hows hows hows hows
+
+	%s :all :cgdae | sensible-pager
+  |etx} hows hows hows hows hows hows hows hows hows hows
   in print_endline tips;;
 
 let keystone () =
@@ -787,6 +760,23 @@ let test_geoffroy_grouper () =
 
 (************ Jacquard ************)
 
+let test_jacquard_zodiac () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ in
+  try
+    assert ((List.length Jacquard.zodiac) = 13)
+  with kind ->
+    excusable name kind;;
+
+let test_jacquard_obtain () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ and stem = "gem" and numb = 30 in
+  try
+    let (spot, span) = Jacquard.obtain stem in
+    assert ((Int.equal spot numb) && (Int.equal span numb))
+  with kind ->
+    excusable name kind;;
+
 let test_jacquard_machine () =
   abacus.tested <- Int.succ abacus.tested;
   let sign = "n0" and spot = 25 and span = 35 in
@@ -795,68 +785,12 @@ let test_jacquard_machine () =
   and exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe"
   in stringent name exam vary;;
 
-let test_jacquard_sBj () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____"
-  and sign = "n0" in
-  let vary = Jacquard.sBj sign in stringent name exam vary;;
-
-let test_jacquard_sFn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe"
-  and sign = "n0" in
-  let vary = Jacquard.sFn sign in stringent name exam vary;;
-
-let test_jacquard_sCn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu"
-  and sign = "n0" in
-  let vary = Jacquard.sCn sign in stringent name exam vary;;
-
-let test_jacquard_sGn () =
+let test_jacquard_tensile () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = "AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg"
-  and sign = "n0" in
-  let vary = Jacquard.sGn sign in stringent name exam vary;;
-
-let test_jacquard_sDn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn"
-  and sign = "n0" in
-  let vary = Jacquard.sDn sign in stringent name exam vary;;
-
-let test_jacquard_sAn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu"
-  and sign = "n0" in
-  let vary = Jacquard.sAn sign in stringent name exam vary;;
-
-let test_jacquard_sEn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "CuHg PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg"
-  and sign = "n0" in
-  let vary = Jacquard.sEn sign in stringent name exam vary;;
-
-let test_jacquard_sBn () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb"
-  and sign = "n0" in
-  let vary = Jacquard.sBn sign in stringent name exam vary;;
-
-let test_jacquard_sFk () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = "____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____"
-  and sign = "n0" in
-  let vary = Jacquard.sFk sign in stringent name exam vary;;
+  and sign = "n0" and stem = "tau" in
+  let vary = Jacquard.tensile sign stem in stringent name exam vary;;
 
 let test_jacquard_attunes () =
   abacus.tested <- Int.succ abacus.tested;
@@ -909,6 +843,16 @@ let test_jacquard_scribe () =
   and wire = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb " in
   try
     Jacquard.scribe wire
+  with kind ->
+    excusable name kind;;
+
+let test_jacquard_lattice () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and sign = "n0"
+  and sols = ["aqr"; "cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"; "gem"] in
+  try
+    Jacquard.lattice sign sols
   with kind ->
     excusable name kind;;
 
@@ -1145,16 +1089,10 @@ let runabout_geoffroy start =
   Printf.printf "\tElapsed: %.3fms %s\n\n" after "runabout_geoffroy";;
 
 let runabout_jacquard start =
+  test_jacquard_zodiac ();
+  test_jacquard_obtain ();
   test_jacquard_machine ();
-  test_jacquard_sBj ();
-  test_jacquard_sFn ();
-  test_jacquard_sCn ();
-  test_jacquard_sGn ();
-  test_jacquard_sDn ();
-  test_jacquard_sAn ();
-  test_jacquard_sEn ();
-  test_jacquard_sBn ();
-  test_jacquard_sFk ();
+  test_jacquard_tensile ();
   test_jacquard_attunes ();
   test_jacquard_pegboxes ();
   test_jacquard_stockade ();
@@ -1162,6 +1100,7 @@ let runabout_jacquard start =
   test_jacquard_variant ();
   test_jacquard_diadem ();
   test_jacquard_scribe ();
+  test_jacquard_lattice ();
   test_jacquard_beadgcf ();
   test_jacquard_bfbfb ();
   test_jacquard_cgdae ();
