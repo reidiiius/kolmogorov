@@ -137,6 +137,16 @@ let test_polychrome_foxhounds () =
   with kind ->
     excusable name kind;;
 
+let test_polychrome_checkmate () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and labs = ["HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
+    "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"; ""] in
+  try
+    assert (Polychrome.checkmate labs)
+  with kind ->
+    excusable name kind;;
+
 let test_polychrome_byzantine () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "k6" in
@@ -535,6 +545,7 @@ let runabout_polychrome start =
   test_polychrome_frontage ();
   test_polychrome_discern ();
   test_polychrome_foxhounds ();
+  test_polychrome_checkmate ();
   test_polychrome_byzantine ();
   test_polychrome_dominican ();
   test_polychrome_marshaled ();

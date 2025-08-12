@@ -146,13 +146,15 @@ module Geoffroy = struct
       columned (List.length lowish) lowish;
       print_newline ();;
 
+  let checkmate labs =
+    frontage ~prefix:"Pb" (List.nth labs 5) ||
+    frontage ~prefix:"Fe" (List.nth labs 11);;
+
   let byzantine sign =
     let spat = Char.chr 32 in
     let yarn = acquire sign in
     let labs = String.split_on_char spat yarn in
-      if (frontage ~prefix:"Pb" (List.nth labs 5) ||
-          frontage ~prefix:"Fe" (List.nth labs 11))
-      then sign
+      if checkmate labs then sign
       else String.empty;;
 
   let dominican () =
@@ -689,6 +691,16 @@ let test_geoffroy_foxhounds () =
   with kind ->
     excusable name kind;;
 
+let test_geoffroy_checkmate () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and labs = ["HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
+    "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"; ""] in
+  try
+    assert (Geoffroy.checkmate labs)
+  with kind ->
+    excusable name kind;;
+
 let test_geoffroy_byzantine () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "k6" in
@@ -1089,6 +1101,7 @@ let runabout_geoffroy start =
   test_geoffroy_frontage ();
   test_geoffroy_discern ();
   test_geoffroy_foxhounds ();
+  test_geoffroy_checkmate ();
   test_geoffroy_byzantine ();
   test_geoffroy_dominican ();
   test_geoffroy_marshaled ();

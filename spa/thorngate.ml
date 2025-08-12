@@ -150,13 +150,15 @@ module Polychrome = struct
       columned (List.length lowish) lowish;
       print_newline ();;
 
+  let checkmate labs =
+    frontage ~prefix:"Pb" (List.nth labs 5) ||
+    frontage ~prefix:"Fe" (List.nth labs 11);;
+
   let byzantine sign =
     let spat = Char.chr 32 in
     let yarn = acquire sign in
     let labs = String.split_on_char spat yarn in
-      if (frontage ~prefix:"Pb" (List.nth labs 5) ||
-          frontage ~prefix:"Fe" (List.nth labs 11))
-      then sign
+      if checkmate labs then sign
       else String.empty;;
 
   let dominican () =
@@ -289,9 +291,9 @@ let attunes () =
 
 let pegboxes () =
   print_newline ();
-  print_string (Char.chr 32 |> String.make 5);
+  print_string (Char.chr 32 |> String.make 7);
   let funky = (fun cord ->
-    Printf.printf "   --%s" cord) in
+    Printf.printf "   -%s" cord) in
   let gears = attunes () in
   List.iter funky gears;
   print_newline ();;
@@ -435,9 +437,9 @@ let utensils () =
 
 let toolbars () =
   print_newline ();
-  print_string (Char.chr 32 |> String.make 6);
+  print_string (Char.chr 32 |> String.make 8);
   let funky = (fun cord ->
-    Printf.printf "    --%s" cord) in
+    Printf.printf "    -%s" cord) in
   let tools = utensils () in
   List.iter funky tools;
   print_newline ();;
@@ -462,25 +464,25 @@ let tutorial () =
   let file = Filename.basename __FILE__ in
   let post = Printf.sprintf "%s %s" exec file in
   let tips = Printf.sprintf {etx|
-	%s --help
+	%s -help
 
-	%s --keys
+	%s -keys
 
-	%s --mars
+	%s -mars
 
 	%s n0 j3
 
-	%s n0 j3 --cgdae
+	%s n0 j3 -cgdae
 
-	%s --alloys
+	%s -alloys
 
-	%s --find FeNp FePu
+	%s -find FeNp FePu
 
-	%s --find j6 k2
+	%s -find j6 k2
 
-	%s --all | sensible-pager
+	%s -all | sensible-pager
 
-	%s --all --cgdae | sensible-pager
+	%s -all -cgdae | sensible-pager
   |etx} post post post post post post post post post post
   in print_endline tips;;
 
@@ -519,35 +521,35 @@ let vestibule () =
     if List.length flags > 0 then
       let opted = Technician.sentinel front words in
         match opted with
-        | Some "--alloys" -> Polychrome.elemental ()
-        | Some "--all"
+        | Some "-alloys" -> Polychrome.elemental ()
+        | Some "-all"
         | Some "-a" -> Scordatura.cornucopia tuned flags
         | Some "-a4"
         | Some "-b5"
-        | Some "--bfbfb" -> Scordatura.gearbox 1 words
+        | Some "-bfbfb" -> Scordatura.gearbox 1 words
         | Some "-bass"
-        | Some "--beadgcf" -> Scordatura.gearbox 0 words
+        | Some "-beadgcf" -> Scordatura.gearbox 0 words
         | Some "-cello"
-        | Some "--cgdae" -> Scordatura.gearbox 2 words
-        | Some "--dump" -> Scordatura.dumpster 0
+        | Some "-cgdae" -> Scordatura.gearbox 2 words
+        | Some "-dump" -> Scordatura.dumpster 0
         | Some "-d5" -> Scordatura.gearbox 1 words
         | Some "-f"
-        | Some "--find" -> Polychrome.grouper words
+        | Some "-find" -> Polychrome.grouper words
         | Some "-gtr"
         | Some "-guitar"
-        | Some "--eadgbe" -> Scordatura.gearbox 3 words
-        | Some "-h"
-        | Some "--help" -> Technician.tutorial ()
-        | Some "-k"
-        | Some "--keys" -> Technician.keystone ()
-        | Some "--fkbjdn"
+        | Some "-eadgbe" -> Scordatura.gearbox 3 words
+        | Some "-help"
+        | Some "-h" -> Technician.tutorial ()
+        | Some "-fkbjdn" -> Scordatura.gearbox 4 words
+        | Some "-keys"
+        | Some "-k" -> Technician.keystone ()
         | Some "-m3" -> Scordatura.gearbox 4 words
         | Some "-m"
-        | Some "--mars" -> Technician.solarium ()
-        | Some "--metals" -> Polychrome.elemental ()
+        | Some "-mars" -> Technician.solarium ()
+        | Some "-metals" -> Polychrome.elemental ()
         | Some "-p4" -> Scordatura.gearbox 0 words
         | Some "-p5" -> Scordatura.gearbox 2 words
-        | Some "--piano"
+        | Some "-piano"
         | Some "-u" -> Scordatura.gearbox 5 words
         | Some "-viola"
         | Some "-violin" -> Scordatura.gearbox 2 words

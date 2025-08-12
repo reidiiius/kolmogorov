@@ -24,15 +24,15 @@ Command-line
 
 :
 
-    ocaml spa/thorngate.ml --help
+    ocaml spa/thorngate.ml -help
 
 :
 
-    ocaml spa/thorngate.ml --keys
+    ocaml spa/thorngate.ml -keys
 
 :
 
-    ocaml spa/thorngate.ml --mars
+    ocaml spa/thorngate.ml -mars
 
 :
 
@@ -40,27 +40,27 @@ Command-line
 
 :
 
-    ocaml spa/thorngate.ml n0 j3 --cgdae
+    ocaml spa/thorngate.ml n0 j3 -cgdae
 
 :
 
-    ocaml spa/thorngate.ml --alloys
+    ocaml spa/thorngate.ml -alloys
 
 :
 
-    ocaml spa/thorngate.ml --find FeNp FePu
+    ocaml spa/thorngate.ml -find FeNp FePu
 
 :
 
-    ocaml spa/thorngate.ml --find j6 k2
+    ocaml spa/thorngate.ml -find j6 k2
 
 :
 
-    ocaml spa/thorngate.ml --all | sensible-pager
+    ocaml spa/thorngate.ml -all | sensible-pager
 
 :
 
-    ocaml spa/thorngate.ml --all --cgdae | sensible-pager
+    ocaml spa/thorngate.ml -all -cgdae | sensible-pager
 
 :
 
