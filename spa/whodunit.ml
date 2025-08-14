@@ -213,7 +213,8 @@ let test_polychrome_inventory () =
 
 let test_polychrome_grouper () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and lints = ["-find"; "PbAu"] in
+  let name = __FUNCTION__ and lints = [
+    "n167m4"; "n345w7"; "k235m4"; "j126w7"; "-find"; "AuHg"; "AuPb"] in
   try
     Polychrome.grouper lints
   with kind ->

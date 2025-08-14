@@ -232,7 +232,7 @@ module Geoffroy = struct
             let labs = List.filter (fun stem ->
               not (frontage ~prefix:"\x5F" stem)) urns in
             let chem = String.concat "\x20" labs in
-              Printf.printf "\n\t%s {%s }\n" skid chem
+              Printf.printf "\n\t%s { %s }\n" skid chem
           else
             if not (frontage ~prefix:":" skid) then
               Printf.printf "\n\t%s ?\n" skid
@@ -770,7 +770,8 @@ let test_geoffroy_inventory () =
 
 let test_geoffroy_grouper () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and lints = [":find"; "PbAu"] in
+  let name = __FUNCTION__ and lints = [
+    "n167m4"; "n345w7"; "k235m4"; "j126w7"; ":find"; "AuHg"; "AuPb"] in
   try
     Geoffroy.grouper lints
   with kind ->

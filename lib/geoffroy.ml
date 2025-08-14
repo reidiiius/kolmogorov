@@ -231,7 +231,7 @@
             let labs = List.filter (fun stem ->
               not (frontage ~prefix:"\x5F" stem)) urns in
             let chem = String.concat "\x20" labs in
-              Printf.printf "\n\t%s {%s }\n" skid chem
+              Printf.printf "\n\t%s { %s }\n" skid chem
           else
             if not (frontage ~prefix:":" skid) then
               Printf.printf "\n\t%s ?\n" skid

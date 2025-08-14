@@ -13,7 +13,7 @@
 
 (rule
  (with-stdout-to geoffroy_grouper.output
-  (run stoa :find FeNp FePu)))
+  (run stoa n167m4 n345w7 k235m4 j126w7 :find AuHg AuPb)))
 
 (rule
  (alias runtest)
