@@ -64,6 +64,7 @@ module Geoffroy = struct
    ("n26w5", "____ ____ SnHg MnFe CuTi PbAg ____ ____ ____ AgPb TiCu FeMn ");
    ("n45w2", "HgTi ____ ____ UrAu ____ PbPb ____ AuUr NpSn ____ TiHg FeFe ");
    ("n67m2", "____ AuUr ____ ____ TiHg FeFe HgTi ____ SnNp UrAu ____ PbPb ");
+  ("j126w7", "____ AgUr ____ ____ HgHg PuFe ____ MnAg CuNp PbAu ____ AuPb ");
   ("j136w7", "____ ____ SnPb UrCu ____ PbSn ____ AuHg NpFe AgTi ____ FeNp ");
   ("j167w2", "HgAu ____ ____ ____ CuUr PbSn ____ AuHg NpFe ____ TiAg FeNp ");
   ("j246w3", "HgHg PuFe SnTi ____ CuNp ____ ____ AuPb NpCu ____ ____ FePu ");
@@ -75,6 +76,7 @@ module Geoffroy = struct
   ("k135m4", "____ CuUr PbSn ____ ____ NpFe ____ TiAg FeNp HgAu ____ SnPb ");
   ("k157m6", "HgHg PuFe SnTi ____ CuNp PbAu ____ ____ NpCu ____ ____ FePu ");
   ("k1j6w7", "____ CuUr PbSn ____ AuHg NpFe ____ TiAg FeNp HgAu ____ ____ ");
+  ("k235m4", "HgHg ____ ____ UrAg ____ PbAu ____ AuPb NpCu AgMn ____ FePu ");
   ("k257m1", "NpCu ____ TiSn FePu HgHg PuFe ____ ____ CuNp PbAu ____ ____ ");
   ("k25m17", "____ AgUr TiSn FePu HgHg PuFe ____ ____ CuNp PbAu ____ ____ ");
   ("k2j5m1", "____ ____ TiSn FePu HgHg PuFe SnTi ____ ____ PbAu ____ AuPb ");
@@ -152,7 +154,7 @@ module Geoffroy = struct
 
   let byzantine sign =
     let spat = Char.chr 32 in
-    let yarn = acquire sign in
+    let yarn = String.trim (acquire sign) in
     let labs = String.split_on_char spat yarn in
       if checkmate labs then sign
       else String.empty;;
@@ -161,7 +163,7 @@ module Geoffroy = struct
     let clefs = keynotes () in
     let lots = List.map byzantine clefs in
       discern "k" lots @ ["\n"] @
-      discern "n" lots @ ["\n"] @
+      discern "n" lots @ ["\n\n"] @
       discern "j" lots;;
 
   let marshaled () =
@@ -172,8 +174,8 @@ module Geoffroy = struct
       print_newline ();;
 
   let uniforms () =
-    let dice = fun wire -> String.split_on_char '\x20' wire in
-    let pans = snd (List.split berzelian) in
+    let dice = fun wire -> String.split_on_char '\x20' (String.trim wire)
+    and pans = snd (List.split berzelian) in
     let urns = List.map dice pans in
     let lots = List.flatten urns in
     let lint = fun yarn -> not (frontage ~prefix:"\x5F" yarn) in
@@ -183,13 +185,14 @@ module Geoffroy = struct
   let elemental () =
     let ores = uniforms () in
     let size = List.length ores in
+      print_newline ();
       columned size ores;
       print_newline ();;
 
   let scrubber wire =
     List.filter (fun stem -> not
       (frontage ~prefix:"\x5F" stem))
-      (String.split_on_char '\x20' wire);;
+      (String.split_on_char '\x20' (String.trim wire));;
 
   let inventory spat =
     let numb = ref 0 in
@@ -223,7 +226,7 @@ module Geoffroy = struct
         then inventory skid
         else
           if membership skid then
-            let wire = acquire skid in
+            let wire = String.trim (acquire skid) in
             let lugs = String.split_on_char '\x20' wire in
             let urns = List.sort_uniq String.compare lugs in
             let labs = List.filter (fun stem ->
@@ -635,7 +638,7 @@ let test_geoffroy_keynotes () =
   let name = __FUNCTION__
   and size = List.length (Geoffroy.keynotes ()) in
   try
-    assert (size = 84)
+    assert (size = 86)
   with Assert_failure trio ->
     presenter name trio;;
 
@@ -644,7 +647,7 @@ let test_geoffroy_bankroll () =
   let name = __FUNCTION__
   and size = Geoffroy.bankroll () in
   try
-    assert (size = 84)
+    assert (size = 86)
   with Assert_failure trio ->
     presenter name trio;;
 
@@ -695,7 +698,7 @@ let test_geoffroy_checkmate () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and labs = ["HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
-    "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"; ""] in
+    "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"] in
   try
     assert (Geoffroy.checkmate labs)
   with kind ->
@@ -710,12 +713,12 @@ let test_geoffroy_byzantine () =
 let test_geoffroy_dominican () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
-  and exam = ["k157m6"; "k1j6"; "k256"; "k26"; "k26m5"; "k2j17"; "k2j6";
-    "k56"; "k56m4"; "k6"; "k6m5"; "\n"; "n0"; "n167m4"; "n26w5"; "n345";
-    "n45w2"; "n5w2";"\n"; "j136w7"; "j167w2"; "j17"; "j17w2"; "j2"; "j23";
-    "j236"; "j23k6"; "j246w3"; "j26"; "j26w3"; "j26w34"; "j2k56"; "j2k56m4";
-    "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3"; "j3"; "j34k6"; "j36"; "j3k56m4";
-    "j3k5m4"; "j3k6"; "j6"]
+  and exam = ["k157m6"; "k1j6"; "k235m4"; "k256"; "k26"; "k26m5"; "k2j17";
+    "k2j6"; "k56"; "k56m4"; "k6"; "k6m5"; "\n"; "n0"; "n167m4"; "n26w5";
+    "n345"; "n45w2"; "n5w2"; "\n\n"; "j136w7"; "j167w2"; "j17"; "j17w2";
+    "j2"; "j23"; "j236"; "j23k6"; "j246w3"; "j26"; "j26w3"; "j26w34";
+    "j2k56"; "j2k56m4"; "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3"; "j3"; "j34k6";
+    "j36"; "j3k56m4"; "j3k5m4"; "j3k6"; "j6"]
   and vary = Geoffroy.dominican () in checklist name exam vary;;
 
 let test_geoffroy_marshaled () =
@@ -728,14 +731,17 @@ let test_geoffroy_marshaled () =
 
 let test_geoffroy_uniforms () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and void = String.empty in
-  let exam = [void; "AgAu"; "AgHg"; "AgPb"; "AgTi"; "AgUr"; "AuAg"; "AuAu";
-    "AuHg"; "AuNp"; "AuPb"; "AuSn"; "AuUr"; "CuFe"; "CuHg"; "CuNp"; "CuPb";
-    "CuTi"; "CuUr"; "FeCu"; "FeFe"; "FeMn"; "FeNp"; "FePb"; "FePu"; "FeTi";
-    "FeUr"; "HgAg"; "HgAu"; "HgCu"; "HgHg"; "HgMn"; "HgSn"; "HgTi"; "MnFe";
-    "MnHg"; "NpAu"; "NpCu"; "NpFe"; "NpSn"; "PbAg"; "PbAu"; "PbCu"; "PbFe";
-    "PbPb"; "PbSn"; "PbTi"; "PuFe"; "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn";
-    "SnTi"; "TiAg"; "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn"; "UrAg"; "UrAu";
+  let name = __FUNCTION__
+  and exam = [
+    "AgAu"; "AgHg"; "AgMn"; "AgPb"; "AgTi"; "AgUr"; "AuAg";
+    "AuAu"; "AuHg"; "AuNp"; "AuPb"; "AuSn"; "AuUr"; "CuFe";
+    "CuHg"; "CuNp"; "CuPb"; "CuTi"; "CuUr"; "FeCu"; "FeFe";
+    "FeMn"; "FeNp"; "FePb"; "FePu"; "FeTi"; "FeUr"; "HgAg";
+    "HgAu"; "HgCu"; "HgHg"; "HgMn"; "HgSn"; "HgTi"; "MnAg";
+    "MnFe"; "MnHg"; "NpAu"; "NpCu"; "NpFe"; "NpSn"; "PbAg";
+    "PbAu"; "PbCu"; "PbFe"; "PbPb"; "PbSn"; "PbTi"; "PuFe";
+    "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn"; "SnTi"; "TiAg";
+    "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn"; "UrAg"; "UrAu";
     "UrCu"; "UrFe"]
   and vary = Geoffroy.uniforms () in checklist name exam vary;;
 
@@ -749,8 +755,8 @@ let test_geoffroy_elemental () =
 
 let test_geoffroy_scrubber () =
   abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__ and void = String.empty in
-  let exam = ["HgCu"; "SnSn"; "CuHg"; "PbFe"; "AuAg"; "AgAu"; "FePb"; void]
+  let name = __FUNCTION__
+  and exam = ["HgCu"; "SnSn"; "CuHg"; "PbFe"; "AuAg"; "AgAu"; "FePb"]
   and wire = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
   in let vary = Geoffroy.scrubber wire in checklist name exam vary;;
 

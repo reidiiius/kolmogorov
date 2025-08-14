@@ -63,6 +63,7 @@
    ("n26w5", "____ ____ SnHg MnFe CuTi PbAg ____ ____ ____ AgPb TiCu FeMn ");
    ("n45w2", "HgTi ____ ____ UrAu ____ PbPb ____ AuUr NpSn ____ TiHg FeFe ");
    ("n67m2", "____ AuUr ____ ____ TiHg FeFe HgTi ____ SnNp UrAu ____ PbPb ");
+  ("j126w7", "____ AgUr ____ ____ HgHg PuFe ____ MnAg CuNp PbAu ____ AuPb ");
   ("j136w7", "____ ____ SnPb UrCu ____ PbSn ____ AuHg NpFe AgTi ____ FeNp ");
   ("j167w2", "HgAu ____ ____ ____ CuUr PbSn ____ AuHg NpFe ____ TiAg FeNp ");
   ("j246w3", "HgHg PuFe SnTi ____ CuNp ____ ____ AuPb NpCu ____ ____ FePu ");
@@ -74,6 +75,7 @@
   ("k135m4", "____ CuUr PbSn ____ ____ NpFe ____ TiAg FeNp HgAu ____ SnPb ");
   ("k157m6", "HgHg PuFe SnTi ____ CuNp PbAu ____ ____ NpCu ____ ____ FePu ");
   ("k1j6w7", "____ CuUr PbSn ____ AuHg NpFe ____ TiAg FeNp HgAu ____ ____ ");
+  ("k235m4", "HgHg ____ ____ UrAg ____ PbAu ____ AuPb NpCu AgMn ____ FePu ");
   ("k257m1", "NpCu ____ TiSn FePu HgHg PuFe ____ ____ CuNp PbAu ____ ____ ");
   ("k25m17", "____ AgUr TiSn FePu HgHg PuFe ____ ____ CuNp PbAu ____ ____ ");
   ("k2j5m1", "____ ____ TiSn FePu HgHg PuFe SnTi ____ ____ PbAu ____ AuPb ");
@@ -151,7 +153,7 @@
 
   let byzantine sign =
     let spat = Char.chr 32 in
-    let yarn = acquire sign in
+    let yarn = String.trim (acquire sign) in
     let labs = String.split_on_char spat yarn in
       if checkmate labs then sign
       else String.empty;;
@@ -160,7 +162,7 @@
     let clefs = keynotes () in
     let lots = List.map byzantine clefs in
       discern "k" lots @ ["\n"] @
-      discern "n" lots @ ["\n"] @
+      discern "n" lots @ ["\n\n"] @
       discern "j" lots;;
 
   let marshaled () =
@@ -171,8 +173,8 @@
       print_newline ();;
 
   let uniforms () =
-    let dice = fun wire -> String.split_on_char '\x20' wire in
-    let pans = snd (List.split berzelian) in
+    let dice = fun wire -> String.split_on_char '\x20' (String.trim wire)
+    and pans = snd (List.split berzelian) in
     let urns = List.map dice pans in
     let lots = List.flatten urns in
     let lint = fun yarn -> not (frontage ~prefix:"\x5F" yarn) in
@@ -182,13 +184,14 @@
   let elemental () =
     let ores = uniforms () in
     let size = List.length ores in
+      print_newline ();
       columned size ores;
       print_newline ();;
 
   let scrubber wire =
     List.filter (fun stem -> not
       (frontage ~prefix:"\x5F" stem))
-      (String.split_on_char '\x20' wire);;
+      (String.split_on_char '\x20' (String.trim wire));;
 
   let inventory spat =
     let numb = ref 0 in
@@ -222,7 +225,7 @@
         then inventory skid
         else
           if membership skid then
-            let wire = acquire skid in
+            let wire = String.trim (acquire skid) in
             let lugs = String.split_on_char '\x20' wire in
             let urns = List.sort_uniq String.compare lugs in
             let labs = List.filter (fun stem ->
