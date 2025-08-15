@@ -496,6 +496,15 @@ let test_technician_governor () =
   let vary = Technician.governor span args
   in checklist name exam vary;;
 
+let test_technician_exampled () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and post = "ocaml thorngate.ml" in
+  try
+    Technician.exampled post
+  with kind ->
+    excusable name kind;;
+
 let test_technician_tutorial () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ in
@@ -598,6 +607,7 @@ let runabout_technician start =
   test_technician_sentinel ();
   test_technician_switches ();
   test_technician_governor ();
+  test_technician_exampled ();
   test_technician_tutorial ();
   test_technician_keystone ();
   test_technician_solarium ();

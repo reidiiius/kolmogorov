@@ -27,30 +27,27 @@ let governor width argos =
   else
     claves;;
 
+let exampled post =
+  let tips = [
+    ":help";
+    ":keys";
+    ":mars";
+    "n0 j3";
+    "n0 j3 :cgdae";
+    ":alloys";
+    ":find FeNp FePu";
+    ":find j6 k2";
+    ":all | sensible-pager";
+    ":all :cgdae | sensible-pager"] in
+  List.iter (Printf.printf "\n\t%s %s\n" post) tips;
+  print_newline ();;
+
 let tutorial () =
-  let hows = "dune exec stoa" in
-  let tips = Printf.sprintf {etx|
-	%s :help
-
-	%s :keys
-
-	%s :mars
-
-	%s n0 j3
-
-	%s n0 j3 :cgdae
-
-	%s :alloys
-
-	%s :find FeNp FePu
-
-	%s :find j6 k2
-
-	%s :all | sensible-pager
-
-	%s :all :cgdae | sensible-pager
-  |etx} hows hows hows hows hows hows hows hows hows hows
-  in print_endline tips;;
+  let exec = Filename.basename Sys.executable_name
+  and file = Filename.basename __FILE__ in
+  if String.equal exec "ocaml" then
+    let post = Printf.sprintf "%s %s" exec file in exampled post
+  else exampled "dune exec stoa";;
 
 let keystone () =
   toolbars ();

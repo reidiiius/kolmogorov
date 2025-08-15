@@ -456,31 +456,27 @@ let governor width argos =
   else
     claves;;
 
+let exampled post =
+  let tips = [
+    ":help";
+    ":keys";
+    ":mars";
+    "n0 j3";
+    "n0 j3 :cgdae";
+    ":alloys";
+    ":find FeNp FePu";
+    ":find j6 k2";
+    ":all | sensible-pager";
+    ":all :cgdae | sensible-pager"] in
+  List.iter (Printf.printf "\n\t%s %s\n" post) tips;
+  print_newline ();;
+
 let tutorial () =
-(*  let hows = "dune exec stoa" in *)
-  let hows = Filename.basename __FILE__ in
-  let tips = Printf.sprintf {etx|
-	%s :help
-
-	%s :keys
-
-	%s :mars
-
-	%s n0 j3
-
-	%s n0 j3 :cgdae
-
-	%s :alloys
-
-	%s :find FeNp FePu
-
-	%s :find j6 k2
-
-	%s :all | sensible-pager
-
-	%s :all :cgdae | sensible-pager
-  |etx} hows hows hows hows hows hows hows hows hows hows
-  in print_endline tips;;
+  let exec = Filename.basename Sys.executable_name
+  and file = Filename.basename __FILE__ in
+  if String.equal exec "ocaml" then
+    let post = Printf.sprintf "%s %s" exec file in exampled post
+  else exampled file;;
 
 let keystone () =
   toolbars ();
@@ -1054,6 +1050,15 @@ let test_ministry_governor () =
   let vary = Ministry.governor span args
   in checklist name exam vary;;
 
+let test_ministry_exampled () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and post = Filename.basename __FILE__ in
+  try
+    Ministry.exampled post
+  with kind ->
+    excusable name kind;;
+
 let test_ministry_tutorial () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ in
@@ -1159,6 +1164,7 @@ let runabout_ministry start =
   test_ministry_sentinel ();
   test_ministry_switches ();
   test_ministry_governor ();
+  test_ministry_exampled ();
   test_ministry_tutorial ();
   test_ministry_keystone ();
   test_ministry_solarium ();

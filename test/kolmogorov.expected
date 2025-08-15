@@ -213,7 +213,7 @@
 	kolmogorov.ml :all | sensible-pager
 
 	kolmogorov.ml :all :cgdae | sensible-pager
-  
+
 
 	kolmogorov.ml :help
 
@@ -234,7 +234,28 @@
 	kolmogorov.ml :all | sensible-pager
 
 	kolmogorov.ml :all :cgdae | sensible-pager
-  
+
+
+	kolmogorov.ml :help
+
+	kolmogorov.ml :keys
+
+	kolmogorov.ml :mars
+
+	kolmogorov.ml n0 j3
+
+	kolmogorov.ml n0 j3 :cgdae
+
+	kolmogorov.ml :alloys
+
+	kolmogorov.ml :find FeNp FePu
+
+	kolmogorov.ml :find j6 k2
+
+	kolmogorov.ml :all | sensible-pager
+
+	kolmogorov.ml :all :cgdae | sensible-pager
+
 
             :all    :alloys    :find    :help    :keys    :mars
 
@@ -291,5 +312,5 @@
 
 	-------------------------------------------------------------
 
-	     Elapsed: 0.000ms, Failed: 0, Passed: 53, Tested: 53
+	     Elapsed: 0.000ms, Failed: 0, Passed: 54, Tested: 54
 
