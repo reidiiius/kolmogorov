@@ -15,7 +15,7 @@
 	k5	k56	k56m4	k6	k6m5	n0	n167	n167m4
 	n25m6	n26w5	n345	n345w7	n45w2	n5w2	n67m2	n6m2
 
-	head	tail	last
+	n6m2	head	tail	last
 
 	i0	j126w7	j136w7	j167w2	j17	j17w2
 	j2	j23	j236	j23k6	j246w3	j25	j256	j25w6
@@ -73,6 +73,8 @@
 	j23k6	j26w3	j2k56	k12j5	k25m1	k2j56	j246w3	j26w34
 	j2k6m5	j2k6w3	j346w5	k157m6	k235m4	k257m1	k25m17	k2j5m1
 	k2j5w6	j2k56m4	k2j56w7
+
+	k15 { AuHg CuUr FeNp HgAu NpFe PbSn SnPb }
 
 	n167m4 { AgTi AuHg FeNp HgAu NpFe PbSn UrCu }
 
@@ -312,5 +314,5 @@
 
 	-------------------------------------------------------------
 
-	     Elapsed: 0.000ms, Failed: 0, Passed: 54, Tested: 54
+	     Elapsed: 0.000ms, Failed: 0, Passed: 61, Tested: 61
 

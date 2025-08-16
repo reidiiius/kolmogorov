@@ -139,7 +139,7 @@ let gearbox spot words =
     else
       Geoffroy.foxhounds ();;
 
-let rec separate flags count =
+let rec assemble flags count =
   let harps = attunes () in
   let audit = List.length harps in
   let noted = List.nth harps count in
@@ -149,13 +149,13 @@ let rec separate flags count =
   if count >= (audit - 1) || found then
     noted
   else
-    separate flags (count + 1);;
+    assemble flags (count + 1);;
 
 let cornucopia tuned flags =
   let clefs = Geoffroy.keynotes () in
   let quant = List.length flags in
   if quant > 1 then
-    let raked = separate flags 0 in
+    let raked = assemble flags 0 in
     List.iter (layout raked) clefs
   else
     List.iter (layout tuned) clefs;

@@ -94,6 +94,34 @@ let test_polychrome_bankroll () =
   with Assert_failure trio ->
     presenter name trio;;
 
+let test_polychrome_turnkeys () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and (niter, clefs) = Polychrome.turnkeys () in
+  let count = List.length clefs in
+  try
+    assert (Int.equal niter count)
+  with Assert_failure trio ->
+    presenter name trio;;
+
+let test_polychrome_revealed () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and bone = false in
+  try
+    if bone then Polychrome.revealed name
+  with kind ->
+    excusable name kind;;
+
+let test_polychrome_sideshow () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and (size, lids) = Polychrome.turnkeys () in
+  try
+    Polychrome.sideshow lids size
+  with kind ->
+    excusable name kind;;
+
 let test_polychrome_columned () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
@@ -140,7 +168,8 @@ let test_polychrome_foxhounds () =
 let test_polychrome_checkmate () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
-  and labs = ["HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
+  and labs = [
+    "HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
     "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"] in
   try
     assert (Polychrome.checkmate labs)
@@ -169,6 +198,25 @@ let test_polychrome_marshaled () =
   let name = __FUNCTION__ in
   try
     Polychrome.marshaled ()
+  with kind ->
+    excusable name kind;;
+
+let test_polychrome_separate () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and exam = [
+    "HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
+    "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"]
+  and wire = Polychrome.acquire "k6" in
+  let vary = Polychrome.separate wire
+  in checklist name exam vary;;
+
+let test_polychrome_approval () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and yarn = "CuPb" in
+  try
+    assert (Polychrome.approval yarn)
   with kind ->
     excusable name kind;;
 
@@ -208,6 +256,24 @@ let test_polychrome_inventory () =
   let name = __FUNCTION__ and spat = "FePu" in
   try
     Polychrome.inventory spat
+  with kind ->
+    excusable name kind;;
+
+let test_polychrome_periodic () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and sift = "PbFe" in
+  try
+    assert (Polychrome.periodic sift)
+  with kind ->
+    excusable name kind;;
+
+let test_polychrome_refinery () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and seal = "k15" in
+  try
+    Polychrome.refinery seal
   with kind ->
     excusable name kind;;
 
@@ -424,11 +490,11 @@ let test_scordatura_gearbox () =
   with kind ->
     excusable name kind;;
 
-let test_scordatura_separate () =
+let test_scordatura_assemble () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "fkbjdn" and count = 0
   and flags = ["-find"; "-keys"; "-fkbjdn"; "-mars"] in
-  let vary = Scordatura.separate flags count in stringent name exam vary;;
+  let vary = Scordatura.assemble flags count in stringent name exam vary;;
 
 let test_scordatura_cornucopia () =
   abacus.tested <- Int.succ abacus.tested;
@@ -553,6 +619,9 @@ let runabout_polychrome start =
   test_polychrome_ordnance ();
   test_polychrome_keynotes ();
   test_polychrome_bankroll ();
+  test_polychrome_turnkeys ();
+  test_polychrome_revealed ();
+  test_polychrome_sideshow ();
   test_polychrome_columned ();
   test_polychrome_selections ();
   test_polychrome_frontage ();
@@ -562,10 +631,14 @@ let runabout_polychrome start =
   test_polychrome_byzantine ();
   test_polychrome_dominican ();
   test_polychrome_marshaled ();
+  test_polychrome_separate ();
+  test_polychrome_approval ();
   test_polychrome_uniforms ();
   test_polychrome_elemental ();
   test_polychrome_scrubber ();
   test_polychrome_inventory ();
+  test_polychrome_periodic ();
+  test_polychrome_refinery ();
   test_polychrome_grouper ();
   let after = millipede start in
   Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;;
@@ -595,7 +668,7 @@ let runabout_scordatura start =
   test_scordatura_layout_signer ();
   test_scordatura_juxtapose ();
   test_scordatura_gearbox ();
-  test_scordatura_separate ();
+  test_scordatura_assemble ();
 (*  test_scordatura_cornucopia (); *)
 (*  test_scordatura_dumpster (); *)
   let after = millipede start in

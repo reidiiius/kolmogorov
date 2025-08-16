@@ -1,3 +1,4 @@
+(* kolmogorov.ml *)
 
 module Geoffroy = struct
 
@@ -107,24 +108,36 @@ module Geoffroy = struct
     let clefs = keynotes () in
       List.length clefs;;
 
+  let turnkeys () =
+    (bankroll (), keynotes ());;
+
+  let revealed expo =
+    Printf.eprintf "Error: %s\n" expo;;
+
+  let sideshow lids size =
+    try
+      Printf.printf "\t%s" (List.nth lids (Int.sub size 1))
+    with
+    | Invalid_argument expo -> revealed expo
+    | Failure expo -> revealed expo;;
+
   let rec columned size ways =
     let yaws = List.rev ways in
     if size <= 1 then
       begin
-        Printf.printf "\t%s" (List.nth yaws (size - 1));
+        sideshow yaws size;
         print_newline ()
       end
     else
       begin
         let cols = 8 in
         if (size mod cols) = 0 then print_newline();
-        Printf.printf "\t%s" (List.nth yaws (size - 1));
-        columned (size - 1) ways
+        sideshow yaws size;
+        columned (Int.sub size 1) ways
       end;;
 
   let selections () =
-    let clefs = keynotes () in
-    let niter = bankroll () in
+    let (niter, clefs) = turnkeys () in
       print_newline ();
       columned niter clefs;
       print_newline ();;
@@ -137,9 +150,9 @@ module Geoffroy = struct
 
   let foxhounds () =
     let clefs = keynotes () in
-    let raised = discern "k" clefs in
-    let native = discern "n" clefs in
-    let lowish = discern "j" clefs in
+    let raised = discern "k" clefs
+    and native = discern "n" clefs
+    and lowish = discern "j" clefs in
       print_newline ();
       columned (List.length raised) raised;
       print_newline ();
@@ -149,12 +162,19 @@ module Geoffroy = struct
       print_newline ();;
 
   let checkmate labs =
-    frontage ~prefix:"Pb" (List.nth labs 5) ||
-    frontage ~prefix:"Fe" (List.nth labs 11);;
+    let span = List.length labs in
+    let last = Int.sub span 1 in
+    if span >= 12 then
+      try
+        frontage ~prefix:"Pb" (List.nth labs 5) ||
+        frontage ~prefix:"Fe" (List.nth labs last)
+      with Failure expo -> revealed expo; false
+    else false;;
 
   let byzantine sign =
-    let spat = Char.chr 32 in
-    let yarn = String.trim (acquire sign) in
+    let spat = Char.chr 32
+    and wire = acquire sign in
+    let yarn = String.trim wire in
     let labs = String.split_on_char spat yarn in
       if checkmate labs then sign
       else String.empty;;
@@ -162,9 +182,10 @@ module Geoffroy = struct
   let dominican () =
     let clefs = keynotes () in
     let lots = List.map byzantine clefs in
-      discern "k" lots @ ["\n"] @
-      discern "n" lots @ ["\n\n"] @
-      discern "j" lots;;
+      List.concat [
+        discern "k" lots; ["\n"];
+        discern "n" lots; ["\n\n"];
+        discern "j" lots];;
 
   let marshaled () =
     let dons = dominican () in
@@ -173,14 +194,23 @@ module Geoffroy = struct
       columned numb dons;
       print_newline ();;
 
+  let separate wire =
+    let spat = Char.chr 32
+    and yarn = String.trim wire in
+      String.split_on_char spat yarn;;
+
+  let approval yarn =
+    let atom = Char.chr 95 in
+    let spat = String.make 1 atom in
+    let bore = frontage ~prefix:spat yarn in
+      not bore;;
+
   let uniforms () =
-    let dice = fun wire -> String.split_on_char '\x20' (String.trim wire)
-    and pans = snd (List.split berzelian) in
-    let urns = List.map dice pans in
+    let pans = snd (List.split berzelian) in
+    let urns = List.map separate pans in
     let lots = List.flatten urns in
-    let lint = fun yarn -> not (frontage ~prefix:"\x5F" yarn) in
-    let rock = List.filter lint lots in
-      List.sort_uniq String.compare rock;;
+    let ores = List.filter approval lots in
+      List.sort_uniq String.compare ores;;
 
   let elemental () =
     let ores = uniforms () in
@@ -190,14 +220,13 @@ module Geoffroy = struct
       print_newline ();;
 
   let scrubber wire =
-    List.filter (fun stem -> not
-      (frontage ~prefix:"\x5F" stem))
-      (String.split_on_char '\x20' (String.trim wire));;
+    let yarn = separate wire in
+      List.filter approval yarn;;
 
   let inventory spat =
-    let numb = ref 0 in
-    let hold = Stack.create () in
-    let duos = List.rev berzelian in
+    let numb = ref 0
+    and hold = Stack.create ()
+    and duos = List.rev berzelian in
     List.iter (fun pair ->
       List.iter (fun stem ->
         if String.equal spat stem then
@@ -215,29 +244,29 @@ module Geoffroy = struct
     else
       Printf.printf "\n\t%s ?\n" spat;;
 
-  let grouper lints =
-    if (List.length lints) < 2 then elemental ()
+  let periodic sift =
+    not (frontage ~prefix:":" sift) &&
+    not (frontage ~prefix:"j" sift) &&
+    not (frontage ~prefix:"k" sift) &&
+    not (frontage ~prefix:"n" sift);;
+
+  let refinery seal =
+    if periodic seal then inventory seal
+    else if membership seal then
+      let wire = acquire seal in
+      let ores = scrubber wire in
+      let labs = List.sort String.compare ores in
+      let chem = String.concat "\x20" labs in
+        Printf.printf "\n\t%s { %s }\n" seal chem
+    else if not (frontage ~prefix:":" seal) then
+      Printf.printf "\n\t%s ?\n" seal
+    else ();;
+
+  let grouper words =
+    let size = List.length words in
+    if size < 2 then elemental ()
     else begin
-      List.iter (fun skid ->
-        if not (frontage ~prefix:":" skid) &&
-           not (frontage ~prefix:"j" skid) &&
-           not (frontage ~prefix:"k" skid) &&
-           not (frontage ~prefix:"n" skid)
-        then inventory skid
-        else
-          if membership skid then
-            let wire = String.trim (acquire skid) in
-            let lugs = String.split_on_char '\x20' wire in
-            let urns = List.sort_uniq String.compare lugs in
-            let labs = List.filter (fun stem ->
-              not (frontage ~prefix:"\x5F" stem)) urns in
-            let chem = String.concat "\x20" labs in
-              Printf.printf "\n\t%s { %s }\n" skid chem
-          else
-            if not (frontage ~prefix:":" skid) then
-              Printf.printf "\n\t%s ?\n" skid
-            else ()
-      ) lints;
+      List.iter refinery words;
       print_newline ()
     end;;
 
@@ -384,7 +413,7 @@ let gearbox spot words =
     else
       Geoffroy.foxhounds ();;
 
-let rec separate flags count =
+let rec assemble flags count =
   let harps = attunes () in
   let audit = List.length harps in
   let noted = List.nth harps count in
@@ -394,13 +423,13 @@ let rec separate flags count =
   if count >= (audit - 1) || found then
     noted
   else
-    separate flags (count + 1);;
+    assemble flags (count + 1);;
 
 let cornucopia tuned flags =
   let clefs = Geoffroy.keynotes () in
   let quant = List.length flags in
   if quant > 1 then
-    let raked = separate flags 0 in
+    let raked = assemble flags 0 in
     List.iter (layout raked) clefs
   else
     List.iter (layout tuned) clefs;
@@ -647,6 +676,34 @@ let test_geoffroy_bankroll () =
   with Assert_failure trio ->
     presenter name trio;;
 
+let test_geoffroy_turnkeys () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and (niter, clefs) = Geoffroy.turnkeys () in
+  let count = List.length clefs in
+  try
+    assert (Int.equal niter count)
+  with Assert_failure trio ->
+    presenter name trio;;
+
+let test_geoffroy_revealed () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and bone = false in
+  try
+    if bone then Geoffroy.revealed name
+  with kind ->
+    excusable name kind;;
+
+let test_geoffroy_sideshow () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and (size, lids) = Geoffroy.turnkeys () in
+  try
+    Geoffroy.sideshow lids size
+  with kind ->
+    excusable name kind;;
+
 let test_geoffroy_columned () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
@@ -693,7 +750,8 @@ let test_geoffroy_foxhounds () =
 let test_geoffroy_checkmate () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
-  and labs = ["HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
+  and labs = [
+    "HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
     "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"] in
   try
     assert (Geoffroy.checkmate labs)
@@ -722,6 +780,25 @@ let test_geoffroy_marshaled () =
   let name = __FUNCTION__ in
   try
     Geoffroy.marshaled ()
+  with kind ->
+    excusable name kind;;
+
+let test_geoffroy_separate () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and exam = [
+    "HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
+    "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"]
+  and wire = Geoffroy.acquire "k6" in
+  let vary = Geoffroy.separate wire
+  in checklist name exam vary;;
+
+let test_geoffroy_approval () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and yarn = "CuPb" in
+  try
+    assert (Geoffroy.approval yarn)
   with kind ->
     excusable name kind;;
 
@@ -761,6 +838,24 @@ let test_geoffroy_inventory () =
   let name = __FUNCTION__ and spat = "FePu" in
   try
     Geoffroy.inventory spat
+  with kind ->
+    excusable name kind;;
+
+let test_geoffroy_periodic () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and sift = "PbFe" in
+  try
+    assert (Geoffroy.periodic sift)
+  with kind ->
+    excusable name kind;;
+
+let test_geoffroy_refinery () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and seal = "k15" in
+  try
+    Geoffroy.refinery seal
   with kind ->
     excusable name kind;;
 
@@ -978,11 +1073,11 @@ let test_jacquard_gearbox () =
   with kind ->
     excusable name kind;;
 
-let test_jacquard_separate () =
+let test_jacquard_assemble () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "fkbjdn" and count = 0
   and flags = [":find"; ":keys"; ":fkbjdn"; ":mars"] in
-  let vary = Jacquard.separate flags count in stringent name exam vary;;
+  let vary = Jacquard.assemble flags count in stringent name exam vary;;
 
 let test_jacquard_cornucopia () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1108,6 +1203,9 @@ let runabout_geoffroy start =
   test_geoffroy_ordnance ();
   test_geoffroy_keynotes ();
   test_geoffroy_bankroll ();
+  test_geoffroy_turnkeys ();
+  test_geoffroy_revealed ();
+  test_geoffroy_sideshow ();
   test_geoffroy_columned ();
   test_geoffroy_selections ();
   test_geoffroy_frontage ();
@@ -1117,10 +1215,14 @@ let runabout_geoffroy start =
   test_geoffroy_byzantine ();
   test_geoffroy_dominican ();
   test_geoffroy_marshaled ();
+  test_geoffroy_separate ();
+  test_geoffroy_approval ();
   test_geoffroy_uniforms ();
   test_geoffroy_elemental ();
   test_geoffroy_scrubber ();
   test_geoffroy_inventory ();
+  test_geoffroy_periodic ();
+  test_geoffroy_refinery ();
   test_geoffroy_grouper ();
   let after = millipede start in
 (*  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;; *)
@@ -1151,7 +1253,7 @@ let runabout_jacquard start =
   test_jacquard_layout_signer ();
   test_jacquard_juxtapose ();
   test_jacquard_gearbox ();
-  test_jacquard_separate ();
+  test_jacquard_assemble ();
 (*  test_jacquard_cornucopia (); *)
 (*  test_jacquard_dumpster (); *)
   let after = millipede start in
