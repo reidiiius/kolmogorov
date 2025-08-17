@@ -140,11 +140,11 @@
       columned niter clefs;
       print_newline ();;
 
-  let frontage ~prefix:wire item =
+  let frontage wire item =
     String.starts_with ~prefix:wire item;;
 
   let discern wire lugs =
-      List.filter (frontage ~prefix:wire) lugs;;
+      List.filter (frontage wire) lugs;;
 
   let foxhounds () =
     let clefs = keynotes () in
@@ -164,8 +164,8 @@
     let last = Int.sub span 1 in
     if span >= 12 then
       try
-        frontage ~prefix:"Pb" (List.nth labs 5) ||
-        frontage ~prefix:"Fe" (List.nth labs last)
+        frontage "Pb" (List.nth labs 5) ||
+        frontage "Fe" (List.nth labs last)
       with Failure expo -> revealed expo; false
     else false;;
 
@@ -200,7 +200,7 @@
   let approval yarn =
     let atom = Char.chr 95 in
     let spat = String.make 1 atom in
-    let bore = frontage ~prefix:spat yarn in
+    let bore = frontage spat yarn in
       not bore;;
 
   let uniforms () =
@@ -243,10 +243,10 @@
       Printf.printf "\n\t%s ?\n" spat;;
 
   let periodic sift =
-    not (frontage ~prefix:":" sift) &&
-    not (frontage ~prefix:"j" sift) &&
-    not (frontage ~prefix:"k" sift) &&
-    not (frontage ~prefix:"n" sift);;
+    not (frontage ":" sift) &&
+    not (frontage "j" sift) &&
+    not (frontage "k" sift) &&
+    not (frontage "n" sift);;
 
   let refinery seal =
     if periodic seal then inventory seal
@@ -256,7 +256,7 @@
       let labs = List.sort String.compare ores in
       let chem = String.concat "\x20" labs in
         Printf.printf "\n\t%s { %s }\n" seal chem
-    else if not (frontage ~prefix:":" seal) then
+    else if not (frontage ":" seal) then
       Printf.printf "\n\t%s ?\n" seal
     else ();;
 

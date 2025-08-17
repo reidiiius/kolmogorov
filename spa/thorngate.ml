@@ -145,11 +145,11 @@ module Polychrome = struct
       columned niter clefs;
       print_newline ();;
 
-  let frontage ~prefix:wire item =
+  let frontage wire item =
     String.starts_with ~prefix:wire item;;
 
   let discern wire lugs =
-      List.filter (frontage ~prefix:wire) lugs;;
+      List.filter (frontage wire) lugs;;
 
   let foxhounds () =
     let clefs = keynotes () in
@@ -169,8 +169,8 @@ module Polychrome = struct
     let last = Int.sub span 1 in
     if span >= 12 then
       try
-        frontage ~prefix:"Pb" (List.nth labs 5) ||
-        frontage ~prefix:"Fe" (List.nth labs last)
+        frontage "Pb" (List.nth labs 5) ||
+        frontage "Fe" (List.nth labs last)
       with Failure expo -> revealed expo; false
     else false;;
 
@@ -205,7 +205,7 @@ module Polychrome = struct
   let approval yarn =
     let atom = Char.chr 95 in
     let spat = String.make 1 atom in
-    let bore = frontage ~prefix:spat yarn in
+    let bore = frontage spat yarn in
       not bore;;
 
   let uniforms () =
@@ -248,10 +248,10 @@ module Polychrome = struct
       Printf.printf "\n\t%s ?\n" spat;;
 
   let periodic sift =
-    not (frontage ~prefix:"-" sift) &&
-    not (frontage ~prefix:"j" sift) &&
-    not (frontage ~prefix:"k" sift) &&
-    not (frontage ~prefix:"n" sift);;
+    not (frontage "-" sift) &&
+    not (frontage "j" sift) &&
+    not (frontage "k" sift) &&
+    not (frontage "n" sift);;
 
   let refinery seal =
     if periodic seal then inventory seal
@@ -261,7 +261,7 @@ module Polychrome = struct
       let labs = List.sort String.compare ores in
       let chem = String.concat "\x20" labs in
         Printf.printf "\n\t%s { %s }\n" seal chem
-    else if not (frontage ~prefix:"-" seal) then
+    else if not (frontage "-" seal) then
       Printf.printf "\n\t%s ?\n" seal
     else ();;
 
@@ -320,20 +320,26 @@ let tensile sign stem =
 let attunes () =
   ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"];;
 
+let produce () =
+  let harps = attunes () in
+  let audit = List.length harps in
+  (audit, harps);;
+
+let lutherie () =
+  let harps = attunes ()
+  and carve = (fun cord -> Printf.printf "   -%s" cord)
+  in List.iter carve harps;;
+
 let pegboxes () =
   print_newline ();
   print_string (Char.chr 32 |> String.make 7);
-  let funky = (fun cord ->
-    Printf.printf "   -%s" cord) in
-  let gears = attunes () in
-  List.iter funky gears;
+  lutherie ();
   print_newline ();;
 
 let stockade spot =
-  let harps = attunes () in
-  let width = List.length harps in
-  if width > 0 then
-    if (spot >= 0) && (spot < width) then
+  let (audit, harps) = produce () in
+  if audit > 0 then
+    if (spot >= 0) && (spot < audit) then
       List.nth harps spot
     else
       List.hd harps
@@ -352,39 +358,41 @@ let diadem sign pegs =
 let scribe yarn =
   Printf.printf "\t%s\n" yarn;;
 
-let lattice sign sols =
-  List.iter (fun stem ->
-    scribe (tensile sign stem)) sols;;
+let engrave sign stem =
+  scribe (tensile sign stem);;
+
+let lattice sign tons =
+  List.iter (engrave sign) tons;;
 
 let beadgcf sign =
   scribe (diadem sign "beadgcf");
-  let sols = ["cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"]
-  in lattice sign sols;;
+  let tons = ["cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"]
+  in lattice sign tons;;
 
 let bfbfb sign =
   scribe (diadem sign "bfbfb");
-  let sols = ["cap"; "cnc"; "cap"; "cnc"; "cap"]
-  in lattice sign sols;;
+  let tons = ["cap"; "cnc"; "cap"; "cnc"; "cap"]
+  in lattice sign tons;;
 
 let cgdae sign =
   scribe (diadem sign "cgdae");
-  let sols = ["leo"; "psc"; "lib"; "tau"; "sgr"]
-  in lattice sign sols;;
+  let tons = ["leo"; "psc"; "lib"; "tau"; "sgr"]
+  in lattice sign tons;;
 
 let eadgbe sign =
   scribe (diadem sign "eadgbe");
-  let sols = ["leo"; "cap"; "tau"; "lib"; "psc"; "leo"]
-  in lattice sign sols;;
+  let tons = ["leo"; "cap"; "tau"; "lib"; "psc"; "leo"]
+  in lattice sign tons;;
 
 let fkbjdn sign =
   scribe (diadem sign "fkbjdn");
-  let sols = ["lib"; "aqr"; "gem"; "lib"; "aqr"; "gem"]
-  in lattice sign sols;;
+  let tons = ["lib"; "aqr"; "gem"; "lib"; "aqr"; "gem"]
+  in lattice sign tons;;
 
 let piano sign =
   scribe (diadem sign "piano");
-  let sols = ["sgr"]
-  in lattice sign sols;;
+  let tons = ["sgr"]
+  in lattice sign tons;;
 
 (* presentation composition *)
 
@@ -406,32 +414,38 @@ let juxtapose tuned words =
   List.iter (layout tuned) words;
   print_newline ();;
 
+let bounced stem =
+  let atom = Char.chr 45 in
+  let face = String.make 1 atom in
+    not (String.starts_with ~prefix:face stem);;
+
 let gearbox spot words =
-  let harps = attunes () in
-  let tuned = List.nth harps spot in
-  let funky = (fun item -> not
-  (String.starts_with ~prefix:"-" item)) in
-  let finds = List.filter funky words in
-    if List.length finds > 0 then
-      juxtapose tuned finds
-    else
-      Polychrome.foxhounds ();;
+  let (audit, harps) = produce () in
+    if (spot >= 0) && (spot <= (audit - 1)) then
+      let tuned = List.nth harps spot
+      and finds = List.filter bounced words in
+        if List.length finds > 0 then
+          juxtapose tuned finds
+        else
+          Polychrome.foxhounds ()
+    else begin
+      pegboxes ();
+      print_newline ()
+    end;;
+
+let caboose noted sieve =
+  String.ends_with ~suffix:noted sieve;;
 
 let rec assemble flags count =
-  let harps = attunes () in
-  let audit = List.length harps in
+  let (audit, harps) = produce () in
   let noted = List.nth harps count in
-  let sieve = (fun item ->
-    String.ends_with ~suffix:noted item) in
-  let found = List.exists sieve flags in
-  if count >= (audit - 1) || found then
-    noted
-  else
-    assemble flags (count + 1);;
+  let found = List.exists (caboose noted) flags in
+  if count >= (audit - 1) || found then noted
+  else assemble flags (count + 1);;
 
 let cornucopia tuned flags =
-  let clefs = Polychrome.keynotes () in
-  let quant = List.length flags in
+  let clefs = Polychrome.keynotes ()
+  and quant = List.length flags in
   if quant > 1 then
     let raked = assemble flags 0 in
     List.iter (layout raked) clefs
@@ -439,22 +453,21 @@ let cornucopia tuned flags =
     List.iter (layout tuned) clefs;
   print_newline ();;
 
+let coworker harps posit sign =
+  let tuned = List.nth harps posit in
+    layout tuned sign;;
+
 let rec dumpster posit =
-  let clefs = Polychrome.keynotes () in
-  let harps = attunes () in
-  let audit = List.length harps in
+  let clefs = Polychrome.keynotes ()
+  and (audit, harps) = produce () in
   if posit >= (audit - 1) then
     begin
-      List.iter (
-        fun sign -> layout (List.nth harps posit) sign
-      ) clefs;
+      List.iter (coworker harps posit) clefs;
       print_newline ()
     end
   else
     begin
-      List.iter (
-        fun sign -> layout (List.nth harps posit) sign
-      ) clefs;
+      List.iter (coworker harps posit) clefs;
       dumpster (posit + 1)
     end;;
 

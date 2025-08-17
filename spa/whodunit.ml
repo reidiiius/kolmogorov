@@ -144,7 +144,7 @@ let test_polychrome_frontage () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and face = "-" and word = "-all" in
   try
-    assert (Polychrome.frontage ~prefix:face word)
+    assert (Polychrome.frontage face word)
   with Assert_failure trio ->
     presenter name trio;;
 
@@ -336,11 +336,30 @@ let test_scordatura_attunes () =
   and exam = ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"]
   and vary = Scordatura.attunes () in checklist name exam vary;;
 
+let test_scordatura_produce () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and (audit, harps) = Scordatura.produce () in
+  let width = List.length harps in
+  try
+    assert (Int.equal audit width)
+  with kind ->
+    excusable name kind;;
+
+let test_scordatura_lutherie () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ in
+  try
+    Scordatura.lutherie ()
+  with kind ->
+    excusable name kind;;
+
 let test_scordatura_pegboxes () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ in
   try
-    Scordatura.pegboxes ()
+    Scordatura.pegboxes ();
+    print_newline ()
   with kind ->
     excusable name kind;;
 
@@ -380,6 +399,16 @@ let test_scordatura_scribe () =
   and wire = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb " in
   try
     Scordatura.scribe wire
+  with kind ->
+    excusable name kind;;
+
+let test_scordatura_engrave () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and sign = "n0" and stem = "gem" in
+  try
+    Scordatura.engrave sign stem;
+    print_newline ()
   with kind ->
     excusable name kind;;
 
@@ -481,12 +510,30 @@ let test_scordatura_juxtapose () =
   with kind ->
     excusable name kind;;
 
+let test_scordatura_bounced () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and stem = "n0" in
+  try
+    assert (Scordatura.bounced stem)
+  with kind ->
+    excusable name kind;;
+
 let test_scordatura_gearbox () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and spot = 2
   and words = ["k6"; "j5"] in
   try
     Scordatura.gearbox spot words
+  with kind ->
+    excusable name kind;;
+
+let test_scordatura_caboose () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and noted = "cgdae" and sieve = "#cgdae" in
+  try
+    assert (Scordatura.caboose noted sieve)
   with kind ->
     excusable name kind;;
 
@@ -503,6 +550,17 @@ let test_scordatura_cornucopia () =
   and flags = ["-find"; "-keys"; "-fkbjdn"; "-mars"] in
   try
     Scordatura.cornucopia tuned flags
+  with kind ->
+    excusable name kind;;
+
+let test_scordatura_coworker () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and (audit, harps) = Scordatura.produce () in
+  let posit = (audit - 1) and sign = "n0" in
+  try
+    Scordatura.coworker harps posit sign;
+    print_newline ()
   with kind ->
     excusable name kind;;
 
@@ -650,12 +708,15 @@ let runabout_scordatura start =
   test_scordatura_machine ();
   test_scordatura_tensile ();
   test_scordatura_attunes ();
+  test_scordatura_produce ();
+  test_scordatura_lutherie ();
   test_scordatura_pegboxes ();
   test_scordatura_stockade ();
   test_scordatura_randomize ();
   test_scordatura_variant ();
   test_scordatura_diadem ();
   test_scordatura_scribe ();
+  test_scordatura_engrave ();
   test_scordatura_lattice ();
   test_scordatura_beadgcf ();
   test_scordatura_bfbfb ();
@@ -667,9 +728,12 @@ let runabout_scordatura start =
   test_scordatura_layout_tuner ();
   test_scordatura_layout_signer ();
   test_scordatura_juxtapose ();
+  test_scordatura_bounced ();
   test_scordatura_gearbox ();
+  test_scordatura_caboose ();
   test_scordatura_assemble ();
 (*  test_scordatura_cornucopia (); *)
+  test_scordatura_coworker ();
 (*  test_scordatura_dumpster (); *)
   let after = millipede start in
   Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;;
