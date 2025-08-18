@@ -6,14 +6,14 @@ open Kolmogorov
 
 let atrium () =
   let quanta = (Array.length Sys.argv - 1) in
-  let argots = (Array.sub Sys.argv 1 quanta) in
-  let bounds = Geoffroy.bankroll () in
+  let argots = (Array.sub Sys.argv 1 quanta)
+  and bounds = Geoffroy.bankroll () in
     if quanta = 0 || quanta >= bounds then
       Ministry.preamble ()
     else
-      let front = ":" in
-      let tuned = Jacquard.stockade 3 in
-      let words = Ministry.governor 9 argots in
+      let front = ":"
+      and tuned = Jacquard.stockade 3
+      and words = Ministry.governor 9 argots in
       let flags = Ministry.switches front words in
     if List.length flags > 0 then
       let opted = Ministry.sentinel front words in
@@ -53,8 +53,8 @@ let atrium () =
         | Some _
         | None -> Jacquard.juxtapose tuned words
     else
-      Jacquard.juxtapose tuned words;;
+      Jacquard.juxtapose tuned words
 
-atrium ()
+let () = atrium ()
 
 

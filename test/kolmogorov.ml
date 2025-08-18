@@ -89,37 +89,37 @@ module Geoffroy = struct
  ("j3k56m4", "HgTi ____ SnNp UrAu ____ ____ ____ AuUr NpSn ____ TiHg FeFe ");
  ("k1j56w7", "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ");
  ("k2j56w7", "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
-  ];;
+  ]
 
   let acquire sign =
     try List.assoc sign berzelian;
-    with Not_found -> List.assoc "i0" berzelian;;
+    with Not_found -> List.assoc "i0" berzelian
 
   let membership sign =
-    List.mem_assoc sign berzelian;;
+    List.mem_assoc sign berzelian
 
   let ordnance stems =
-    List.sort String.compare stems;;
+    List.sort String.compare stems
 
   let keynotes () =
-    ordnance (fst (List.split berzelian));;
+    ordnance (fst (List.split berzelian))
 
   let bankroll () =
     let clefs = keynotes () in
-      List.length clefs;;
+      List.length clefs
 
   let turnkeys () =
-    (bankroll (), keynotes ());;
+    (bankroll (), keynotes ())
 
   let revealed expo =
-    Printf.eprintf "Error: %s\n" expo;;
+    Printf.eprintf "Error: %s\n" expo
 
   let sideshow lids size =
     try
       Printf.printf "\t%s" (List.nth lids (Int.sub size 1))
     with
     | Invalid_argument expo -> revealed expo
-    | Failure expo -> revealed expo;;
+    | Failure expo -> revealed expo
 
   let rec columned size ways =
     let yaws = List.rev ways in
@@ -134,19 +134,19 @@ module Geoffroy = struct
         if (size mod cols) = 0 then print_newline();
         sideshow yaws size;
         columned (Int.sub size 1) ways
-      end;;
+      end
 
   let selections () =
     let (niter, clefs) = turnkeys () in
       print_newline ();
       columned niter clefs;
-      print_newline ();;
+      print_newline ()
 
   let frontage wire item =
-    String.starts_with ~prefix:wire item;;
+    String.starts_with ~prefix:wire item
 
   let discern wire lugs =
-      List.filter (frontage wire) lugs;;
+      List.filter (frontage wire) lugs
 
   let foxhounds () =
     let clefs = keynotes () in
@@ -159,7 +159,7 @@ module Geoffroy = struct
       columned (List.length native) native;
       print_newline ();
       columned (List.length lowish) lowish;
-      print_newline ();;
+      print_newline ()
 
   let checkmate labs =
     let span = List.length labs in
@@ -169,7 +169,7 @@ module Geoffroy = struct
         frontage "Pb" (List.nth labs 5) ||
         frontage "Fe" (List.nth labs last)
       with Failure expo -> revealed expo; false
-    else false;;
+    else false
 
   let byzantine sign =
     let spat = Char.chr 32
@@ -177,7 +177,7 @@ module Geoffroy = struct
     let yarn = String.trim wire in
     let labs = String.split_on_char spat yarn in
       if checkmate labs then sign
-      else String.empty;;
+      else String.empty
 
   let dominican () =
     let clefs = keynotes () in
@@ -185,43 +185,43 @@ module Geoffroy = struct
       List.concat [
         discern "k" lots; ["\n"];
         discern "n" lots; ["\n\n"];
-        discern "j" lots];;
+        discern "j" lots]
 
   let marshaled () =
     let dons = dominican () in
     let numb = List.length dons in
       print_newline ();
       columned numb dons;
-      print_newline ();;
+      print_newline ()
 
   let separate wire =
     let spat = Char.chr 32
     and yarn = String.trim wire in
-      String.split_on_char spat yarn;;
+      String.split_on_char spat yarn
 
   let approval yarn =
     let atom = Char.chr 95 in
     let spat = String.make 1 atom in
     let bore = frontage spat yarn in
-      not bore;;
+      not bore
 
   let uniforms () =
     let pans = snd (List.split berzelian) in
     let urns = List.map separate pans in
     let lots = List.flatten urns in
     let ores = List.filter approval lots in
-      List.sort_uniq String.compare ores;;
+      List.sort_uniq String.compare ores
 
   let elemental () =
     let ores = uniforms () in
     let size = List.length ores in
       print_newline ();
       columned size ores;
-      print_newline ();;
+      print_newline ()
 
   let scrubber wire =
     let yarn = separate wire in
-      List.filter approval yarn;;
+      List.filter approval yarn
 
   let inventory spat =
     let numb = ref 0
@@ -242,13 +242,13 @@ module Geoffroy = struct
         print_newline ()
       end
     else
-      Printf.printf "\n\t%s ?\n" spat;;
+      Printf.printf "\n\t%s ?\n" spat
 
   let periodic sift =
     not (frontage ":" sift) &&
     not (frontage "j" sift) &&
     not (frontage "k" sift) &&
-    not (frontage "n" sift);;
+    not (frontage "n" sift)
 
   let refinery seal =
     if periodic seal then inventory seal
@@ -260,7 +260,7 @@ module Geoffroy = struct
         Printf.printf "\n\t%s { %s }\n" seal chem
     else if not (frontage ":" seal) then
       Printf.printf "\n\t%s ?\n" seal
-    else ();;
+    else ()
 
   let grouper words =
     let size = List.length words in
@@ -268,9 +268,9 @@ module Geoffroy = struct
     else begin
       List.iter refinery words;
       print_newline ()
-    end;;
+    end
 
-end;;
+end
 
 module Jacquard = struct
 
@@ -288,11 +288,11 @@ let zodiac = [
   ("sgr", (60,  0));
   ("tau", (35, 25));
   ("vir", (15, 45))
-];;
+]
 
 let obtain stem =
   try List.assoc stem zodiac;
-  with Not_found -> List.assoc "oph" zodiac;;
+  with Not_found -> List.assoc "oph" zodiac
 
 let machine sign spot span =
   let wire = Geoffroy.acquire sign in
@@ -305,32 +305,32 @@ let machine sign spot span =
       let grow = String.sub body 0 4 in
         String.cat body grow
     else
-      String.make size (Char.chr 45);;
+      String.make size (Char.chr 45)
 
 let tensile sign stem =
   let (spot, span) = obtain stem
-  in machine sign spot span;;
+  in machine sign spot span
 
 (* instrument tunings *)
 
 let attunes () =
-  ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"];;
+  ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"]
 
 let produce () =
   let harps = attunes () in
   let audit = List.length harps in
-  (audit, harps);;
+  (audit, harps)
 
 let lutherie () =
   let harps = attunes ()
   and carve = (fun cord -> Printf.printf "   :%s" cord)
-  in List.iter carve harps;;
+  in List.iter carve harps
 
 let pegboxes () =
   print_newline ();
   print_string (Char.chr 32 |> String.make 7);
   lutherie ();
-  print_newline ();;
+  print_newline ()
 
 let stockade spot =
   let harps = attunes () in
@@ -341,55 +341,55 @@ let stockade spot =
     else
       List.hd harps
   else
-    "piano";;
+    "piano"
 (*
 let randomize () =
   Random.self_init ();
-  Random.full_int Int.max_int;;
+  Random.full_int Int.max_int
 *)
-let variant = Int.to_string 3971809718987134967;; (* (randomize ()) *)
+let variant = Int.to_string 3971809718987134967 (* (randomize ()) *)
 
 let diadem sign pegs =
-  String.concat "-" [sign; pegs; variant];;
+  String.concat "-" [sign; pegs; variant]
 
 let scribe yarn =
-  Printf.printf "\t%s\n" yarn;;
+  Printf.printf "\t%s\n" yarn
 
 let engrave sign stem =
-  scribe (tensile sign stem);;
+  scribe (tensile sign stem)
 
 let lattice sign tons =
-  List.iter (engrave sign) tons;;
+  List.iter (engrave sign) tons
 
 let beadgcf sign =
   scribe (diadem sign "beadgcf");
   let tons = ["cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let bfbfb sign =
   scribe (diadem sign "bfbfb");
   let tons = ["cap"; "cnc"; "cap"; "cnc"; "cap"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let cgdae sign =
   scribe (diadem sign "cgdae");
   let tons = ["leo"; "psc"; "lib"; "tau"; "sgr"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let eadgbe sign =
   scribe (diadem sign "eadgbe");
   let tons = ["leo"; "cap"; "tau"; "lib"; "psc"; "leo"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let fkbjdn sign =
   scribe (diadem sign "fkbjdn");
   let tons = ["lib"; "aqr"; "gem"; "lib"; "aqr"; "gem"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let piano sign =
   scribe (diadem sign "piano");
   let tons = ["sgr"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 (* presentation composition *)
 
@@ -405,16 +405,16 @@ let layout tuned sign =
     | "piano" -> piano sign
     | _ -> piano "i0"
   else
-    Printf.printf "\t%s ?\n" sign;;
+    Printf.printf "\t%s ?\n" sign
 
 let juxtapose tuned words =
   List.iter (layout tuned) words;
-  print_newline ();;
+  print_newline ()
 
 let bounced stem =
   let atom = Char.chr 58 in
   let face = String.make 1 atom in
-    not (String.starts_with ~prefix:face stem);;
+    not (String.starts_with ~prefix:face stem)
 
 let gearbox spot words =
   let (audit, harps) = produce () in
@@ -428,17 +428,17 @@ let gearbox spot words =
     else begin
       pegboxes ();
       print_newline ()
-    end;;
+    end
 
 let caboose noted sieve =
-  String.ends_with ~suffix:noted sieve;;
+  String.ends_with ~suffix:noted sieve
 
 let rec assemble flags count =
   let (audit, harps) = produce () in
   let noted = List.nth harps count in
   let found = List.exists (caboose noted) flags in
   if count >= (audit - 1) || found then noted
-  else assemble flags (count + 1);;
+  else assemble flags (count + 1)
 
 let cornucopia tuned flags =
   let clefs = Geoffroy.keynotes () in
@@ -448,11 +448,11 @@ let cornucopia tuned flags =
     List.iter (layout raked) clefs
   else
     List.iter (layout tuned) clefs;
-  print_newline ();;
+  print_newline ()
 
 let coworker harps posit sign =
   let tuned = List.nth harps posit in
-    layout tuned sign;;
+    layout tuned sign
 
 let rec dumpster posit =
   let clefs = Geoffroy.keynotes ()
@@ -466,38 +466,38 @@ let rec dumpster posit =
     begin
       List.iter (coworker harps posit) clefs;
       dumpster (posit + 1)
-    end;;
+    end
 
-end;;
+end
 
 module Ministry = struct
 
 let utensils () =
-  ["all"; "alloys"; "find"; "help"; "keys"; "mars"];;
+  ["all"; "alloys"; "find"; "help"; "keys"; "mars"]
 
 let woodshed () =
   let tools = utensils ()
   and apply = (fun name -> Printf.printf "    :%s" name)
-  in List.iter apply tools;;
+  in List.iter apply tools
 
 let toolbars () =
   print_newline ();
   print_string (Char.chr 32 |> String.make 8);
   woodshed ();
-  print_newline ();;
+  print_newline ()
 
 let sentinel front words =
-  List.find_opt (String.starts_with ~prefix:front) words;;
+  List.find_opt (String.starts_with ~prefix:front) words
 
 let switches front words =
-  List.filter (String.starts_with ~prefix:front) words;;
+  List.filter (String.starts_with ~prefix:front) words
 
 let governor width argos =
   let lingos = Array.to_list argos in
   let tester = fun item -> String.length item <= width in
   let linted = List.filter tester lingos in
   if List.length linted = 0 then ["Excessive"]
-  else linted;;
+  else linted
 
 let exampled post =
   let tips = [
@@ -512,31 +512,31 @@ let exampled post =
     ":all | sensible-pager";
     ":all :cgdae | sensible-pager"] in
   List.iter (Printf.printf "\n\t%s %s\n" post) tips;
-  print_newline ();;
+  print_newline ()
 
 let tutorial () =
   let exec = Filename.basename Sys.executable_name
   and file = Filename.basename __FILE__ in
   if String.equal exec "ocaml" then
     let post = Printf.sprintf "%s %s" exec file in exampled post
-  else exampled ("ocaml " ^ file);;
+  else exampled ("ocaml " ^ file)
 
 let keystone () =
   toolbars ();
   Jacquard.pegboxes ();
-  Geoffroy.foxhounds ();;
+  Geoffroy.foxhounds ()
 
 let solarium () =
   toolbars ();
   Jacquard.pegboxes ();
-  Geoffroy.marshaled ();;
+  Geoffroy.marshaled ()
 
 let preamble () =
   toolbars ();
   Jacquard.pegboxes ();
-  Geoffroy.selections ();;
+  Geoffroy.selections ()
 
-end;;
+end
 
 module Portico = struct
 
@@ -591,11 +591,11 @@ let atrium () =
         | Some _
         | None -> Jacquard.juxtapose tuned words
     else
-      Jacquard.juxtapose tuned words;;
+      Jacquard.juxtapose tuned words
 
-atrium ()
+(* let () = atrium () *)
 
-end;;
+end
 
 module Whodunit = struct
 
@@ -603,30 +603,30 @@ type scoreboard = {
   mutable failed : int;
   mutable passed : int;
   mutable tested : int
-};;
+}
 
 let abacus : scoreboard = {
   failed = 0;
   passed = 0;
   tested = 0
-};;
+}
 
 let presenter name trio =
   abacus.failed <- Int.succ abacus.failed;
   Printf.printf "Failed:\t%s\n" name;
   let (loc, row, col) = trio in
-  Printf.printf "\tFile:\t%s\n\tRow:\t%d\n\tColumn:\t%d\n\n" loc row col;;
+  Printf.printf "\tFile:\t%s\n\tRow:\t%d\n\tColumn:\t%d\n\n" loc row col
 
 let anomaly name kind =
   abacus.failed <- Int.succ abacus.failed;
-  Printf.printf "Failed: %s\n\texception: %s\n\n" name kind;;
+  Printf.printf "Failed: %s\n\texception: %s\n\n" name kind
 
 let checklist name exam vary =
   try
     assert ((List.compare_lengths exam vary) = 0);
     assert (List.equal String.equal exam vary)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let excusable name kind =
   match kind with
@@ -634,13 +634,13 @@ let excusable name kind =
   | Failure kind -> anomaly name kind
   | Invalid_argument kind -> anomaly name kind
   | Not_found -> anomaly name "Not found"
-  | _ -> ();;
+  | _ -> ()
 
 let stringent name exam vary =
   try
     assert (String.equal exam vary)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 (************ Geoffroy ************)
 
@@ -649,13 +649,13 @@ let test_geoffroy_berzelian () =
   let name = __FUNCTION__
   and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
   and vary = try List.assoc "n0" Geoffroy.berzelian with Not_found ->
-    String.empty in stringent name exam vary;;
+    String.empty in stringent name exam vary
 
 let test_geoffroy_acquire () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
-  and vary = Geoffroy.acquire "n0" in stringent name exam vary;;
+  and vary = Geoffroy.acquire "n0" in stringent name exam vary
 
 let test_geoffroy_membership () =
   abacus.tested <- Int.succ abacus.tested;
@@ -663,14 +663,14 @@ let test_geoffroy_membership () =
   try
     assert (Geoffroy.membership "n0")
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_geoffroy_ordnance () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["j3"; "k6"; "n0"]
   and vary = Geoffroy.ordnance ["k6"; "n0"; "j3"]
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_geoffroy_keynotes () =
   abacus.tested <- Int.succ abacus.tested;
@@ -679,7 +679,7 @@ let test_geoffroy_keynotes () =
   try
     assert (size = 86)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_geoffroy_bankroll () =
   abacus.tested <- Int.succ abacus.tested;
@@ -688,7 +688,7 @@ let test_geoffroy_bankroll () =
   try
     assert (size = 86)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_geoffroy_turnkeys () =
   abacus.tested <- Int.succ abacus.tested;
@@ -698,7 +698,7 @@ let test_geoffroy_turnkeys () =
   try
     assert (Int.equal niter count)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_geoffroy_revealed () =
   abacus.tested <- Int.succ abacus.tested;
@@ -707,7 +707,7 @@ let test_geoffroy_revealed () =
   try
     if bone then Geoffroy.revealed name
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_sideshow () =
   abacus.tested <- Int.succ abacus.tested;
@@ -716,7 +716,7 @@ let test_geoffroy_sideshow () =
   try
     Geoffroy.sideshow lids size
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_columned () =
   abacus.tested <- Int.succ abacus.tested;
@@ -726,7 +726,7 @@ let test_geoffroy_columned () =
   try
     Geoffroy.columned size ways
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_selections () =
   abacus.tested <- Int.succ abacus.tested;
@@ -734,7 +734,7 @@ let test_geoffroy_selections () =
   try
     Geoffroy.selections ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_frontage () =
   abacus.tested <- Int.succ abacus.tested;
@@ -742,7 +742,7 @@ let test_geoffroy_frontage () =
   try
     assert (Geoffroy.frontage face word)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_geoffroy_discern () =
   abacus.tested <- Int.succ abacus.tested;
@@ -751,7 +751,7 @@ let test_geoffroy_discern () =
     "n345"; "n345w7"; "n45w2"; "n5w2"; "n67m2"; "n6m2"]
   and keys = Geoffroy.keynotes () and face = "n" in
   let vary = Geoffroy.discern face keys
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_geoffroy_foxhounds () =
   abacus.tested <- Int.succ abacus.tested;
@@ -759,7 +759,7 @@ let test_geoffroy_foxhounds () =
   try
     Geoffroy.foxhounds ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_checkmate () =
   abacus.tested <- Int.succ abacus.tested;
@@ -770,13 +770,13 @@ let test_geoffroy_checkmate () =
   try
     assert (Geoffroy.checkmate labs)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_byzantine () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "k6" in
   let vary = Geoffroy.byzantine exam
-  in stringent name exam vary;;
+  in stringent name exam vary
 
 let test_geoffroy_dominican () =
   abacus.tested <- Int.succ abacus.tested;
@@ -787,7 +787,7 @@ let test_geoffroy_dominican () =
     "j2"; "j23"; "j236"; "j23k6"; "j246w3"; "j26"; "j26w3"; "j26w34";
     "j2k56"; "j2k56m4"; "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3"; "j3"; "j34k6";
     "j36"; "j3k56m4"; "j3k5m4"; "j3k6"; "j6"]
-  and vary = Geoffroy.dominican () in checklist name exam vary;;
+  and vary = Geoffroy.dominican () in checklist name exam vary
 
 let test_geoffroy_marshaled () =
   abacus.tested <- Int.succ abacus.tested;
@@ -795,7 +795,7 @@ let test_geoffroy_marshaled () =
   try
     Geoffroy.marshaled ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_separate () =
   abacus.tested <- Int.succ abacus.tested;
@@ -805,7 +805,7 @@ let test_geoffroy_separate () =
     "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"]
   and wire = Geoffroy.acquire "k6" in
   let vary = Geoffroy.separate wire
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_geoffroy_approval () =
   abacus.tested <- Int.succ abacus.tested;
@@ -814,7 +814,7 @@ let test_geoffroy_approval () =
   try
     assert (Geoffroy.approval yarn)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_uniforms () =
   abacus.tested <- Int.succ abacus.tested;
@@ -830,7 +830,7 @@ let test_geoffroy_uniforms () =
     "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn"; "SnTi"; "TiAg";
     "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn"; "UrAg"; "UrAu";
     "UrCu"; "UrFe"]
-  and vary = Geoffroy.uniforms () in checklist name exam vary;;
+  and vary = Geoffroy.uniforms () in checklist name exam vary
 
 let test_geoffroy_elemental () =
   abacus.tested <- Int.succ abacus.tested;
@@ -838,14 +838,14 @@ let test_geoffroy_elemental () =
   try
     Geoffroy.elemental ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_scrubber () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["HgCu"; "SnSn"; "CuHg"; "PbFe"; "AuAg"; "AgAu"; "FePb"]
   and wire = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
-  in let vary = Geoffroy.scrubber wire in checklist name exam vary;;
+  in let vary = Geoffroy.scrubber wire in checklist name exam vary
 
 let test_geoffroy_inventory () =
   abacus.tested <- Int.succ abacus.tested;
@@ -853,7 +853,7 @@ let test_geoffroy_inventory () =
   try
     Geoffroy.inventory spat
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_periodic () =
   abacus.tested <- Int.succ abacus.tested;
@@ -862,7 +862,7 @@ let test_geoffroy_periodic () =
   try
     assert (Geoffroy.periodic sift)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_refinery () =
   abacus.tested <- Int.succ abacus.tested;
@@ -871,7 +871,7 @@ let test_geoffroy_refinery () =
   try
     Geoffroy.refinery seal
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_geoffroy_grouper () =
   abacus.tested <- Int.succ abacus.tested;
@@ -880,7 +880,7 @@ let test_geoffroy_grouper () =
   try
     Geoffroy.grouper lints
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 (************ Jacquard ************)
 
@@ -890,7 +890,7 @@ let test_jacquard_zodiac () =
   try
     assert ((List.length Jacquard.zodiac) = 13)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_obtain () =
   abacus.tested <- Int.succ abacus.tested;
@@ -899,7 +899,7 @@ let test_jacquard_obtain () =
     let (spot, span) = Jacquard.obtain stem in
     assert ((Int.equal spot numb) && (Int.equal span numb))
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_obtain_non () =
   abacus.tested <- Int.succ abacus.tested;
@@ -909,7 +909,7 @@ let test_jacquard_obtain_non () =
     let (spot, span) = Jacquard.obtain stem in
     assert ((Int.equal spot zero) && (Int.equal span numb))
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_machine () =
   abacus.tested <- Int.succ abacus.tested;
@@ -917,20 +917,20 @@ let test_jacquard_machine () =
   let vary = Jacquard.machine sign spot span
   and name = __FUNCTION__
   and exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe"
-  in stringent name exam vary;;
+  in stringent name exam vary
 
 let test_jacquard_tensile () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = "AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg"
   and sign = "n0" and stem = "tau" in
-  let vary = Jacquard.tensile sign stem in stringent name exam vary;;
+  let vary = Jacquard.tensile sign stem in stringent name exam vary
 
 let test_jacquard_attunes () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"]
-  and vary = Jacquard.attunes () in checklist name exam vary;;
+  and vary = Jacquard.attunes () in checklist name exam vary
 
 let test_jacquard_produce () =
   abacus.tested <- Int.succ abacus.tested;
@@ -940,7 +940,7 @@ let test_jacquard_produce () =
   try
     assert (Int.equal audit width)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_lutherie () =
   abacus.tested <- Int.succ abacus.tested;
@@ -948,7 +948,7 @@ let test_jacquard_lutherie () =
   try
     Jacquard.lutherie ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_pegboxes () =
   abacus.tested <- Int.succ abacus.tested;
@@ -956,12 +956,12 @@ let test_jacquard_pegboxes () =
   try
     Jacquard.pegboxes ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_stockade () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "beadgcf" and spot = 0 in
-  let vary = Jacquard.stockade spot in stringent name exam vary;;
+  let vary = Jacquard.stockade spot in stringent name exam vary
 (*
 let test_jacquard_randomize () =
   abacus.tested <- Int.succ abacus.tested;
@@ -970,7 +970,7 @@ let test_jacquard_randomize () =
     assert ((Jacquard.randomize ()) > mini)
     assert (Jacquard.variant > mini)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 *)
 let test_jacquard_variant () =
   abacus.tested <- Int.succ abacus.tested;
@@ -978,7 +978,7 @@ let test_jacquard_variant () =
   try
     assert ((String.length Jacquard.variant) > mini)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_diadem () =
   abacus.tested <- Int.succ abacus.tested;
@@ -987,7 +987,7 @@ let test_jacquard_diadem () =
   try
     assert ((Jacquard.diadem sign pegs |> String.length) > mini)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_scribe () =
   abacus.tested <- Int.succ abacus.tested;
@@ -996,7 +996,7 @@ let test_jacquard_scribe () =
   try
     Jacquard.scribe wire
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_engrave () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1006,7 +1006,7 @@ let test_jacquard_engrave () =
     Jacquard.engrave sign stem;
     print_newline ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_lattice () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1019,7 +1019,7 @@ let test_jacquard_lattice () =
   try
     Jacquard.lattice sign tons
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_beadgcf () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1027,7 +1027,7 @@ let test_jacquard_beadgcf () =
   try
     Jacquard.beadgcf sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_bfbfb () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1035,7 +1035,7 @@ let test_jacquard_bfbfb () =
   try
     Jacquard.bfbfb sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_cgdae () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1043,7 +1043,7 @@ let test_jacquard_cgdae () =
   try
     Jacquard.cgdae sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_eadgbe () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1051,7 +1051,7 @@ let test_jacquard_eadgbe () =
   try
     Jacquard.eadgbe sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_fkbjdn () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1059,7 +1059,7 @@ let test_jacquard_fkbjdn () =
   try
     Jacquard.fkbjdn sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_piano () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1067,7 +1067,7 @@ let test_jacquard_piano () =
   try
     Jacquard.piano sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_layout () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1076,7 +1076,7 @@ let test_jacquard_layout () =
   try
     Jacquard.layout tuned sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_layout_tuner () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1085,7 +1085,7 @@ let test_jacquard_layout_tuner () =
   try
     Jacquard.layout tuned sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_layout_signer () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1094,7 +1094,7 @@ let test_jacquard_layout_signer () =
   try
     Jacquard.layout tuned sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_juxtapose () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1104,7 +1104,7 @@ let test_jacquard_juxtapose () =
   try
     Jacquard.juxtapose tuned words
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_bounced () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1113,7 +1113,7 @@ let test_jacquard_bounced () =
   try
     assert (Jacquard.bounced stem)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_gearbox () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1122,7 +1122,7 @@ let test_jacquard_gearbox () =
   try
     Jacquard.gearbox spot words
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_caboose () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1131,13 +1131,13 @@ let test_jacquard_caboose () =
   try
     assert (Jacquard.caboose noted sieve)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_assemble () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "fkbjdn" and count = 0
   and flags = [":find"; ":keys"; ":fkbjdn"; ":mars"] in
-  let vary = Jacquard.assemble flags count in stringent name exam vary;;
+  let vary = Jacquard.assemble flags count in stringent name exam vary
 
 let test_jacquard_cornucopia () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1147,7 +1147,7 @@ let test_jacquard_cornucopia () =
   try
     Jacquard.cornucopia tuned flags
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_coworker () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1158,7 +1158,7 @@ let test_jacquard_coworker () =
     Jacquard.coworker harps posit sign;
     print_newline ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_jacquard_dumpster () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1166,7 +1166,7 @@ let test_jacquard_dumpster () =
   try
     Jacquard.dumpster posit
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 (************ Ministry ************)
 
@@ -1174,7 +1174,7 @@ let test_ministry_utensils () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["all"; "alloys"; "find"; "help"; "keys"; "mars"]
-  and vary = Ministry.utensils () in checklist name exam vary;;
+  and vary = Ministry.utensils () in checklist name exam vary
 
 let test_ministry_woodshed () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1182,7 +1182,7 @@ let test_ministry_woodshed () =
   try
     Ministry.woodshed ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_ministry_toolbars () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1190,7 +1190,7 @@ let test_ministry_toolbars () =
   try
     Ministry.toolbars ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_ministry_sentinel () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1205,7 +1205,7 @@ let test_ministry_sentinel () =
       | Some _ -> print_endline "\n\tSomething?\n"
       | None -> print_endline "\n\tNothingness!\n"
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_ministry_switches () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1214,7 +1214,7 @@ let test_ministry_switches () =
   and words = ["n0"; "j3"; ":all"; ":bfbfb"]
   and front = ":" in
   let vary = Ministry.switches front words
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_ministry_governor () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1222,7 +1222,7 @@ let test_ministry_governor () =
   and args = [|"n0"; "j3"; "0123456789"; ":beadgcf"|]
   and exam = ["n0"; "j3"; ":beadgcf"] and span = 9 in
   let vary = Ministry.governor span args
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_ministry_exampled () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1231,7 +1231,7 @@ let test_ministry_exampled () =
   try
     Ministry.exampled post
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_ministry_tutorial () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1239,7 +1239,7 @@ let test_ministry_tutorial () =
   try
     Ministry.tutorial ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_ministry_keystone () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1247,7 +1247,7 @@ let test_ministry_keystone () =
   try
     Ministry.keystone ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_ministry_solarium () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1255,7 +1255,7 @@ let test_ministry_solarium () =
   try
     Ministry.solarium ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_ministry_preamble () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1263,17 +1263,27 @@ let test_ministry_preamble () =
   try
     Ministry.preamble ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
+
+(************* Portico **************)
+
+let test_portico_atrium () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ in
+  try
+    Portico.atrium ()
+  with kind ->
+    excusable name kind
 
 (************************************)
 
 let clockwork start : float =
 (*  let ticks = Sys.time () in *)
   let ticks = Float.zero in
-  Float.sub ticks start;;
+  Float.sub ticks start
 
 let millipede start : float =
-  Float.mul (clockwork start) 1000.;;
+  Float.mul (clockwork start) 1000.
 
 let runabout_geoffroy start =
   test_geoffroy_berzelian ();
@@ -1304,8 +1314,8 @@ let runabout_geoffroy start =
   test_geoffroy_refinery ();
   test_geoffroy_grouper ();
   let after = millipede start in
-(*  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;; *)
-  Printf.printf "\tElapsed: %.3fms %s\n\n" after "runabout_geoffroy";;
+(*  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__ *)
+  Printf.printf "\tElapsed: %.3fms %s\n\n" after "runabout_geoffroy"
 
 let runabout_jacquard start =
   test_jacquard_zodiac ();
@@ -1342,8 +1352,8 @@ let runabout_jacquard start =
   test_jacquard_coworker ();
 (*  test_jacquard_dumpster (); *)
   let after = millipede start in
-(*  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;; *)
-  Printf.printf "\tElapsed: %.3fms %s\n\n" after "runabout_jacquard";;
+(*  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__ *)
+  Printf.printf "\tElapsed: %.3fms %s\n\n" after "runabout_jacquard"
 
 let runabout_ministry start =
   test_ministry_utensils ();
@@ -1358,29 +1368,36 @@ let runabout_ministry start =
   test_ministry_solarium ();
   test_ministry_preamble ();
   let after = millipede start in
-(*  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;; *)
-  Printf.printf "\tElapsed: %.3fms %s\n\n" after "runabout_ministry";;
+(*  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__ *)
+  Printf.printf "\tElapsed: %.3fms %s\n\n" after "runabout_ministry"
+
+let runabout_portico start =
+  test_portico_atrium ();
+  let after = millipede start in
+(*  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__ *)
+  Printf.printf "\tElapsed: %.3fms %s\n\n" after "runabout_portico"
 
 let initiate start : float =
   runabout_geoffroy start;
   runabout_jacquard start;
   runabout_ministry start;
-  millipede start;;
+  runabout_portico start;
+  millipede start
 
 let printout after =
   abacus.passed <- Int.sub abacus.tested abacus.failed;
   Printf.printf "\t%s\n\n" (String.make 61 (Char.chr 45));
   let paddy = String.make 5 (Char.chr 32) in
   Printf.printf "\t%sElapsed: %.3fms, Failed: %d, Passed: %d, Tested: %d\n\n"
-    paddy after abacus.failed abacus.passed abacus.tested;;
+    paddy after abacus.failed abacus.passed abacus.tested
 
 let softest () =
 (*  let start = Sys.time () in *)
   let start = Float.zero in
-  let after = initiate start in printout after;;
+  let after = initiate start in printout after
 
-softest ();;
+end
 
-end;;
+let () = Whodunit.softest ()
 
 

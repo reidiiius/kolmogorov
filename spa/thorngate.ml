@@ -92,37 +92,37 @@ module Polychrome = struct
   "j3k56m4", "HgTi ____ SnNp UrAu ____ ____ ____ AuUr NpSn ____ TiHg FeFe ";
   "k1j56w7", "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ";
   "k2j56w7", "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ "
-  ];;
+  ]
 
   let acquire sign =
     try List.assoc sign scales;
-    with Not_found -> List.assoc "i0" scales;;
+    with Not_found -> List.assoc "i0" scales
 
   let membership sign =
-    List.mem_assoc sign scales;;
+    List.mem_assoc sign scales
 
   let ordnance stems =
-    List.sort String.compare stems;;
+    List.sort String.compare stems
 
   let keynotes () =
-    ordnance (fst (List.split scales));;
+    ordnance (fst (List.split scales))
 
   let bankroll () =
     let clefs = keynotes () in
-      List.length clefs;;
+      List.length clefs
 
   let turnkeys () =
-    (bankroll (), keynotes ());;
+    (bankroll (), keynotes ())
 
   let revealed expo =
-    Printf.eprintf "Error: %s\n" expo;;
+    Printf.eprintf "Error: %s\n" expo
 
   let sideshow lids size =
     try
       Printf.printf "\t%s" (List.nth lids (Int.sub size 1))
     with
     | Invalid_argument expo -> revealed expo
-    | Failure expo -> revealed expo;;
+    | Failure expo -> revealed expo
 
   let rec columned size ways =
     let yaws = List.rev ways in
@@ -137,19 +137,19 @@ module Polychrome = struct
         if (size mod cols) = 0 then print_newline();
         sideshow yaws size;
         columned (Int.sub size 1) ways
-      end;;
+      end
 
   let selections () =
     let (niter, clefs) = turnkeys () in
       print_newline ();
       columned niter clefs;
-      print_newline ();;
+      print_newline ()
 
   let frontage wire item =
-    String.starts_with ~prefix:wire item;;
+    String.starts_with ~prefix:wire item
 
   let discern wire lugs =
-      List.filter (frontage wire) lugs;;
+      List.filter (frontage wire) lugs
 
   let foxhounds () =
     let clefs = keynotes () in
@@ -162,7 +162,7 @@ module Polychrome = struct
       columned (List.length native) native;
       print_newline ();
       columned (List.length lowish) lowish;
-      print_newline ();;
+      print_newline ()
 
   let checkmate labs =
     let span = List.length labs in
@@ -172,7 +172,7 @@ module Polychrome = struct
         frontage "Pb" (List.nth labs 5) ||
         frontage "Fe" (List.nth labs last)
       with Failure expo -> revealed expo; false
-    else false;;
+    else false
 
   let byzantine sign =
     let spat = Char.chr 32
@@ -180,7 +180,7 @@ module Polychrome = struct
     let yarn = String.trim wire in
     let labs = String.split_on_char spat yarn in
       if checkmate labs then sign
-      else String.empty;;
+      else String.empty
 
   let dominican () =
     let clefs = keynotes () in
@@ -188,43 +188,43 @@ module Polychrome = struct
       List.concat [
         discern "k" lots; ["\n"];
         discern "n" lots; ["\n\n"];
-        discern "j" lots];;
+        discern "j" lots]
 
   let marshaled () =
     let dons = dominican () in
     let numb = List.length dons in
       print_newline ();
       columned numb dons;
-      print_newline ();;
+      print_newline ()
 
   let separate wire =
     let spat = Char.chr 32
     and yarn = String.trim wire in
-      String.split_on_char spat yarn;;
+      String.split_on_char spat yarn
 
   let approval yarn =
     let atom = Char.chr 95 in
     let spat = String.make 1 atom in
     let bore = frontage spat yarn in
-      not bore;;
+      not bore
 
   let uniforms () =
     let pans = snd (List.split scales) in
     let urns = List.map separate pans in
     let lots = List.flatten urns in
     let ores = List.filter approval lots in
-      List.sort_uniq String.compare ores;;
+      List.sort_uniq String.compare ores
 
   let elemental () =
     let ores = uniforms () in
     let size = List.length ores in
       print_newline ();
       columned size ores;
-      print_newline ();;
+      print_newline ()
 
   let scrubber wire =
     let yarn = separate wire in
-      List.filter approval yarn;;
+      List.filter approval yarn
 
   let inventory spat =
     let numb = ref 0
@@ -245,13 +245,13 @@ module Polychrome = struct
         print_newline ()
       end
     else
-      Printf.printf "\n\t%s ?\n" spat;;
+      Printf.printf "\n\t%s ?\n" spat
 
   let periodic sift =
     not (frontage "-" sift) &&
     not (frontage "j" sift) &&
     not (frontage "k" sift) &&
-    not (frontage "n" sift);;
+    not (frontage "n" sift)
 
   let refinery seal =
     if periodic seal then inventory seal
@@ -263,7 +263,7 @@ module Polychrome = struct
         Printf.printf "\n\t%s { %s }\n" seal chem
     else if not (frontage "-" seal) then
       Printf.printf "\n\t%s ?\n" seal
-    else ();;
+    else ()
 
   let grouper words =
     let size = List.length words in
@@ -271,9 +271,9 @@ module Polychrome = struct
     else begin
       List.iter refinery words;
       print_newline ()
-    end;;
+    end
 
-end;;
+end
 
 (** Module [Scordatura] supplies instrument tuning and formatting functions. *)
 module Scordatura = struct
@@ -292,11 +292,11 @@ let zodiac = [
   ("sgr", (60,  0));
   ("tau", (35, 25));
   ("vir", (15, 45))
-];;
+]
 
 let obtain stem =
   try List.assoc stem zodiac;
-  with Not_found -> List.assoc "oph" zodiac;;
+  with Not_found -> List.assoc "oph" zodiac
 
 let machine sign spot span =
   let wire = Polychrome.acquire sign in
@@ -309,32 +309,32 @@ let machine sign spot span =
       let grow = String.sub body 0 4 in
         String.cat body grow
     else
-      String.make size (Char.chr 45);;
+      String.make size (Char.chr 45)
 
 let tensile sign stem =
   let (spot, span) = obtain stem
-  in machine sign spot span;;
+  in machine sign spot span
 
 (* instrument tunings *)
 
 let attunes () =
-  ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"];;
+  ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"]
 
 let produce () =
   let harps = attunes () in
   let audit = List.length harps in
-  (audit, harps);;
+  (audit, harps)
 
 let lutherie () =
   let harps = attunes ()
   and carve = (fun cord -> Printf.printf "   -%s" cord)
-  in List.iter carve harps;;
+  in List.iter carve harps
 
 let pegboxes () =
   print_newline ();
   print_string (Char.chr 32 |> String.make 7);
   lutherie ();
-  print_newline ();;
+  print_newline ()
 
 let stockade spot =
   let (audit, harps) = produce () in
@@ -344,55 +344,55 @@ let stockade spot =
     else
       List.hd harps
   else
-    "piano";;
+    "piano"
 
 let randomize () =
   Random.self_init ();
-  Random.full_int Int.max_int;;
+  Random.full_int Int.max_int
 
-let variant = Int.to_string (randomize ());;
+let variant = Int.to_string (randomize ())
 
 let diadem sign pegs =
-  String.concat "-" [sign; pegs; variant];;
+  String.concat "-" [sign; pegs; variant]
 
 let scribe yarn =
-  Printf.printf "\t%s\n" yarn;;
+  Printf.printf "\t%s\n" yarn
 
 let engrave sign stem =
-  scribe (tensile sign stem);;
+  scribe (tensile sign stem)
 
 let lattice sign tons =
-  List.iter (engrave sign) tons;;
+  List.iter (engrave sign) tons
 
 let beadgcf sign =
   scribe (diadem sign "beadgcf");
   let tons = ["cnc"; "sgr"; "tau"; "lib"; "psc"; "leo"; "cap"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let bfbfb sign =
   scribe (diadem sign "bfbfb");
   let tons = ["cap"; "cnc"; "cap"; "cnc"; "cap"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let cgdae sign =
   scribe (diadem sign "cgdae");
   let tons = ["leo"; "psc"; "lib"; "tau"; "sgr"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let eadgbe sign =
   scribe (diadem sign "eadgbe");
   let tons = ["leo"; "cap"; "tau"; "lib"; "psc"; "leo"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let fkbjdn sign =
   scribe (diadem sign "fkbjdn");
   let tons = ["lib"; "aqr"; "gem"; "lib"; "aqr"; "gem"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 let piano sign =
   scribe (diadem sign "piano");
   let tons = ["sgr"]
-  in lattice sign tons;;
+  in lattice sign tons
 
 (* presentation composition *)
 
@@ -408,16 +408,16 @@ let layout tuned sign =
     | "piano" -> piano sign
     | _ -> piano "i0"
   else
-    Printf.printf "\t%s ?\n" sign;;
+    Printf.printf "\t%s ?\n" sign
 
 let juxtapose tuned words =
   List.iter (layout tuned) words;
-  print_newline ();;
+  print_newline ()
 
 let bounced stem =
   let atom = Char.chr 45 in
   let face = String.make 1 atom in
-    not (String.starts_with ~prefix:face stem);;
+    not (String.starts_with ~prefix:face stem)
 
 let gearbox spot words =
   let (audit, harps) = produce () in
@@ -431,17 +431,17 @@ let gearbox spot words =
     else begin
       pegboxes ();
       print_newline ()
-    end;;
+    end
 
 let caboose noted sieve =
-  String.ends_with ~suffix:noted sieve;;
+  String.ends_with ~suffix:noted sieve
 
 let rec assemble flags count =
   let (audit, harps) = produce () in
   let noted = List.nth harps count in
   let found = List.exists (caboose noted) flags in
   if count >= (audit - 1) || found then noted
-  else assemble flags (count + 1);;
+  else assemble flags (count + 1)
 
 let cornucopia tuned flags =
   let clefs = Polychrome.keynotes ()
@@ -451,11 +451,11 @@ let cornucopia tuned flags =
     List.iter (layout raked) clefs
   else
     List.iter (layout tuned) clefs;
-  print_newline ();;
+  print_newline ()
 
 let coworker harps posit sign =
   let tuned = List.nth harps posit in
-    layout tuned sign;;
+    layout tuned sign
 
 let rec dumpster posit =
   let clefs = Polychrome.keynotes ()
@@ -469,39 +469,39 @@ let rec dumpster posit =
     begin
       List.iter (coworker harps posit) clefs;
       dumpster (posit + 1)
-    end;;
+    end
 
-end;;
+end
 
 (** Module [Technician] supplies display and support functions. *)
 module Technician = struct
 
 let utensils () =
-  ["all"; "alloys"; "find"; "help"; "keys"; "mars"];;
+  ["all"; "alloys"; "find"; "help"; "keys"; "mars"]
 
 let woodshed () =
   let tools = utensils ()
   and apply = (fun name -> Printf.printf "    -%s" name)
-  in List.iter apply tools;;
+  in List.iter apply tools
 
 let toolbars () =
   print_newline ();
   print_string (Char.chr 32 |> String.make 8);
   woodshed ();
-  print_newline ();;
+  print_newline ()
 
 let sentinel front words =
-  List.find_opt (String.starts_with ~prefix:front) words;;
+  List.find_opt (String.starts_with ~prefix:front) words
 
 let switches front words =
-  List.filter (String.starts_with ~prefix:front) words;;
+  List.filter (String.starts_with ~prefix:front) words
 
 let governor width argos =
   let lingos = Array.to_list argos in
   let tester = fun item -> String.length item <= width in
   let linted = List.filter tester lingos in
   if List.length linted = 0 then ["Excessive"]
-  else linted;;
+  else linted
 
 let exampled post =
   let tips = [
@@ -516,31 +516,31 @@ let exampled post =
     "-all | sensible-pager";
     "-all -cgdae | sensible-pager"] in
   List.iter (Printf.printf "\n\t%s %s\n" post) tips;
-  print_newline ();;
+  print_newline ()
 
 let tutorial () =
   let exec = Filename.basename Sys.executable_name
   and file = Filename.basename __FILE__ in
   if String.equal exec "ocaml" then
     let post = Printf.sprintf "%s %s" exec file in exampled post
-  else exampled exec;;
+  else exampled exec
 
 let keystone () =
   toolbars ();
   Scordatura.pegboxes ();
-  Polychrome.foxhounds ();;
+  Polychrome.foxhounds ()
 
 let solarium () =
   toolbars ();
   Scordatura.pegboxes ();
-  Polychrome.marshaled ();;
+  Polychrome.marshaled ()
 
 let preamble () =
   toolbars ();
   Scordatura.pegboxes ();
-  Polychrome.selections ();;
+  Polychrome.selections ()
 
-end;;
+end
 
 (** Module [Colonnade] contains the program entry point or main function. *)
 module Colonnade = struct
@@ -548,14 +548,14 @@ module Colonnade = struct
 (** Application entryway *)
 let vestibule () =
   let quanta = (Array.length Sys.argv - 1) in
-  let argots = (Array.sub Sys.argv 1 quanta) in
-  let bounds = Polychrome.bankroll () in
+  let argots = (Array.sub Sys.argv 1 quanta)
+  and bounds = Polychrome.bankroll () in
     if quanta = 0 || quanta >= bounds then
       Technician.preamble ()
     else
-      let front = "-" in
-      let tuned = Scordatura.stockade 0 in
-      let words = Technician.governor 9 argots in
+      let front = "-"
+      and tuned = Scordatura.stockade 0
+      and words = Technician.governor 9 argots in
       let flags = Technician.switches front words in
     if List.length flags > 0 then
       let opted = Technician.sentinel front words in
@@ -595,10 +595,10 @@ let vestibule () =
         | Some _
         | None -> Scordatura.juxtapose tuned words
     else
-      Scordatura.juxtapose tuned words;;
+      Scordatura.juxtapose tuned words
 
-end;;
+end
 
-Colonnade.vestibule ();;
+let () = Colonnade.vestibule ()
 
 

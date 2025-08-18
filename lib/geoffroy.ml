@@ -87,37 +87,37 @@
  ("j3k56m4", "HgTi ____ SnNp UrAu ____ ____ ____ AuUr NpSn ____ TiHg FeFe ");
  ("k1j56w7", "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ");
  ("k2j56w7", "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
-  ];;
+  ]
 
   let acquire sign =
     try List.assoc sign berzelian;
-    with Not_found -> List.assoc "i0" berzelian;;
+    with Not_found -> List.assoc "i0" berzelian
 
   let membership sign =
-    List.mem_assoc sign berzelian;;
+    List.mem_assoc sign berzelian
 
   let ordnance stems =
-    List.sort String.compare stems;;
+    List.sort String.compare stems
 
   let keynotes () =
-    ordnance (fst (List.split berzelian));;
+    ordnance (fst (List.split berzelian))
 
   let bankroll () =
     let clefs = keynotes () in
-      List.length clefs;;
+      List.length clefs
 
   let turnkeys () =
-    (bankroll (), keynotes ());;
+    (bankroll (), keynotes ())
 
   let revealed expo =
-    Printf.eprintf "Error: %s\n" expo;;
+    Printf.eprintf "Error: %s\n" expo
 
   let sideshow lids size =
     try
       Printf.printf "\t%s" (List.nth lids (Int.sub size 1))
     with
     | Invalid_argument expo -> revealed expo
-    | Failure expo -> revealed expo;;
+    | Failure expo -> revealed expo
 
   let rec columned size ways =
     let yaws = List.rev ways in
@@ -132,19 +132,19 @@
         if (size mod cols) = 0 then print_newline();
         sideshow yaws size;
         columned (Int.sub size 1) ways
-      end;;
+      end
 
   let selections () =
     let (niter, clefs) = turnkeys () in
       print_newline ();
       columned niter clefs;
-      print_newline ();;
+      print_newline ()
 
   let frontage wire item =
-    String.starts_with ~prefix:wire item;;
+    String.starts_with ~prefix:wire item
 
   let discern wire lugs =
-      List.filter (frontage wire) lugs;;
+      List.filter (frontage wire) lugs
 
   let foxhounds () =
     let clefs = keynotes () in
@@ -157,7 +157,7 @@
       columned (List.length native) native;
       print_newline ();
       columned (List.length lowish) lowish;
-      print_newline ();;
+      print_newline ()
 
   let checkmate labs =
     let span = List.length labs in
@@ -167,7 +167,7 @@
         frontage "Pb" (List.nth labs 5) ||
         frontage "Fe" (List.nth labs last)
       with Failure expo -> revealed expo; false
-    else false;;
+    else false
 
   let byzantine sign =
     let spat = Char.chr 32
@@ -175,7 +175,7 @@
     let yarn = String.trim wire in
     let labs = String.split_on_char spat yarn in
       if checkmate labs then sign
-      else String.empty;;
+      else String.empty
 
   let dominican () =
     let clefs = keynotes () in
@@ -183,43 +183,43 @@
       List.concat [
         discern "k" lots; ["\n"];
         discern "n" lots; ["\n\n"];
-        discern "j" lots];;
+        discern "j" lots]
 
   let marshaled () =
     let dons = dominican () in
     let numb = List.length dons in
       print_newline ();
       columned numb dons;
-      print_newline ();;
+      print_newline ()
 
   let separate wire =
     let spat = Char.chr 32
     and yarn = String.trim wire in
-      String.split_on_char spat yarn;;
+      String.split_on_char spat yarn
 
   let approval yarn =
     let atom = Char.chr 95 in
     let spat = String.make 1 atom in
     let bore = frontage spat yarn in
-      not bore;;
+      not bore
 
   let uniforms () =
     let pans = snd (List.split berzelian) in
     let urns = List.map separate pans in
     let lots = List.flatten urns in
     let ores = List.filter approval lots in
-      List.sort_uniq String.compare ores;;
+      List.sort_uniq String.compare ores
 
   let elemental () =
     let ores = uniforms () in
     let size = List.length ores in
       print_newline ();
       columned size ores;
-      print_newline ();;
+      print_newline ()
 
   let scrubber wire =
     let yarn = separate wire in
-      List.filter approval yarn;;
+      List.filter approval yarn
 
   let inventory spat =
     let numb = ref 0
@@ -240,13 +240,13 @@
         print_newline ()
       end
     else
-      Printf.printf "\n\t%s ?\n" spat;;
+      Printf.printf "\n\t%s ?\n" spat
 
   let periodic sift =
     not (frontage ":" sift) &&
     not (frontage "j" sift) &&
     not (frontage "k" sift) &&
-    not (frontage "n" sift);;
+    not (frontage "n" sift)
 
   let refinery seal =
     if periodic seal then inventory seal
@@ -258,7 +258,7 @@
         Printf.printf "\n\t%s { %s }\n" seal chem
     else if not (frontage ":" seal) then
       Printf.printf "\n\t%s ?\n" seal
-    else ();;
+    else ()
 
   let grouper words =
     let size = List.length words in
@@ -266,6 +266,6 @@
     else begin
       List.iter refinery words;
       print_newline ()
-    end;;
+    end
 
 

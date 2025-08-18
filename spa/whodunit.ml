@@ -1,36 +1,36 @@
 #! /usr/bin/env ocaml 
 (* whodunit.ml *)
 
-#use "thorngate.ml";;
+#use "thorngate.ml"
 
 type scoreboard = {
   mutable failed : int;
   mutable passed : int;
   mutable tested : int
-};;
+}
 
 let abacus : scoreboard = {
   failed = 0;
   passed = 0;
   tested = 0
-};;
+}
 
 let presenter name trio =
   abacus.failed <- Int.succ abacus.failed;
   Printf.printf "Failed:\t%s\n" name;
   let (loc, row, col) = trio in
-  Printf.printf "\tFile:\t%s\n\tRow:\t%d\n\tColumn:\t%d\n\n" loc row col;;
+  Printf.printf "\tFile:\t%s\n\tRow:\t%d\n\tColumn:\t%d\n\n" loc row col
 
 let anomaly name kind =
   abacus.failed <- Int.succ abacus.failed;
-  Printf.printf "Failed: %s\n\texception: %s\n\n" name kind;;
+  Printf.printf "Failed: %s\n\texception: %s\n\n" name kind
 
 let checklist name exam vary =
   try
     assert ((List.compare_lengths exam vary) = 0);
     assert (List.equal String.equal exam vary)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let excusable name kind =
   match kind with
@@ -38,13 +38,13 @@ let excusable name kind =
   | Failure kind -> anomaly name kind
   | Invalid_argument kind -> anomaly name kind
   | Not_found -> anomaly name "Not found"
-  | _ -> ();;
+  | _ -> ()
 
 let stringent name exam vary =
   try
     assert (String.equal exam vary)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 (************ polychrome ************)
 
@@ -53,13 +53,13 @@ let test_polychrome_scales () =
   let name = __FUNCTION__
   and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
   and vary = try List.assoc "n0" Polychrome.scales with Not_found ->
-    String.empty in stringent name exam vary;;
+    String.empty in stringent name exam vary
 
 let test_polychrome_acquire () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
-  and vary = Polychrome.acquire "n0" in stringent name exam vary;;
+  and vary = Polychrome.acquire "n0" in stringent name exam vary
 
 let test_polychrome_membership () =
   abacus.tested <- Int.succ abacus.tested;
@@ -67,14 +67,14 @@ let test_polychrome_membership () =
   try
     assert (Polychrome.membership "n0")
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_polychrome_ordnance () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["j3"; "k6"; "n0"]
   and vary = Polychrome.ordnance ["k6"; "n0"; "j3"]
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_polychrome_keynotes () =
   abacus.tested <- Int.succ abacus.tested;
@@ -83,7 +83,7 @@ let test_polychrome_keynotes () =
   try
     assert (size = 86)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_polychrome_bankroll () =
   abacus.tested <- Int.succ abacus.tested;
@@ -92,7 +92,7 @@ let test_polychrome_bankroll () =
   try
     assert (size = 86)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_polychrome_turnkeys () =
   abacus.tested <- Int.succ abacus.tested;
@@ -102,7 +102,7 @@ let test_polychrome_turnkeys () =
   try
     assert (Int.equal niter count)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_polychrome_revealed () =
   abacus.tested <- Int.succ abacus.tested;
@@ -111,7 +111,7 @@ let test_polychrome_revealed () =
   try
     if bone then Polychrome.revealed name
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_sideshow () =
   abacus.tested <- Int.succ abacus.tested;
@@ -120,7 +120,7 @@ let test_polychrome_sideshow () =
   try
     Polychrome.sideshow lids size
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_columned () =
   abacus.tested <- Int.succ abacus.tested;
@@ -130,7 +130,7 @@ let test_polychrome_columned () =
   try
     Polychrome.columned size ways
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_selections () =
   abacus.tested <- Int.succ abacus.tested;
@@ -138,7 +138,7 @@ let test_polychrome_selections () =
   try
     Polychrome.selections ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_frontage () =
   abacus.tested <- Int.succ abacus.tested;
@@ -146,7 +146,7 @@ let test_polychrome_frontage () =
   try
     assert (Polychrome.frontage face word)
   with Assert_failure trio ->
-    presenter name trio;;
+    presenter name trio
 
 let test_polychrome_discern () =
   abacus.tested <- Int.succ abacus.tested;
@@ -155,7 +155,7 @@ let test_polychrome_discern () =
     "n345"; "n345w7"; "n45w2"; "n5w2"; "n67m2"; "n6m2"]
   and keys = Polychrome.keynotes () and face = "n" in
   let vary = Polychrome.discern face keys
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_polychrome_foxhounds () =
   abacus.tested <- Int.succ abacus.tested;
@@ -163,7 +163,7 @@ let test_polychrome_foxhounds () =
   try
     Polychrome.foxhounds ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_checkmate () =
   abacus.tested <- Int.succ abacus.tested;
@@ -174,13 +174,13 @@ let test_polychrome_checkmate () =
   try
     assert (Polychrome.checkmate labs)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_byzantine () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "k6" in
   let vary = Polychrome.byzantine exam
-  in stringent name exam vary;;
+  in stringent name exam vary
 
 let test_polychrome_dominican () =
   abacus.tested <- Int.succ abacus.tested;
@@ -191,7 +191,7 @@ let test_polychrome_dominican () =
     "j2"; "j23"; "j236"; "j23k6"; "j246w3"; "j26"; "j26w3"; "j26w34";
     "j2k56"; "j2k56m4"; "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3"; "j3"; "j34k6";
     "j36"; "j3k56m4"; "j3k5m4"; "j3k6"; "j6"]
-  and vary = Polychrome.dominican () in checklist name exam vary;;
+  and vary = Polychrome.dominican () in checklist name exam vary
 
 let test_polychrome_marshaled () =
   abacus.tested <- Int.succ abacus.tested;
@@ -199,7 +199,7 @@ let test_polychrome_marshaled () =
   try
     Polychrome.marshaled ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_separate () =
   abacus.tested <- Int.succ abacus.tested;
@@ -209,7 +209,7 @@ let test_polychrome_separate () =
     "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"]
   and wire = Polychrome.acquire "k6" in
   let vary = Polychrome.separate wire
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_polychrome_approval () =
   abacus.tested <- Int.succ abacus.tested;
@@ -218,7 +218,7 @@ let test_polychrome_approval () =
   try
     assert (Polychrome.approval yarn)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_uniforms () =
   abacus.tested <- Int.succ abacus.tested;
@@ -234,7 +234,7 @@ let test_polychrome_uniforms () =
     "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn"; "SnTi"; "TiAg";
     "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn"; "UrAg"; "UrAu";
     "UrCu"; "UrFe"]
-  and vary = Polychrome.uniforms () in checklist name exam vary;;
+  and vary = Polychrome.uniforms () in checklist name exam vary
 
 let test_polychrome_elemental () =
   abacus.tested <- Int.succ abacus.tested;
@@ -242,14 +242,14 @@ let test_polychrome_elemental () =
   try
     Polychrome.elemental ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_scrubber () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["HgCu"; "SnSn"; "CuHg"; "PbFe"; "AuAg"; "AgAu"; "FePb"]
   and wire = "HgCu ____ SnSn ____ CuHg PbFe ____ AuAg ____ AgAu ____ FePb "
-  in let vary = Polychrome.scrubber wire in checklist name exam vary;;
+  in let vary = Polychrome.scrubber wire in checklist name exam vary
 
 let test_polychrome_inventory () =
   abacus.tested <- Int.succ abacus.tested;
@@ -257,7 +257,7 @@ let test_polychrome_inventory () =
   try
     Polychrome.inventory spat
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_periodic () =
   abacus.tested <- Int.succ abacus.tested;
@@ -266,7 +266,7 @@ let test_polychrome_periodic () =
   try
     assert (Polychrome.periodic sift)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_refinery () =
   abacus.tested <- Int.succ abacus.tested;
@@ -275,7 +275,7 @@ let test_polychrome_refinery () =
   try
     Polychrome.refinery seal
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_polychrome_grouper () =
   abacus.tested <- Int.succ abacus.tested;
@@ -284,7 +284,7 @@ let test_polychrome_grouper () =
   try
     Polychrome.grouper lints
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 (************ scordatura ************)
 
@@ -294,7 +294,7 @@ let test_scordatura_zodiac () =
   try
     assert ((List.length Scordatura.zodiac) = 13)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_obtain () =
   abacus.tested <- Int.succ abacus.tested;
@@ -303,7 +303,7 @@ let test_scordatura_obtain () =
     let (spot, span) = Scordatura.obtain stem in
     assert ((Int.equal spot numb) && (Int.equal span numb))
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_obtain_non () =
   abacus.tested <- Int.succ abacus.tested;
@@ -313,7 +313,7 @@ let test_scordatura_obtain_non () =
     let (spot, span) = Scordatura.obtain stem in
     assert ((Int.equal spot zero) && (Int.equal span numb))
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_machine () =
   abacus.tested <- Int.succ abacus.tested;
@@ -321,20 +321,20 @@ let test_scordatura_machine () =
   let vary = Scordatura.machine sign spot span
   and name = __FUNCTION__
   and exam = "PbFe ____ AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe"
-  in stringent name exam vary;;
+  in stringent name exam vary
 
 let test_scordatura_tensile () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = "AuAg ____ AgAu ____ FePb HgCu ____ SnSn ____ CuHg PbFe ____ AuAg"
   and sign = "n0" and stem = "tau" in
-  let vary = Scordatura.tensile sign stem in stringent name exam vary;;
+  let vary = Scordatura.tensile sign stem in stringent name exam vary
 
 let test_scordatura_attunes () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["beadgcf"; "bfbfb"; "cgdae"; "eadgbe"; "fkbjdn"; "piano"]
-  and vary = Scordatura.attunes () in checklist name exam vary;;
+  and vary = Scordatura.attunes () in checklist name exam vary
 
 let test_scordatura_produce () =
   abacus.tested <- Int.succ abacus.tested;
@@ -344,7 +344,7 @@ let test_scordatura_produce () =
   try
     assert (Int.equal audit width)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_lutherie () =
   abacus.tested <- Int.succ abacus.tested;
@@ -352,7 +352,7 @@ let test_scordatura_lutherie () =
   try
     Scordatura.lutherie ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_pegboxes () =
   abacus.tested <- Int.succ abacus.tested;
@@ -361,12 +361,12 @@ let test_scordatura_pegboxes () =
     Scordatura.pegboxes ();
     print_newline ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_stockade () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "beadgcf" and spot = 0 in
-  let vary = Scordatura.stockade spot in stringent name exam vary;;
+  let vary = Scordatura.stockade spot in stringent name exam vary
 
 let test_scordatura_randomize () =
   abacus.tested <- Int.succ abacus.tested;
@@ -374,7 +374,7 @@ let test_scordatura_randomize () =
   try
     assert ((Scordatura.randomize ()) > mini)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_variant () =
   abacus.tested <- Int.succ abacus.tested;
@@ -382,7 +382,7 @@ let test_scordatura_variant () =
   try
     assert ((String.length Scordatura.variant) > mini)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_diadem () =
   abacus.tested <- Int.succ abacus.tested;
@@ -391,7 +391,7 @@ let test_scordatura_diadem () =
   try
     assert ((Scordatura.diadem sign pegs |> String.length) > mini)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_scribe () =
   abacus.tested <- Int.succ abacus.tested;
@@ -400,7 +400,7 @@ let test_scordatura_scribe () =
   try
     Scordatura.scribe wire
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_engrave () =
   abacus.tested <- Int.succ abacus.tested;
@@ -410,7 +410,7 @@ let test_scordatura_engrave () =
     Scordatura.engrave sign stem;
     print_newline ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_lattice () =
   abacus.tested <- Int.succ abacus.tested;
@@ -423,7 +423,7 @@ let test_scordatura_lattice () =
   try
     Scordatura.lattice sign sols
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_beadgcf () =
   abacus.tested <- Int.succ abacus.tested;
@@ -431,7 +431,7 @@ let test_scordatura_beadgcf () =
   try
     Scordatura.beadgcf sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_bfbfb () =
   abacus.tested <- Int.succ abacus.tested;
@@ -439,7 +439,7 @@ let test_scordatura_bfbfb () =
   try
     Scordatura.bfbfb sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_cgdae () =
   abacus.tested <- Int.succ abacus.tested;
@@ -447,7 +447,7 @@ let test_scordatura_cgdae () =
   try
     Scordatura.cgdae sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_eadgbe () =
   abacus.tested <- Int.succ abacus.tested;
@@ -455,7 +455,7 @@ let test_scordatura_eadgbe () =
   try
     Scordatura.eadgbe sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_fkbjdn () =
   abacus.tested <- Int.succ abacus.tested;
@@ -463,7 +463,7 @@ let test_scordatura_fkbjdn () =
   try
     Scordatura.fkbjdn sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_piano () =
   abacus.tested <- Int.succ abacus.tested;
@@ -471,7 +471,7 @@ let test_scordatura_piano () =
   try
     Scordatura.piano sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_layout () =
   abacus.tested <- Int.succ abacus.tested;
@@ -480,7 +480,7 @@ let test_scordatura_layout () =
   try
     Scordatura.layout tuned sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_layout_tuner () =
   abacus.tested <- Int.succ abacus.tested;
@@ -489,7 +489,7 @@ let test_scordatura_layout_tuner () =
   try
     Scordatura.layout tuned sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_layout_signer () =
   abacus.tested <- Int.succ abacus.tested;
@@ -498,7 +498,7 @@ let test_scordatura_layout_signer () =
   try
     Scordatura.layout tuned sign
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_juxtapose () =
   abacus.tested <- Int.succ abacus.tested;
@@ -508,7 +508,7 @@ let test_scordatura_juxtapose () =
   try
     Scordatura.juxtapose tuned words
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_bounced () =
   abacus.tested <- Int.succ abacus.tested;
@@ -517,7 +517,7 @@ let test_scordatura_bounced () =
   try
     assert (Scordatura.bounced stem)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_gearbox () =
   abacus.tested <- Int.succ abacus.tested;
@@ -526,7 +526,7 @@ let test_scordatura_gearbox () =
   try
     Scordatura.gearbox spot words
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_caboose () =
   abacus.tested <- Int.succ abacus.tested;
@@ -535,13 +535,13 @@ let test_scordatura_caboose () =
   try
     assert (Scordatura.caboose noted sieve)
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_assemble () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ and exam = "fkbjdn" and count = 0
   and flags = ["-find"; "-keys"; "-fkbjdn"; "-mars"] in
-  let vary = Scordatura.assemble flags count in stringent name exam vary;;
+  let vary = Scordatura.assemble flags count in stringent name exam vary
 
 let test_scordatura_cornucopia () =
   abacus.tested <- Int.succ abacus.tested;
@@ -551,7 +551,7 @@ let test_scordatura_cornucopia () =
   try
     Scordatura.cornucopia tuned flags
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_coworker () =
   abacus.tested <- Int.succ abacus.tested;
@@ -562,7 +562,7 @@ let test_scordatura_coworker () =
     Scordatura.coworker harps posit sign;
     print_newline ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_scordatura_dumpster () =
   abacus.tested <- Int.succ abacus.tested;
@@ -570,7 +570,7 @@ let test_scordatura_dumpster () =
   try
     Scordatura.dumpster posit
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 (************ technician ************)
 
@@ -578,7 +578,7 @@ let test_technician_utensils () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["all"; "alloys"; "find"; "help"; "keys"; "mars"]
-  and vary = Technician.utensils () in checklist name exam vary;;
+  and vary = Technician.utensils () in checklist name exam vary
 
 let test_technician_woodshed () =
   abacus.tested <- Int.succ abacus.tested;
@@ -586,7 +586,7 @@ let test_technician_woodshed () =
   try
     Technician.woodshed ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_technician_toolbars () =
   abacus.tested <- Int.succ abacus.tested;
@@ -594,7 +594,7 @@ let test_technician_toolbars () =
   try
     Technician.toolbars ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_technician_sentinel () =
   abacus.tested <- Int.succ abacus.tested;
@@ -609,7 +609,7 @@ let test_technician_sentinel () =
       | Some _ -> print_endline "\n\tSomething?\n"
       | None -> print_endline "\n\tNothingness!\n"
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_technician_switches () =
   abacus.tested <- Int.succ abacus.tested;
@@ -618,7 +618,7 @@ let test_technician_switches () =
   and words = ["n0"; "j3"; "-all"; "-bfbfb"]
   and front = "-" in
   let vary = Technician.switches front words
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_technician_governor () =
   abacus.tested <- Int.succ abacus.tested;
@@ -626,7 +626,7 @@ let test_technician_governor () =
   and args = [|"n0"; "j3"; "0123456789"; "-beadgcf"|]
   and exam = ["n0"; "j3"; "-beadgcf"] and span = 9 in
   let vary = Technician.governor span args
-  in checklist name exam vary;;
+  in checklist name exam vary
 
 let test_technician_exampled () =
   abacus.tested <- Int.succ abacus.tested;
@@ -635,7 +635,7 @@ let test_technician_exampled () =
   try
     Technician.exampled post
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_technician_tutorial () =
   abacus.tested <- Int.succ abacus.tested;
@@ -643,7 +643,7 @@ let test_technician_tutorial () =
   try
     Technician.tutorial ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_technician_keystone () =
   abacus.tested <- Int.succ abacus.tested;
@@ -651,7 +651,7 @@ let test_technician_keystone () =
   try
     Technician.keystone ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_technician_solarium () =
   abacus.tested <- Int.succ abacus.tested;
@@ -659,7 +659,7 @@ let test_technician_solarium () =
   try
     Technician.solarium ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
 
 let test_technician_preamble () =
   abacus.tested <- Int.succ abacus.tested;
@@ -667,16 +667,26 @@ let test_technician_preamble () =
   try
     Technician.preamble ()
   with kind ->
-    excusable name kind;;
+    excusable name kind
+
+(*********** colonnade **************)
+
+let test_colonnade_vestibule () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ in
+  try
+    Colonnade.vestibule ()
+  with kind ->
+    excusable name kind
 
 (************************************)
 
 let clockwork start : float =
   let ticks = Sys.time () in
-  Float.sub ticks start;;
+  Float.sub ticks start
 
 let millipede start : float =
-  Float.mul (clockwork start) 1000.;;
+  Float.mul (clockwork start) 1000.
 
 let runabout_polychrome start =
   test_polychrome_scales ();
@@ -707,7 +717,7 @@ let runabout_polychrome start =
   test_polychrome_refinery ();
   test_polychrome_grouper ();
   let after = millipede start in
-  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;;
+  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__
 
 let runabout_scordatura start =
   test_scordatura_zodiac ();
@@ -744,7 +754,7 @@ let runabout_scordatura start =
   test_scordatura_coworker ();
 (*  test_scordatura_dumpster (); *)
   let after = millipede start in
-  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;;
+  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__
 
 let runabout_technician start =
   test_technician_utensils ();
@@ -759,25 +769,31 @@ let runabout_technician start =
   test_technician_solarium ();
   test_technician_preamble ();
   let after = millipede start in
-  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__;;
+  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__
+
+let runabout_colonnade start =
+  test_colonnade_vestibule ();
+  let after = millipede start in
+  Printf.printf "\tElapsed: %.3fms %s\n\n" after __FUNCTION__
 
 let initiate start : float =
   runabout_polychrome start;
   runabout_scordatura start;
   runabout_technician start;
-  millipede start;;
+  runabout_colonnade start;
+  millipede start
 
 let printout after =
   abacus.passed <- Int.sub abacus.tested abacus.failed;
   Printf.printf "\t%s\n\n" (String.make 61 (Char.chr 45));
   let paddy = String.make 5 (Char.chr 32) in
   Printf.printf "\t%sElapsed: %.3fms, Failed: %d, Passed: %d, Tested: %d\n\n"
-    paddy after abacus.failed abacus.passed abacus.tested;;
+    paddy after abacus.failed abacus.passed abacus.tested
 
 let softest () =
   let start = Sys.time () in
-  let after = initiate start in printout after;;
+  let after = initiate start in printout after
 
-softest ();;
+let () = softest ()
 
 
