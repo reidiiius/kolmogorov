@@ -580,6 +580,14 @@ let test_technician_utensils () =
   and exam = ["all"; "alloys"; "find"; "help"; "keys"; "mars"]
   and vary = Technician.utensils () in checklist name exam vary;;
 
+let test_technician_woodshed () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ in
+  try
+    Technician.woodshed ()
+  with kind ->
+    excusable name kind;;
+
 let test_technician_toolbars () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__ in
@@ -740,6 +748,7 @@ let runabout_scordatura start =
 
 let runabout_technician start =
   test_technician_utensils ();
+  test_technician_woodshed ();
   test_technician_toolbars ();
   test_technician_sentinel ();
   test_technician_switches ();

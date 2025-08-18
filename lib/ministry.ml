@@ -3,13 +3,15 @@
 let utensils () =
   ["all"; "alloys"; "find"; "help"; "keys"; "mars"];;
 
+let woodshed () =
+  let tools = utensils ()
+  and apply = (fun name -> Printf.printf "    :%s" name)
+  in List.iter apply tools;;
+
 let toolbars () =
   print_newline ();
   print_string (Char.chr 32 |> String.make 8);
-  let funky = (fun cord ->
-    Printf.printf "    :%s" cord) in
-  let tools = utensils () in
-  List.iter funky tools;
+  woodshed ();
   print_newline ();;
 
 let sentinel front words =
@@ -21,11 +23,9 @@ let switches front words =
 let governor width argos =
   let lingos = Array.to_list argos in
   let tester = fun item -> String.length item <= width in
-  let claves = List.filter tester lingos in
-  if List.length claves = 0 then
-    "Excessive" :: claves
-  else
-    claves;;
+  let linted = List.filter tester lingos in
+  if List.length linted = 0 then ["Excessive"]
+  else linted;;
 
 let exampled post =
   let tips = [
