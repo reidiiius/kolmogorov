@@ -66,7 +66,7 @@ Compile module interface file
 
     ocamlc spa/thorngate.mli
 
-Make executable directory
+Make directory for executable
 
     mkdir spa/exe
 
@@ -74,7 +74,7 @@ Produce standalone executable
 
     ocamlopt -I spa -o spa/exe/thorngate_v$(date +'%s') spa/thorngate.ml
 
-Make documentation directory
+Make directory for documentation
 
     mkdir spa/doc
 
