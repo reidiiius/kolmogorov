@@ -1,8 +1,7 @@
-#! /usr/bin/env ocaml 
-(* mkdir doc && ocamldoc -keep-code -all-params -html -d doc spa/thorngate.ml *)
+(* #! /usr/bin/env ocaml *)
 (** Module [Thorngate] renders fingerboard matrices for various chordophones. *)
 
-(** Module [Polychrome] supplies a databank and processing functions.*)
+(** Module [Polychrome] supplies [scales] databank and processing functions.*)
 module Polychrome = struct
 
   let scales = [

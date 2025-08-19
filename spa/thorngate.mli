@@ -4,10 +4,10 @@ module Polychrome :
     val scales : (string * string) list
     val acquire : string -> string
     val membership : string -> bool
-    val ordnance : String.t list -> String.t list
-    val keynotes : unit -> String.t list
+    val ordnance : string list -> string list
+    val keynotes : unit -> string list
     val bankroll : unit -> int
-    val turnkeys : unit -> int * String.t list
+    val turnkeys : unit -> int * string list
     val revealed : string -> unit
     val sideshow : string list -> int -> unit
     val columned : int -> string list -> unit
@@ -17,17 +17,17 @@ module Polychrome :
     val foxhounds : unit -> unit
     val checkmate : string list -> bool
     val byzantine : string -> string
-    val dominican : unit -> String.t list
+    val dominican : unit -> string list
     val marshaled : unit -> unit
     val separate : string -> string list
     val approval : string -> bool
-    val uniforms : unit -> String.t list
+    val uniforms : unit -> string list
     val elemental : unit -> unit
     val scrubber : string -> string list
-    val inventory : String.t -> unit
+    val inventory : string -> unit
     val periodic : string -> bool
-    val refinery : String.t -> unit
-    val grouper : String.t list -> unit
+    val refinery : string -> unit
+    val grouper : string list -> unit
   end
 
 module Scordatura :
@@ -83,4 +83,5 @@ module Colonnade :
   sig
     val vestibule : unit -> unit
   end
+
 

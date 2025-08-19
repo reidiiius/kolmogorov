@@ -14,7 +14,7 @@ Command-line
 
     cd kolmogorov
 
-:
+Run test for Thorngate in single page application directory
 
     ocaml spa/whodunit.ml
 
@@ -62,7 +62,31 @@ Command-line
 
     ocaml spa/thorngate.ml -all -cgdae | sensible-pager
 
-:
+Compile module interface file
+
+    ocamlc spa/thorngate.mli
+
+Make executable directory
+
+    mkdir spa/exe
+
+Produce standalone executable
+
+    ocamlopt -I spa -o spa/exe/thorngate_v$(date +'%s') spa/thorngate.ml
+
+Make documentation directory
+
+    mkdir spa/doc
+
+Build documentation files in HTML format
+
+    ocamldoc -keep-code -all-params -html -I spa -d spa/doc spa/thorngate.ml
+
+Browse documentation files
+
+    sensible-browser spa/doc/index.html
+
+Dune compilation and testing of Kolmogorov library
 
     dune build
 
