@@ -161,6 +161,11 @@ module Geoffroy = struct
       columned (List.length lowish) lowish;
       print_newline ()
 
+  let separate wire =
+    let spat = Char.chr 32
+    and yarn = String.trim wire in
+      String.split_on_char spat yarn
+
   let checkmate labs =
     let span = List.length labs in
     let last = Int.sub span 1 in
@@ -193,11 +198,6 @@ module Geoffroy = struct
       print_newline ();
       columned numb dons;
       print_newline ()
-
-  let separate wire =
-    let spat = Char.chr 32
-    and yarn = String.trim wire in
-      String.split_on_char spat yarn
 
   let approval yarn =
     let atom = Char.chr 95 in
@@ -761,6 +761,16 @@ let test_geoffroy_foxhounds () =
   with kind ->
     excusable name kind
 
+let test_geoffroy_separate () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and exam = [
+    "HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
+    "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"]
+  and wire = Geoffroy.acquire "k6" in
+  let vary = Geoffroy.separate wire
+  in checklist name exam vary
+
 let test_geoffroy_checkmate () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
@@ -796,16 +806,6 @@ let test_geoffroy_marshaled () =
     Geoffroy.marshaled ()
   with kind ->
     excusable name kind
-
-let test_geoffroy_separate () =
-  abacus.tested <- Int.succ abacus.tested;
-  let name = __FUNCTION__
-  and exam = [
-    "HgAg"; "____"; "SnAu"; "____"; "CuPb"; "PbCu";
-    "____"; "AuSn"; "____"; "____"; "TiFe"; "FeTi"]
-  and wire = Geoffroy.acquire "k6" in
-  let vary = Geoffroy.separate wire
-  in checklist name exam vary
 
 let test_geoffroy_approval () =
   abacus.tested <- Int.succ abacus.tested;
@@ -1300,11 +1300,11 @@ let runabout_geoffroy start =
   test_geoffroy_frontage ();
   test_geoffroy_discern ();
   test_geoffroy_foxhounds ();
+  test_geoffroy_separate ();
   test_geoffroy_checkmate ();
   test_geoffroy_byzantine ();
   test_geoffroy_dominican ();
   test_geoffroy_marshaled ();
-  test_geoffroy_separate ();
   test_geoffroy_approval ();
   test_geoffroy_uniforms ();
   test_geoffroy_elemental ();

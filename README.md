@@ -80,7 +80,7 @@ Make directory for documentation
 
 Build documentation files in HTML format
 
-    ocamldoc -keep-code -all-params -html -I spa -d spa/doc spa/thorngate.ml
+    ocamldoc -keep-code -all-params -html -I spa -d spa/doc spa/thorngate.m*
 
 Browse documentation files
 

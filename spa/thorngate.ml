@@ -1,7 +1,5 @@
 (* #! /usr/bin/env ocaml *)
-(** Module [Thorngate] renders fingerboard matrices for various chordophones. *)
 
-(** Module [Polychrome] supplies [scales] databank and processing functions.*)
 module Polychrome = struct
 
   let scales = [
@@ -163,6 +161,11 @@ module Polychrome = struct
       columned (List.length lowish) lowish;
       print_newline ()
 
+  let separate wire =
+    let spat = Char.chr 32
+    and yarn = String.trim wire in
+      String.split_on_char spat yarn
+
   let checkmate labs =
     let span = List.length labs in
     let last = Int.sub span 1 in
@@ -195,11 +198,6 @@ module Polychrome = struct
       print_newline ();
       columned numb dons;
       print_newline ()
-
-  let separate wire =
-    let spat = Char.chr 32
-    and yarn = String.trim wire in
-      String.split_on_char spat yarn
 
   let approval yarn =
     let atom = Char.chr 95 in
@@ -274,7 +272,6 @@ module Polychrome = struct
 
 end
 
-(** Module [Scordatura] supplies instrument tuning and formatting functions. *)
 module Scordatura = struct
 
 let zodiac = [
@@ -472,7 +469,6 @@ let rec dumpster posit =
 
 end
 
-(** Module [Technician] supplies display and support functions. *)
 module Technician = struct
 
 let utensils () =
@@ -541,10 +537,9 @@ let preamble () =
 
 end
 
-(** Module [Colonnade] contains the program entry point or main function. *)
 module Colonnade = struct
 
-(** Application entryway *)
+(* Application entryway *)
 let vestibule () =
   let quanta = (Array.length Sys.argv - 1) in
   let argots = (Array.sub Sys.argv 1 quanta)

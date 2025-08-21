@@ -159,6 +159,11 @@
       columned (List.length lowish) lowish;
       print_newline ()
 
+  let separate wire =
+    let spat = Char.chr 32
+    and yarn = String.trim wire in
+      String.split_on_char spat yarn
+
   let checkmate labs =
     let span = List.length labs in
     let last = Int.sub span 1 in
@@ -191,11 +196,6 @@
       print_newline ();
       columned numb dons;
       print_newline ()
-
-  let separate wire =
-    let spat = Char.chr 32
-    and yarn = String.trim wire in
-      String.split_on_char spat yarn
 
   let approval yarn =
     let atom = Char.chr 95 in
