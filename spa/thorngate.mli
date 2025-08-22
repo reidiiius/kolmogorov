@@ -6,42 +6,49 @@ module Polychrome : sig
   val scales : (string * string) list
   (** [scales] is a key-value tuple list of musical pitch collections.
 
-    {v let stow = List.assoc "n0" Polychrome.scales;; v}
+    {v let sign = "n0";; v}
+    {v let stow = List.assoc sign Polychrome.scales;; v}
   *)
 
   val acquire : string -> string
   (**
-    {v let wire = Polychrome.acquire "n0";; v}
+    {v let wire = Polychrome.acquire sign;; v}
   *)
 
   val membership : string -> bool
   (**
-    {v let bone = Polychrome.membership "n0";; v}
+    {v let bone = Polychrome.membership sign;; v}
   *)
 
   val ordnance : string list -> string list
   (**
-    {v let lord = Polychrome.ordnance ["two"; "one"];; v}
+    {v let stems = ["two"; "one"];; v}
+    {v let lords = Polychrome.ordnance stems;; v}
   *)
 
   val keynotes : unit -> string list
-  (**
-    {v let lids = Polychrome.keynotes ();; v}
+  (** Returns a string list of keys from scales.
+
+    {v let clefs = Polychrome.keynotes ();; v}
   *)
 
   val bankroll : unit -> int
-  (**
-    {v let inky = Polychrome.bankroll ();; v}
+  (** Returns the number of key-value tuples in scales.
+
+    {v let niter = Polychrome.bankroll ();; v}
   *)
 
   val turnkeys : unit -> int * string list
-  (**
+  (** Returns a tuple which contains the number of tuples
+      in scales and a string list of keys from scales.
+
     {v let (inky, lids) = Polychrome.turnkeys ();; v}
   *)
 
   val revealed : string -> unit
   (**
-    {v let () = Polychrome.revealed "errs";; v}
+    {v let expo = "errs";; v}
+    {v let () = Polychrome.revealed expo;; v}
   *)
 
   val sideshow : string list -> int -> unit
@@ -61,12 +68,14 @@ module Polychrome : sig
 
   val frontage : string -> string -> bool
   (**
-    {v let bone = Polychrome.frontage "-" "-help";; v}
+    {v let face = "-" and stem = "-help";; v}
+    {v let bone = Polychrome.frontage face stem;; v}
   *)
 
   val discern : string -> string list -> string list
   (**
-    {v let lows = Polychrome.discern "j" lids;; v}
+    {v let flat = "j";; v}
+    {v let lows = Polychrome.discern flat lids;; v}
   *)
 
   val foxhounds : unit -> unit
@@ -86,12 +95,12 @@ module Polychrome : sig
 
   val byzantine : string -> string
   (**
-    {v let sole = Polychrome.byzantine "n0";; v}
+    {v let sole = Polychrome.byzantine sign;; v}
   *)
 
   val dominican : unit -> string list
   (**
-    {v let lips = Polychrome.dominican ();; v}
+    {v let dons = Polychrome.dominican ();; v}
   *)
 
   val marshaled : unit -> unit
@@ -101,12 +110,13 @@ module Polychrome : sig
 
   val approval : string -> bool
   (**
-    {v let bone = Polychrome.approval "HgAu";; v}
+    {v let yarn = "HgAu";; v}
+    {v let bone = Polychrome.approval yarn;; v}
   *)
 
   val uniforms : unit -> string list
   (**
-    {v let labs = Polychrome.uniforms ();; v}
+    {v let ores = Polychrome.uniforms ();; v}
   *)
 
   val elemental : unit -> unit
@@ -116,29 +126,34 @@ module Polychrome : sig
 
   val scrubber : string -> string list
   (**
-    {v let laps = Polychrome.scrubber wire;; v}
+    {v let lugs = Polychrome.scrubber wire;; v}
   *)
 
   val inventory : string -> unit
   (**
-    {v let () = Polychrome.inventory "HgAu";; v}
+    {v let spat = "HgAu";; v}
+    {v let () = Polychrome.inventory spat;; v}
   *)
 
   val periodic : string -> bool
   (**
-    {v let bone = Polychrome.periodic "HgAu";; v}
+    {v let sift = "CuPb";; v}
+    {v let bone = Polychrome.periodic sift;; v}
   *)
 
   val refinery : string -> unit
   (**
-    {v let () = Polychrome.refinery "PbAu";; v}
+    {v let seal = "PbAu";; v}
+    {v let () = Polychrome.refinery seal;; v}
 
-    {v let () = Polychrome.refinery "k125";; v}
+    {v let sign = "j2k56";; v}
+    {v let () = Polychrome.refinery sign;; v}
   *)
 
   val grouper : string list -> unit
   (**
-    {v let () = Polychrome.grouper ["k5"; "NpFe"; "k25"; "NpCu"];; v}
+    {v let words = ["k5"; "NpFe"; "k25"; "NpCu"];; v}
+    {v let () = Polychrome.grouper words;; v}
   *)
 
 end
@@ -146,7 +161,8 @@ end
 (** Module [Scordatura] supplies instrument tuning and formatting functions. *)
 module Scordatura : sig
   val zodiac : (string * (int * int)) list
-  (**
+  (** [zodiac] is a key-value tuple list of chromatic tuning metrics.
+
     {v let (spot, span) = List.assoc stem Scordatura.zodiac;; v}
   *)
 
@@ -166,12 +182,15 @@ module Scordatura : sig
   *)
 
   val attunes : unit -> string list
-  (**
+  (** Returns a string list of various tuning names.
+
     {v let harps = Scordatura.attunes ();; v}
   *)
 
   val produce : unit -> int * string list
-  (**
+  (** Returns a tuple which contaiins the number of names
+      and a string list of tuning names from attunes.
+
     {v let (audit, harps) = Scordatura.produce ();; v}
   *)
 
@@ -300,7 +319,8 @@ end
 (** Module [Technician] supplies display and support functions. *)
 module Technician : sig
   val utensils : unit -> string list
-  (**
+  (** Returns a string list of operational features.
+
     {v let tools = Technician.utensils ();; v}
   *)
 
@@ -359,9 +379,9 @@ end
 (** Module [Colonnade] contains the program entry point or main function. *)
 module Colonnade : sig
 
-  (** Application entryway *)
   val vestibule : unit -> unit
-  (**
+  (** Application entryway.
+
     {v let () = Colonnade.vestibule ();; v}
   *)
 
