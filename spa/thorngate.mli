@@ -200,7 +200,8 @@ module Scordatura : sig
   *)
 
   val obtain : string -> int * int
-  (**
+  (** Lookup of referent key and retrieval of associate values in [zodiac].
+
     {v let (spot, span) = Scordatura.obtain stem;; v}
   *)
 
@@ -228,28 +229,32 @@ module Scordatura : sig
   *)
 
   val lutherie : unit -> unit
-  (**
+  (** Prints tuning names from [attunes] formatted to stdout.
+
     {v let () = Scordatura.lutherie ();; v}
   *)
 
   val pegboxes : unit -> unit
-  (** Displays menu of tunings.
+  (** Displays menu of tuning names from [attunes].
 
     {v let () = Scordatura.pegboxes ();; v}
   *)
 
   val stockade : int -> string
-  (**
+  (** Returns tuning string chosen from [attunes] by integer index.
+
     {v let tuned = Scordatura.stockade 0;; v}
   *)
 
   val randomize : unit -> int
-  (**
+  (** Returns random positive integer. See [Int.max_int]
+
     {v let numb = Scordatura.randomize ();; v}
   *)
 
   val variant : string
-  (**
+  (** Identifier of positive integer from [randomize] cast to string.
+
     {v let variant = Int.to_string numb;; v}
   *)
 

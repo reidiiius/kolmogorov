@@ -18,7 +18,7 @@ Run test for Thorngate in single page application directory
 
     ocaml spa/whodunit.ml
 
-Display menu of utilities, tunings, and accidentals signatures
+Display menu of utilities, tunings, and accidental signatures
 
     ocaml spa/thorngate.ml
 
