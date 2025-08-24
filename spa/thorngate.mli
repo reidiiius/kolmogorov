@@ -11,23 +11,26 @@ module Polychrome : sig
   *)
 
   val acquire : string -> string
-  (**
+  (** Lookup of referent key and retrieval of associate value in [scales].
+
     {v let wire = Polychrome.acquire sign;; v}
   *)
 
   val membership : string -> bool
-  (**
+  (** Evaluates whether accidental signature is referent key in [scales].
+
     {v let bone = Polychrome.membership sign;; v}
   *)
 
   val ordnance : string list -> string list
-  (**
+  (** Takes a string list and returns new list of items alphanumeric sorted.
+
     {v let stems = ["two"; "one"];; v}
     {v let lords = Polychrome.ordnance stems;; v}
   *)
 
   val keynotes : unit -> string list
-  (** Returns a string list of keys from scales.
+  (** Returns a string list of referent keys from [scales].
 
     {v let clefs = Polychrome.keynotes ();; v}
   *)
@@ -40,109 +43,136 @@ module Polychrome : sig
 
   val turnkeys : unit -> int * string list
   (** Returns a tuple which contains the number of tuples
-      in scales and a string list of keys from scales.
+      in scales and a string list of referent keys from scales.
 
     {v let (inky, lids) = Polychrome.turnkeys ();; v}
   *)
 
   val revealed : string -> unit
-  (**
+  (** Prints thrown exception information to stderr.
+
     {v let expo = "errs";; v}
     {v let () = Polychrome.revealed expo;; v}
   *)
 
   val sideshow : string list -> int -> unit
-  (**
+  (** Prints formatted string to stdout or passes exception to [revealed].
+
     {v let () = Polychrome.sideshow lids inky;; v}
   *)
 
   val columned : int -> string list -> unit
-  (**
+  (** Takes an integer argument as length of the string list argument
+      and prints formatted in columns the argument list items to stdout.
+
     {v let () = Polychrome.columned inky lids;; v}
   *)
 
   val selections : unit -> unit
-  (**
+  (** Displays menu of sorted referent keys from [scales].
+
     {v let () = Polychrome.selections ();; v}
   *)
 
   val frontage : string -> string -> bool
-  (**
+  (** Evaluates string by matched prefixed characters.
+
     {v let face = "-" and stem = "-help";; v}
     {v let bone = Polychrome.frontage face stem;; v}
   *)
 
   val discern : string -> string list -> string list
-  (**
+  (** Filters string list items according to prefixed characters.
+
     {v let flat = "j";; v}
     {v let lows = Polychrome.discern flat lids;; v}
   *)
 
   val foxhounds : unit -> unit
-  (**
+  (** Displays referent keys from [scales] sorted
+      according to prefixed accidental.
+
     {v let () = Polychrome.foxhounds ();; v}
   *)
 
   val separate : string -> string list
-  (**
+  (** Trims and splits string associate value from [scales] into string list.
+
     {v let labs = Polychrome.separate wire;; v}
   *)
 
   val checkmate : string list -> bool
-  (**
+  (** Filters referent keys according to harmonic function.
+
     {v let bone = Polychrome.checkmate labs;; v}
   *)
 
   val byzantine : string -> string
-  (**
+  (** Prepares string associate value from [scales] for evaluation by [checkmate].
+
     {v let sole = Polychrome.byzantine sign;; v}
   *)
 
   val dominican : unit -> string list
-  (**
+  (** Sorts list from [byzantine] according to prefixed accidental.
+
     {v let dons = Polychrome.dominican ();; v}
   *)
 
   val marshaled : unit -> unit
-  (**
+  (** Displays referent keys from [scales] filtered
+      according to harmonic function.
+
     {v let () = Polychrome.marshaled ();; v}
   *)
 
   val approval : string -> bool
-  (**
+  (** Evaluate whether string is prefixed with underscore character.
+
     {v let yarn = "HgAu";; v}
     {v let bone = Polychrome.approval yarn;; v}
   *)
 
   val uniforms : unit -> string list
-  (**
+  (** Returns list of unique items from all associate values in [scales].
+
     {v let ores = Polychrome.uniforms ();; v}
   *)
 
   val elemental : unit -> unit
-  (**
+  (** Display menu of list items from [uniforms] to stdout.
+
     {v let () = Polychrome.elemental ();; v}
   *)
 
   val scrubber : string -> string list
-  (**
+  (** Returns a list of unique items by splitting the argument
+      string and passing each item to [approval] for evaluation.
+
     {v let lugs = Polychrome.scrubber wire;; v}
   *)
 
   val inventory : string -> unit
-  (**
+  (** Search all associate values of [scales] for match with argument string
+      and return list of referent keys with matched associate values.
+
     {v let spat = "HgAu";; v}
     {v let () = Polychrome.inventory spat;; v}
   *)
 
   val periodic : string -> bool
-  (**
+  (** Evaluate whether argument string is prefixed with flag or accidental.
+
     {v let sift = "CuPb";; v}
     {v let bone = Polychrome.periodic sift;; v}
   *)
 
   val refinery : string -> unit
-  (**
+  (** Passes argument string to [periodic] for evaluation, if confirmed then
+      argument string is passed to [inventory], else is passed to [membership]
+      for confirmation as [scales] referent key, if confirmed returns list of
+      unique items from associate value, otherwise returns argument string.
+
     {v let seal = "PbAu";; v}
     {v let () = Polychrome.refinery seal;; v}
 
@@ -151,7 +181,10 @@ module Polychrome : sig
   *)
 
   val grouper : string list -> unit
-  (**
+  (** Evaluates whether argument list length is less-than two and if so
+      calls [elemental] otherwise iterates over [refinery] passing each
+      member of argument list to [refinery] for further processing.
+
     {v let words = ["k5"; "NpFe"; "k25"; "NpCu"];; v}
     {v let () = Polychrome.grouper words;; v}
   *)
@@ -200,7 +233,8 @@ module Scordatura : sig
   *)
 
   val pegboxes : unit -> unit
-  (**
+  (** Displays menu of tunings.
+
     {v let () = Scordatura.pegboxes ();; v}
   *)
 
@@ -319,18 +353,20 @@ end
 (** Module [Technician] supplies display and support functions. *)
 module Technician : sig
   val utensils : unit -> string list
-  (** Returns a string list of operational features.
+  (** Returns a string list of operational features referred to as utilities.
 
     {v let tools = Technician.utensils ();; v}
   *)
 
   val woodshed : unit -> unit
-  (**
+  (** Acquires utilities from [utensils] then formats and prints them to stdout.
+
     {v let () = Technician.woodshed ();; v}
   *)
 
   val toolbars : unit -> unit
-  (**
+  (** Formats and displays menu of utilities by calling [woodshed].
+
     {v let () = Technician.toolbars ();; v}
   *)
 
@@ -350,27 +386,36 @@ module Technician : sig
   *)
 
   val exampled : string -> unit
-  (**
+  (** Displays tutorial examples of usage fomatted to stdout.
+
     {v let () = Technician.exampled post;; v}
   *)
 
   val tutorial : unit -> unit
-  (**
+  (** Sets identifiers for executable and file names then interpolates
+      them into a formatted string which is passed to [exampled].
+
     {v let () = Technician.tutorial ();;  v}
   *)
 
   val keystone : unit -> unit
-  (**
+  (** Displays menu of referent keys from [scales] sorted
+      according to prefixed accidental.
+
     {v let () = Technician.keystone ();; v}
   *)
 
   val solarium : unit -> unit
-  (**
+  (** Displays menu of referent keys from [scales] filtered
+      according to harmonic function.
+
     {v let () = Technician.solarium ();;  v}
   *)
 
   val preamble : unit -> unit
-  (**
+  (** Displays menu of utilities form [utensils],
+      tunings from [attunes], and referent keys from [scales].
+
     {v let () = Technician.preamble ();; v}
   *)
 

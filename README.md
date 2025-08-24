@@ -18,47 +18,47 @@ Run test for Thorngate in single page application directory
 
     ocaml spa/whodunit.ml
 
-:
+Display menu of utilities, tunings, and accidentals signatures
 
     ocaml spa/thorngate.ml
 
-:
+Show tutorial examples of usage similar to this information
 
     ocaml spa/thorngate.ml -help
 
-:
+Menu of signatures sorted according to prefixed accidental
 
     ocaml spa/thorngate.ml -keys
 
-:
+Menu of signatures filtered according to harmonic function
 
     ocaml spa/thorngate.ml -mars
 
-:
+Display matrices of selected accidental signatures to screen
 
     ocaml spa/thorngate.ml n0 j3
 
-:
+Display matrices of selected signatures with different tuning
 
     ocaml spa/thorngate.ml n0 j3 -cgdae
 
-:
+Display menu of all periodic combinations or alloys
 
     ocaml spa/thorngate.ml -alloys
 
-:
+Correlate alloys with containing accidental signatures
 
     ocaml spa/thorngate.ml -find FeNp FePu
 
-:
+Correlate accidental signatures with contained alloys
 
     ocaml spa/thorngate.ml -find j6 k2
 
-:
+Display matrices of all accidental signatures with default tuning
 
     ocaml spa/thorngate.ml -all | sensible-pager
 
-:
+Display matrices of all accidental signatures in different tuning
 
     ocaml spa/thorngate.ml -all -cgdae | sensible-pager
 
