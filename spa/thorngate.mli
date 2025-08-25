@@ -206,12 +206,19 @@ module Scordatura : sig
   *)
 
   val machine : string -> int -> int -> string
-  (**
+  (** First argument is a referent key which gets its associate string value
+      while the other two are integers for splicing the got string, creating
+      two substrings which are concatenated, then a substring is spliced from
+      the front and appended before being returned as a reconstructed string.
+
     {v let yarn = Scordatura.machine sign spot span;; v}
   *)
 
   val tensile : string -> string -> string
-  (**
+  (** First argument is a referent key in [scales] and the second is a
+      referent key in [zodiac] which gets the associate tuple values and
+      passes all three to [machine].
+
     {v let yarn = Scordatura.tensile sign stem;; v}
   *)
 
@@ -259,97 +266,142 @@ module Scordatura : sig
   *)
 
   val diadem : string -> string -> string
-  (**
+  (** Concatenates referent key of [scales], tuning of [attunes]
+      and the value of [variant] together then returns string.
+
     {v let yarn = Scordatura.diadem sign pegs;; v}
   *)
 
   val scribe : string -> unit
-  (**
+  (** Prints formatted string to stdout.
+
     {v let () = Scordatura.scribe yarn;; v}
   *)
 
   val engrave : string -> string -> unit
-  (**
+  (** Passes referent key of [scales] and associate value of [zodiac]
+      to [tensile] for processing, after transformation the returned
+      string is passed to [scribe] for formatting and printing.
+
     {v let () = Scordatura.engrave sign stem;; v}
   *)
 
   val lattice : string -> string list -> unit
-  (**
+  (** Takes a [scales] referent key and a list of [zodiac] referent keys,
+      iterates over the zodiacal list passing each to [engrave] in tandem.
+
     {v let () = Scordatura.lattice sign tons;; v}
   *)
 
   val beadgcf : string -> unit
-  (**
+  (** $ Takes [scales] referent key, passes it with tuning string to [diadem],
+      the returned string is then passed to [scribe] for printing banner.
+      A zodiacal list is constructed resembling the tuning string in reverse,
+      [scales] referent key and zodiacal list are then passed to [lattice].
+
     {v let () = Scordatura.beadgcf sign;; v}
   *)
 
   val bfbfb : string -> unit
-  (**
+  (** $ ibidem.
+
     {v let () = Scordatura.bfbfb sign;; v}
   *)
 
   val cgdae : string -> unit
-  (**
+  (** $ ibidem.
+
     {v let () = Scordatura.cgdae sign;; v}
   *)
 
   val eadgbe : string -> unit
-  (**
+  (** $ ibidem.
+
     {v let () = Scordatura.eadgbe sign;; v}
   *)
 
   val fkbjdn : string -> unit
-  (**
+  (** $ ibidem.
+
     {v let () = Scordatura.fkbjdn sign;; v}
   *)
 
   val piano : string -> unit
-  (**
+  (** $ ibidem.
+
     {v let () = Scordatura.piano sign;; v}
   *)
 
   val layout : string -> string -> unit
-  (**
+  (** Takes an [attunes] tuning string and a [scales] referent key,
+      verifies referent key membership in [scales] or prints error,
+      attempt match of tuning string to tuning patterns, on success
+      passes referent key to proper function, or defaults to piano.
+
     {v let () = Scordatura.layout tuned sign;; v}
   *)
 
   val juxtapose : string -> string list -> unit
-  (**
+  (** Takes an [attunes] tuning string and string list from [vestibule],
+      iterates over string list passing each to [layout] in tandem.
+
     {v let () = Scordatura.juxtapose tuned words;; v}
   *)
 
   val bounced : string -> bool
-  (**
+  (** Takes a string and determines whether prefixed with flag.
+
     {v let bone = scordatura.bounced stem;; v}
   *)
 
   val gearbox : int -> string list -> unit
-  (**
+  (** Takes integer as [attunes] index and string list from [vestibule],
+      if index within range, gets tuning string from [attunes] members,
+      else calls [pegboxes], if tuning success then iterates over list
+      passing each to [bounced] sifting out flags while building a new
+      list to be passed with tuning string to [juxtapose] in tandem.
+      if new list is empty then calls [foxhounds] and returns unit.
+
     {v let () = Scordatura.gearbox spot words;; v}
   *)
 
   val caboose : string -> string -> bool
-  (**
+  (** Takes two strings and determines whether 1st is suffix of 2nd.
+
     {v let bone = scordatura.caboose noted sieve;; v}
   *)
 
   val assemble : string list -> int -> string
-  (**
+  (** Takes a string list and integer counter for [attunes] indices,
+      iterates over list passing each to [caboose] for suffix match.
+      when exhausted return matched or return last [attunes] member.
+
     {v let raked = Scordatura.assemble flags count;; v}
   *)
 
   val cornucopia : string -> string list -> unit
-  (**
+  (** Takes tuning string of [attunes] members and string list of flags,
+      if list has flags then list is passed to [assemble] and the string
+      returned is passed to [layout] while iterating over [scales] keys,
+      else tuning string is passed to [layout] while iterating over keys.
+
     {v let () = cornucopia tuned flags;; v}
   *)
 
   val coworker : string list -> int -> string -> unit
-  (**
+  (** Takes [attunes] string list, and integer counter for [attunes] indices,
+      and a referent key for [scales], counter selects [attunes] list member,
+      tuning string along with referent key is passed to [layout] in tandem.
+
     {v let () = Scordatura.coworker harps posit sign;; v}
   *)
 
   val dumpster : int -> unit
-  (**
+  (** Takes an integer counter for [attunes] indices. The outer iteration
+      over [attunes] members increments counter, within every outer cycle
+      an inner iteration over [scales] referent keys passes tuning list,
+      incremental integer, and referent key to [coworker].
+
     {v let () = Scordatura.dumpster posit;; v}
   *)
 
@@ -376,17 +428,24 @@ module Technician : sig
   *)
 
   val sentinel : string -> string list -> string option
-  (**
+  (** Takes string prefix and string list to sift for matching prefix,
+      returns the first member matched in string list or returns [None].
+
     {v let opted = Technician.sentinel front words;; v}
   *)
 
   val switches : string -> string list -> string list
-  (**
+  (** Takes string prefix and string list to sift for matching prefix,
+      returns new list populated with all matched string list members.
+
     {v let flags = Technician.switches front words;; v}
   *)
 
   val governor : int -> string array -> string list
-  (**
+  (** Takes an integer limit and string array to sift out members with
+      lengths greater than integer limit, returns new string list with
+      with all members length less-than or equal to integer limit.
+
     {v let words = Technician.governor 9 argots;; v}
   *)
 
