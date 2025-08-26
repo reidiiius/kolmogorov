@@ -54,6 +54,14 @@ Correlate accidental signatures with contained alloys
 
     ocaml spa/thorngate.ml -find j6 k2
 
+Display all active ferrous alloys
+
+    ocaml spa/thorngate.ml -find -Fe*
+
+Display all passive ferrous alloys
+
+    ocaml spa/thorngate.ml -find -*Fe
+
 Display matrices of all accidental signatures with default tuning
 
     ocaml spa/thorngate.ml -all | sensible-pager
@@ -129,6 +137,14 @@ Dune compilation and testing of Kolmogorov library
 :
 
     dune exec stoa :find j6 k2
+
+:
+
+    dune exec stoa :find :Fe*
+
+:
+
+    dune exec stoa :find :*Fe
 
 :
 

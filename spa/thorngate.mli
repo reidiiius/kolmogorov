@@ -43,7 +43,7 @@ module Polychrome : sig
 
   val turnkeys : unit -> int * string list
   (** Returns a tuple which contains the number of tuples
-      in scales and a string list of referent keys from scales.
+      in [scales] and a string list of [scales] referent keys.
 
     {v let (inky, lids) = Polychrome.turnkeys ();; v}
   *)
@@ -63,7 +63,7 @@ module Polychrome : sig
 
   val columned : int -> string list -> unit
   (** Takes an integer argument as length of the string list argument
-      and prints formatted in columns the argument list items to stdout.
+      and prints formatted in columns the string list items to stdout.
 
     {v let () = Polychrome.columned inky lids;; v}
   *)
@@ -77,8 +77,15 @@ module Polychrome : sig
   val frontage : string -> string -> bool
   (** Evaluates string by matched prefixed characters.
 
-    {v let face = "-" and stem = "-help";; v}
-    {v let bone = Polychrome.frontage face stem;; v}
+    {v let face = "-" and word = "-help";; v}
+    {v let bone = Polychrome.frontage face word;; v}
+  *)
+
+  val backpack : string -> string -> bool
+  (** Evaluates string by matched suffixed characters.
+
+    {v let hind = "k6" and cord = "j2k6";; v}
+    {v let bone = Polychrome.backpack hind cord;; v}
   *)
 
   val discern : string -> string list -> string list
@@ -86,6 +93,13 @@ module Polychrome : sig
 
     {v let flat = "j";; v}
     {v let lows = Polychrome.discern flat lids;; v}
+  *)
+
+  val percept : string -> string list -> string list
+  (** Filters string list items according to suffixed characters.
+
+    {v let hind = "w6";; v}
+    {v let dubs = Polychrome.discern hind lids;; v}
   *)
 
   val foxhounds : unit -> unit
@@ -165,6 +179,13 @@ module Polychrome : sig
 
     {v let sift = "CuPb";; v}
     {v let bone = Polychrome.periodic sift;; v}
+  *)
+
+  val ferrous : (string -> string list -> string list) -> unit
+  (** Takes either [discern] or [percept] as an argument and returns unit
+
+    {v let () = Polychrome.ferrous Polychrome.discern;; v}
+    {v let () = Polychrome.ferrous Polychrome.percept;; v}
   *)
 
   val refinery : string -> unit

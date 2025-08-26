@@ -57,6 +57,10 @@
 	j2k6m5	j2k6w3	j346w5	k157m6	k235m4	k257m1	k25m17	k2j5m1
 	k2j5w6	j2k56m4	k2j56w7
 
+	FeCu	FeFe	FeMn	FeNp	FePb	FePu	FeTi	FeUr
+
+	CuFe	FeFe	MnFe	NpFe	PbFe	PuFe	TiFe	UrFe
+
 	k15 { AuHg CuUr FeNp HgAu NpFe PbSn SnPb }
 
 	n167m4 { AgTi AuHg FeNp HgAu NpFe PbSn UrCu }
@@ -322,5 +326,5 @@
 
 	-------------------------------------------------------------
 
-	     Elapsed: 0.000ms, Failed: 0, Passed: 69, Tested: 69
+	     Elapsed: 0.000ms, Failed: 0, Passed: 72, Tested: 72
 

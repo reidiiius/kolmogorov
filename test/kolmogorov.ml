@@ -142,11 +142,17 @@ module Geoffroy = struct
       columned niter clefs;
       print_newline ()
 
-  let frontage wire item =
-    String.starts_with ~prefix:wire item
+  let frontage spat stem =
+    String.starts_with ~prefix:spat stem
 
-  let discern wire lugs =
-      List.filter (frontage wire) lugs
+  let backpack spat stem =
+    String.ends_with ~suffix:spat stem
+
+  let discern spat lugs =
+      List.filter (frontage spat) lugs
+
+  let percept spat lugs =
+      List.filter (backpack spat) lugs
 
   let foxhounds () =
     let clefs = keynotes () in
@@ -250,6 +256,13 @@ module Geoffroy = struct
     not (frontage "k" sift) &&
     not (frontage "n" sift)
 
+  let ferrous miner =
+    let ores = uniforms ()
+    and iron = "Fe" in
+    let labs = miner iron ores in
+    let size = List.length labs in
+    columned size labs
+
   let refinery seal =
     if periodic seal then inventory seal
     else if membership seal then
@@ -258,6 +271,10 @@ module Geoffroy = struct
       let labs = List.sort String.compare ores in
       let chem = String.concat "\x20" labs in
         Printf.printf "\n\t%s { %s }\n" seal chem
+    else if (frontage ":Fe" seal) then
+      ferrous discern
+    else if (backpack "Fe" seal) then
+      ferrous percept
     else if not (frontage ":" seal) then
       Printf.printf "\n\t%s ?\n" seal
     else ()
@@ -744,6 +761,14 @@ let test_geoffroy_frontage () =
   with Assert_failure trio ->
     presenter name trio
 
+let test_geoffroy_backpack () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ and spat = "w6" and stem = "k2j5w6" in
+  try
+    assert (Geoffroy.backpack spat stem)
+  with Assert_failure trio ->
+    presenter name trio
+
 let test_geoffroy_discern () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
@@ -751,6 +776,14 @@ let test_geoffroy_discern () =
     "n345"; "n345w7"; "n45w2"; "n5w2"; "n67m2"; "n6m2"]
   and keys = Geoffroy.keynotes () and face = "n" in
   let vary = Geoffroy.discern face keys
+  in checklist name exam vary
+
+let test_geoffroy_percept () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and exam = ["j25w6"; "j5w6"; "k2j5w6"]
+  and keys = Geoffroy.keynotes () and hind = "w6" in
+  let vary = Geoffroy.percept hind keys
   in checklist name exam vary
 
 let test_geoffroy_foxhounds () =
@@ -861,6 +894,17 @@ let test_geoffroy_periodic () =
   and sift = "PbFe" in
   try
     assert (Geoffroy.periodic sift)
+  with kind ->
+    excusable name kind
+
+let test_geoffroy_ferrous () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and mine = Geoffroy.discern
+  and weld = Geoffroy.percept in
+  try
+    Geoffroy.ferrous mine;
+    Geoffroy.ferrous weld
   with kind ->
     excusable name kind
 
@@ -1298,7 +1342,9 @@ let runabout_geoffroy start =
   test_geoffroy_columned ();
   test_geoffroy_selections ();
   test_geoffroy_frontage ();
+  test_geoffroy_backpack ();
   test_geoffroy_discern ();
+  test_geoffroy_percept ();
   test_geoffroy_foxhounds ();
   test_geoffroy_separate ();
   test_geoffroy_checkmate ();
@@ -1311,6 +1357,7 @@ let runabout_geoffroy start =
   test_geoffroy_scrubber ();
   test_geoffroy_inventory ();
   test_geoffroy_periodic ();
+  test_geoffroy_ferrous ();
   test_geoffroy_refinery ();
   test_geoffroy_grouper ();
   let after = millipede start in

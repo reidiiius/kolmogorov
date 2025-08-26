@@ -142,11 +142,17 @@ module Polychrome = struct
       columned niter clefs;
       print_newline ()
 
-  let frontage wire item =
-    String.starts_with ~prefix:wire item
+  let frontage spat stem =
+    String.starts_with ~prefix:spat stem
 
-  let discern wire lugs =
-      List.filter (frontage wire) lugs
+  let backpack spat stem =
+    String.ends_with ~suffix:spat stem
+
+  let discern spat lugs =
+      List.filter (frontage spat) lugs
+
+  let percept spat lugs =
+      List.filter (backpack spat) lugs
 
   let foxhounds () =
     let clefs = keynotes () in
@@ -250,6 +256,13 @@ module Polychrome = struct
     not (frontage "k" sift) &&
     not (frontage "n" sift)
 
+  let ferrous miner =
+    let ores = uniforms ()
+    and iron = "Fe" in
+    let labs = miner iron ores in
+    let size = List.length labs in
+    columned size labs
+
   let refinery seal =
     if periodic seal then inventory seal
     else if membership seal then
@@ -258,6 +271,10 @@ module Polychrome = struct
       let labs = List.sort String.compare ores in
       let chem = String.concat "\x20" labs in
         Printf.printf "\n\t%s { %s }\n" seal chem
+    else if (frontage "-Fe" seal) then
+      ferrous discern
+    else if (backpack "Fe" seal) then
+      ferrous percept
     else if not (frontage "-" seal) then
       Printf.printf "\n\t%s ?\n" seal
     else ()

@@ -148,6 +148,14 @@ let test_polychrome_frontage () =
   with Assert_failure trio ->
     presenter name trio
 
+let test_polychrome_backpack () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__ and spat = "w6" and stem = "k2j5w6" in
+  try
+    assert (Polychrome.backpack spat stem)
+  with Assert_failure trio ->
+    presenter name trio
+
 let test_polychrome_discern () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
@@ -155,6 +163,14 @@ let test_polychrome_discern () =
     "n345"; "n345w7"; "n45w2"; "n5w2"; "n67m2"; "n6m2"]
   and keys = Polychrome.keynotes () and face = "n" in
   let vary = Polychrome.discern face keys
+  in checklist name exam vary
+
+let test_polychrome_percept () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and exam = ["j25w6"; "j5w6"; "k2j5w6"]
+  and keys = Polychrome.keynotes () and hind = "w6" in
+  let vary = Polychrome.percept hind keys
   in checklist name exam vary
 
 let test_polychrome_foxhounds () =
@@ -265,6 +281,17 @@ let test_polychrome_periodic () =
   and sift = "PbFe" in
   try
     assert (Polychrome.periodic sift)
+  with kind ->
+    excusable name kind
+
+let test_polychrome_ferrous () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and mine = Polychrome.discern
+  and weld = Polychrome.percept in
+  try
+    Polychrome.ferrous mine;
+    Polychrome.ferrous weld
   with kind ->
     excusable name kind
 
@@ -701,7 +728,9 @@ let runabout_polychrome start =
   test_polychrome_columned ();
   test_polychrome_selections ();
   test_polychrome_frontage ();
+  test_polychrome_backpack ();
   test_polychrome_discern ();
+  test_polychrome_percept ();
   test_polychrome_foxhounds ();
   test_polychrome_checkmate ();
   test_polychrome_byzantine ();
@@ -714,6 +743,7 @@ let runabout_polychrome start =
   test_polychrome_scrubber ();
   test_polychrome_inventory ();
   test_polychrome_periodic ();
+  test_polychrome_ferrous ();
   test_polychrome_refinery ();
   test_polychrome_grouper ();
   let after = millipede start in
