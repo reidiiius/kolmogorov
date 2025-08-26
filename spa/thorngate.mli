@@ -181,11 +181,18 @@ module Polychrome : sig
     {v let bone = Polychrome.periodic sift;; v}
   *)
 
-  val ferrous : (string -> string list -> string list) -> unit
-  (** Takes either [discern] or [percept] as an argument and returns unit
+  val nodular : string -> (string -> string list -> string list) -> unit
+  (** Takes string and function arguments and returns unit
 
-    {v let () = Polychrome.ferrous Polychrome.discern;; v}
-    {v let () = Polychrome.ferrous Polychrome.percept;; v}
+    {v let mine = Polychrome.percept and sift = "Fe";; v}
+    {v let () = Polychrome.nodular sift mine;; v}
+  *)
+
+  val ferrous : string -> unit
+  (** Takes string argument and returns unit
+
+    {v let slag = "?Fe";; v}
+    {v let () = Polychrome.ferrous slag;; v}
   *)
 
   val refinery : string -> unit

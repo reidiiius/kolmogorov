@@ -15,6 +15,8 @@
 
 	dune exec stoa :find j6 k2
 
+	dune exec stoa :find ?Fe
+
 	dune exec stoa :all | sensible-pager
 
 	dune exec stoa :all :cgdae | sensible-pager

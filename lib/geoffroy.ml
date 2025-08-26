@@ -250,31 +250,45 @@
 
   let periodic sift =
     not (frontage ":" sift) &&
+    not (frontage "?" sift) &&
     not (frontage "j" sift) &&
     not (frontage "k" sift) &&
     not (frontage "n" sift)
 
-  let ferrous miner =
-    let ores = uniforms ()
-    and iron = "Fe" in
-    let labs = miner iron ores in
+  let nodular sift mine =
+    let ores = uniforms () in
+    let labs = mine sift ores in
     let size = List.length labs in
-    columned size labs
+    if size > 0 then
+      begin
+        if size < 8 then print_newline ();
+        columned size labs
+      end
+    else
+      Printf.printf "\n\t%s ?\n" sift
 
-  let refinery seal =
-    if periodic seal then inventory seal
-    else if membership seal then
-      let wire = acquire seal in
+  let ferrous slag =
+    let wide = String.length slag in
+    if (wide = 3) then
+      let sift = String.sub slag 1 (wide - 1)
+      and lugs = [discern; percept] in
+      List.iter (nodular sift) lugs
+    else
+      let sour = String.sub slag 1 (wide - 1)
+      in Printf.printf "\n\t%s ?\n" sour
+
+  let refinery slag =
+    if periodic slag then inventory slag
+    else if membership slag then
+      let wire = acquire slag in
       let ores = scrubber wire in
       let labs = List.sort String.compare ores in
       let chem = String.concat "\x20" labs in
-        Printf.printf "\n\t%s { %s }\n" seal chem
-    else if (frontage ":Fe" seal) then
-      ferrous discern
-    else if (backpack "Fe" seal) then
-      ferrous percept
-    else if not (frontage ":" seal) then
-      Printf.printf "\n\t%s ?\n" seal
+        Printf.printf "\n\t%s { %s }\n" slag chem
+    else if (frontage "?" slag) then
+        ferrous slag
+    else if not (frontage ":" slag) then
+      Printf.printf "\n\t%s ?\n" slag
     else ()
 
   let grouper words =

@@ -57,6 +57,8 @@
 	j2k6m5	j2k6w3	j346w5	k157m6	k235m4	k257m1	k25m17	k2j5m1
 	k2j5w6	j2k56m4	k2j56w7
 
+	CuFe	FeFe	MnFe	NpFe	PbFe	PuFe	TiFe	UrFe
+
 	FeCu	FeFe	FeMn	FeNp	FePb	FePu	FeTi	FeUr
 
 	CuFe	FeFe	MnFe	NpFe	PbFe	PuFe	TiFe	UrFe
@@ -205,6 +207,8 @@
 
 	ocaml kolmogorov.ml :find j6 k2
 
+	ocaml kolmogorov.ml :find ?Fe
+
 	ocaml kolmogorov.ml :all | sensible-pager
 
 	ocaml kolmogorov.ml :all :cgdae | sensible-pager
@@ -226,6 +230,8 @@
 
 	kolmogorov.ml :find j6 k2
 
+	kolmogorov.ml :find ?Fe
+
 	kolmogorov.ml :all | sensible-pager
 
 	kolmogorov.ml :all :cgdae | sensible-pager
@@ -246,6 +252,8 @@
 	ocaml kolmogorov.ml :find FeNp FePu
 
 	ocaml kolmogorov.ml :find j6 k2
+
+	ocaml kolmogorov.ml :find ?Fe
 
 	ocaml kolmogorov.ml :all | sensible-pager
 
@@ -326,5 +334,5 @@
 
 	-------------------------------------------------------------
 
-	     Elapsed: 0.000ms, Failed: 0, Passed: 72, Tested: 72
+	     Elapsed: 0.000ms, Failed: 0, Passed: 73, Tested: 73
 

@@ -252,31 +252,45 @@ module Geoffroy = struct
 
   let periodic sift =
     not (frontage ":" sift) &&
+    not (frontage "?" sift) &&
     not (frontage "j" sift) &&
     not (frontage "k" sift) &&
     not (frontage "n" sift)
 
-  let ferrous miner =
-    let ores = uniforms ()
-    and iron = "Fe" in
-    let labs = miner iron ores in
+  let nodular sift mine =
+    let ores = uniforms () in
+    let labs = mine sift ores in
     let size = List.length labs in
-    columned size labs
+    if size > 0 then
+      begin
+        if size < 8 then print_newline ();
+        columned size labs
+      end
+    else
+      Printf.printf "\n\t%s ?\n" sift
 
-  let refinery seal =
-    if periodic seal then inventory seal
-    else if membership seal then
-      let wire = acquire seal in
+  let ferrous slag =
+    let wide = String.length slag in
+    if (wide = 3) then
+      let sift = String.sub slag 1 (wide - 1)
+      and lugs = [discern; percept] in
+      List.iter (nodular sift) lugs
+    else
+      let sour = String.sub slag 1 (wide - 1)
+      in Printf.printf "\n\t%s ?\n" sour
+
+  let refinery slag =
+    if periodic slag then inventory slag
+    else if membership slag then
+      let wire = acquire slag in
       let ores = scrubber wire in
       let labs = List.sort String.compare ores in
       let chem = String.concat "\x20" labs in
-        Printf.printf "\n\t%s { %s }\n" seal chem
-    else if (frontage ":Fe" seal) then
-      ferrous discern
-    else if (backpack "Fe" seal) then
-      ferrous percept
-    else if not (frontage ":" seal) then
-      Printf.printf "\n\t%s ?\n" seal
+        Printf.printf "\n\t%s { %s }\n" slag chem
+    else if (frontage "?" slag) then
+        ferrous slag
+    else if not (frontage ":" slag) then
+      Printf.printf "\n\t%s ?\n" slag
     else ()
 
   let grouper words =
@@ -526,6 +540,7 @@ let exampled post =
     ":alloys";
     ":find FeNp FePu";
     ":find j6 k2";
+    ":find ?Fe";
     ":all | sensible-pager";
     ":all :cgdae | sensible-pager"] in
   List.iter (Printf.printf "\n\t%s %s\n" post) tips;
@@ -897,14 +912,22 @@ let test_geoffroy_periodic () =
   with kind ->
     excusable name kind
 
+let test_geoffroy_nodular () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and mine = Geoffroy.percept
+  and sift = "Fe" in
+  try
+    Geoffroy.nodular sift mine
+  with kind ->
+    excusable name kind
+
 let test_geoffroy_ferrous () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
-  and mine = Geoffroy.discern
-  and weld = Geoffroy.percept in
+  and slag = "?Fe" in
   try
-    Geoffroy.ferrous mine;
-    Geoffroy.ferrous weld
+    Geoffroy.ferrous slag
   with kind ->
     excusable name kind
 
@@ -1357,6 +1380,7 @@ let runabout_geoffroy start =
   test_geoffroy_scrubber ();
   test_geoffroy_inventory ();
   test_geoffroy_periodic ();
+  test_geoffroy_nodular ();
   test_geoffroy_ferrous ();
   test_geoffroy_refinery ();
   test_geoffroy_grouper ();

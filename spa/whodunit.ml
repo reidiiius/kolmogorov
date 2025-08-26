@@ -284,14 +284,22 @@ let test_polychrome_periodic () =
   with kind ->
     excusable name kind
 
+let test_polychrome_nodular () =
+  abacus.tested <- Int.succ abacus.tested;
+  let name = __FUNCTION__
+  and mine = Polychrome.percept
+  and sift = "Fe" in
+  try
+    Polychrome.nodular sift mine
+  with kind ->
+    excusable name kind
+
 let test_polychrome_ferrous () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
-  and mine = Polychrome.discern
-  and weld = Polychrome.percept in
+  and slag = "?Fe" in
   try
-    Polychrome.ferrous mine;
-    Polychrome.ferrous weld
+    Polychrome.ferrous slag
   with kind ->
     excusable name kind
 
@@ -743,6 +751,7 @@ let runabout_polychrome start =
   test_polychrome_scrubber ();
   test_polychrome_inventory ();
   test_polychrome_periodic ();
+  test_polychrome_nodular ();
   test_polychrome_ferrous ();
   test_polychrome_refinery ();
   test_polychrome_grouper ();

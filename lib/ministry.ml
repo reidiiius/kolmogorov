@@ -37,6 +37,7 @@ let exampled post =
     ":alloys";
     ":find FeNp FePu";
     ":find j6 k2";
+    ":find ?Fe";
     ":all | sensible-pager";
     ":all :cgdae | sensible-pager"] in
   List.iter (Printf.printf "\n\t%s %s\n" post) tips;
