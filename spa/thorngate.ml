@@ -183,10 +183,8 @@ module Polychrome = struct
     else false
 
   let byzantine sign =
-    let spat = Char.chr 32
-    and wire = acquire sign in
-    let yarn = String.trim wire in
-    let labs = String.split_on_char spat yarn in
+    let wire = acquire sign in
+    let labs = separate wire in
       if checkmate labs then sign
       else String.empty
 

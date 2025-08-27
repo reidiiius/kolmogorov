@@ -98,8 +98,8 @@ module Polychrome : sig
   val percept : string -> string list -> string list
   (** Filters string list items according to suffixed characters.
 
-    {v let hind = "w6";; v}
-    {v let dubs = Polychrome.discern hind lids;; v}
+    {v let hind = "m5";; v}
+    {v let dubs = Polychrome.percept hind lids;; v}
   *)
 
   val foxhounds : unit -> unit
@@ -116,13 +116,15 @@ module Polychrome : sig
   *)
 
   val checkmate : string list -> bool
-  (** Filters referent keys according to harmonic function.
+  (** Evaluates specific list members according to harmonic function.
 
     {v let bone = Polychrome.checkmate labs;; v}
   *)
 
   val byzantine : string -> string
-  (** Prepares string associate value from [scales] for evaluation by [checkmate].
+  (** Takes referent key from [scales] and determines whether
+      associate value satisfies specific harmonic criteria, if
+      affirmed returns referent key otherwise an empty string.
 
     {v let sole = Polychrome.byzantine sign;; v}
   *)
@@ -141,7 +143,7 @@ module Polychrome : sig
   *)
 
   val approval : string -> bool
-  (** Evaluate whether string is prefixed with underscore character.
+  (** Evaluate whether string is not prefixed with underscore character.
 
     {v let yarn = "HgAu";; v}
     {v let bone = Polychrome.approval yarn;; v}
@@ -175,37 +177,51 @@ module Polychrome : sig
   *)
 
   val periodic : string -> bool
-  (** Evaluate whether argument string is prefixed with flag or accidental.
+  (** Evaluate whether argument string is not prefixed with flag,
+      question mark, or accidental.
 
     {v let sift = "CuPb";; v}
     {v let bone = Polychrome.periodic sift;; v}
   *)
 
   val nodular : string -> (string -> string list -> string list) -> unit
-  (** Takes string and function arguments and returns unit
+  (** Takes string and function arguments and returns unit. The string
+      argument should be metallic and the function argument should be
+      either [discern] or [percept]. The list of alloys from [uniforms]
+      is filtered with either function according to metallic placement.
+      Items found are then printed by [columned] to stdout, otherwise an
+      error message containing the string argument is printed to stdout.
 
-    {v let mine = Polychrome.percept and sift = "Fe";; v}
+    {v let sift = "Fe" and mine = Polychrome.percept;; v}
     {v let () = Polychrome.nodular sift mine;; v}
   *)
 
   val ferrous : string -> unit
-  (** Takes string argument and returns unit
+  (** Takes string argument and returns unit. The string argument should be
+      three characters long with the last two representing a metallic symbol.
 
     {v let slag = "?Fe";; v}
     {v let () = Polychrome.ferrous slag;; v}
   *)
 
   val refinery : string -> unit
-  (** Passes argument string to [periodic] for evaluation, if confirmed then
-      argument string is passed to [inventory], else is passed to [membership]
-      for confirmation as [scales] referent key, if confirmed returns list of
-      unique items from associate value, otherwise returns argument string.
+  (** Passes argument string to [periodic] for evaluation, if confirmed is
+      passed to [inventory], else is passed to [membership] for confirmation
+      as [scales] referent key, if confirmed will format print referent key
+      and alloys of associate value, else is passed to [frontage] to determine
+      whether the first character is a question mark, and if so will be passed
+      to [ferrous], upon refusal is again passed to [frontage] for invalidation
+      of the first character being a hyphen-minus, whereupon an error message
+      will be format printed to stdout, otherwise unit value returned.
 
     {v let seal = "PbAu";; v}
     {v let () = Polychrome.refinery seal;; v}
 
     {v let sign = "j2k56";; v}
     {v let () = Polychrome.refinery sign;; v}
+
+    {v let slag = "?Fe";; v}
+    {v let () = Polychrome.refinery slag;; v}
   *)
 
   val grouper : string list -> unit
@@ -213,7 +229,7 @@ module Polychrome : sig
       calls [elemental] otherwise iterates over [refinery] passing each
       member of argument list to [refinery] for further processing.
 
-    {v let words = ["k5"; "NpFe"; "k25"; "NpCu"];; v}
+    {v let words = ["k5"; "NpFe"; "k25"; "NpCu"; "?Np"];; v}
     {v let () = Polychrome.grouper words;; v}
   *)
 
