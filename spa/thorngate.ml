@@ -140,7 +140,6 @@ module Polychrome = struct
 
   let selections () =
     let (niter, clefs) = turnkeys () in
-      print_newline ();
       columned niter clefs;
       print_newline ()
 
