@@ -51,6 +51,7 @@ module Geoffroy = struct
    ("j26w3", "HgHg PuFe SnTi ____ ____ PbAu ____ AuPb NpCu ____ ____ FePu ");
    ("j2k34", "TiCu FeMn ____ ____ ____ MnFe CuTi PbAg ____ AuAu ____ AgPb ");
    ("j2k56", "HgHg PuFe ____ ____ CuNp PbAu ____ ____ NpCu ____ TiSn FePu ");
+   ("j2k5h", "MnCu CuMn ____ ____ AuHg NpFe ____ ____ FeNp HgAu ____ SnPb ");
    ("j34k6", "HgSn ____ SnHg MnFe CuTi ____ ____ AuAu ____ ____ TiCu FeMn ");
    ("j56w7", "UrCu ____ PbSn ____ AuHg NpFe AgTi ____ FeNp HgAu ____ ____ ");
    ("k12j5", "____ AgUr ____ FePu HgHg PuFe SnTi ____ ____ PbAu ____ AuPb ");
@@ -59,6 +60,7 @@ module Geoffroy = struct
    ("k26m5", "HgSn ____ ____ MnFe CuTi PbAg ____ ____ ____ AgPb TiCu FeMn ");
    ("k2j17", "____ ____ ____ MnFe CuTi PbAg ____ AuAu ____ AgPb TiCu FeMn ");
    ("k2j56", "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp ____ ____ AuPb ");
+   ("k2j6h", "HgAu ____ ____ MnCu CuMn PbSn ____ AuHg NpFe ____ ____ FeNp ");
    ("k34m2", "PbCu ____ ____ ____ AgHg TiFe FeTi HgAg ____ SnAu ____ CuPb ");
    ("k56m4", "HgAu ____ SnPb ____ CuUr ____ ____ AuHg NpFe ____ TiAg FeNp ");
    ("n25m6", "TiCu FeMn HgSn ____ ____ MnFe CuTi PbAg ____ ____ ____ AgPb ");
@@ -707,7 +709,7 @@ let test_geoffroy_keynotes () =
   let name = __FUNCTION__
   and size = List.length (Geoffroy.keynotes ()) in
   try
-    assert (size = 86)
+    assert (size = 88)
   with Assert_failure trio ->
     presenter name trio
 
@@ -716,7 +718,7 @@ let test_geoffroy_bankroll () =
   let name = __FUNCTION__
   and size = Geoffroy.bankroll () in
   try
-    assert (size = 86)
+    assert (size = 88)
   with Assert_failure trio ->
     presenter name trio
 
@@ -838,11 +840,11 @@ let test_geoffroy_dominican () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["k157m6"; "k1j6"; "k235m4"; "k256"; "k26"; "k26m5"; "k2j17";
-    "k2j6"; "k56"; "k56m4"; "k6"; "k6m5"; "\n"; "n0"; "n167m4"; "n26w5";
-    "n345"; "n45w2"; "n5w2"; "\n\n"; "j136w7"; "j167w2"; "j17"; "j17w2";
-    "j2"; "j23"; "j236"; "j23k6"; "j246w3"; "j26"; "j26w3"; "j26w34";
-    "j2k56"; "j2k56m4"; "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3"; "j3"; "j34k6";
-    "j36"; "j3k56m4"; "j3k5m4"; "j3k6"; "j6"]
+    "k2j6"; "k2j6h"; "k56"; "k56m4"; "k6"; "k6m5"; "\n"; "n0"; "n167m4";
+    "n26w5"; "n345"; "n45w2"; "n5w2"; "\n\n"; "j136w7"; "j167w2"; "j17";
+    "j17w2"; "j2"; "j23"; "j236"; "j23k6"; "j246w3"; "j26"; "j26w3";
+    "j26w34"; "j2k56"; "j2k56m4"; "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3";
+    "j3"; "j34k6"; "j36"; "j3k56m4"; "j3k5m4"; "j3k6"; "j6"]
   and vary = Geoffroy.dominican () in checklist name exam vary
 
 let test_geoffroy_marshaled () =
@@ -868,14 +870,14 @@ let test_geoffroy_uniforms () =
   and exam = [
     "AgAu"; "AgHg"; "AgMn"; "AgPb"; "AgTi"; "AgUr"; "AuAg";
     "AuAu"; "AuHg"; "AuNp"; "AuPb"; "AuSn"; "AuUr"; "CuFe";
-    "CuHg"; "CuNp"; "CuPb"; "CuTi"; "CuUr"; "FeCu"; "FeFe";
-    "FeMn"; "FeNp"; "FePb"; "FePu"; "FeTi"; "FeUr"; "HgAg";
-    "HgAu"; "HgCu"; "HgHg"; "HgMn"; "HgSn"; "HgTi"; "MnAg";
-    "MnFe"; "MnHg"; "NpAu"; "NpCu"; "NpFe"; "NpSn"; "PbAg";
-    "PbAu"; "PbCu"; "PbFe"; "PbPb"; "PbSn"; "PbTi"; "PuFe";
-    "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn"; "SnTi"; "TiAg";
-    "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn"; "UrAg"; "UrAu";
-    "UrCu"; "UrFe"]
+    "CuHg"; "CuMn"; "CuNp"; "CuPb"; "CuTi"; "CuUr"; "FeCu";
+    "FeFe"; "FeMn"; "FeNp"; "FePb"; "FePu"; "FeTi"; "FeUr";
+    "HgAg"; "HgAu"; "HgCu"; "HgHg"; "HgMn"; "HgSn"; "HgTi";
+    "MnAg"; "MnCu"; "MnFe"; "MnHg"; "NpAu"; "NpCu"; "NpFe";
+    "NpSn"; "PbAg"; "PbAu"; "PbCu"; "PbFe"; "PbPb"; "PbSn";
+    "PbTi"; "PuFe"; "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn";
+    "SnTi"; "TiAg"; "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn";
+    "UrAg"; "UrAu"; "UrCu"; "UrFe"]
   and vary = Geoffroy.uniforms () in checklist name exam vary
 
 let test_geoffroy_elemental () =

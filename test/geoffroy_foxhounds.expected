@@ -3,18 +3,18 @@
 
           :beadgcf   :bfbfb   :cgdae   :eadgbe   :fkbjdn   :piano
 
-	k1	k12	k125	k12j5	k135m4
-	k15	k157m6	k17j5	k1j5	k1j56w7	k1j6	k1j6w7	k2
-	k235m4	k25	k256	k257m1	k25m1	k25m17	k26	k26m5
-	k2j17	k2j5	k2j56	k2j56w7	k2j5m1	k2j5w6	k2j6	k2m1
+	k1	k12	k125	k12j5	k135m4	k15
+	k157m6	k17j5	k1j5	k1j56w7	k1j6	k1j6w7	k2	k235m4
+	k25	k256	k257m1	k25m1	k25m17	k26	k26m5	k2j17
+	k2j5	k2j56	k2j56w7	k2j5m1	k2j5w6	k2j6	k2j6h	k2m1
 	k34	k345m2	k34m2	k5	k56	k56m4	k6	k6m5
 
 	n0	n167	n167m4
 	n25m6	n26w5	n345	n345w7	n45w2	n5w2	n67m2	n6m2
 
-	j126w7	j136w7	j167w2	j17	j17w2
-	j2	j23	j236	j23k6	j246w3	j25	j256	j25w6
-	j26	j26w3	j26w34	j2k34	j2k5	j2k56	j2k56m4	j2k6
+	j126w7	j136w7	j167w2	j17	j17w2	j2
+	j23	j236	j23k6	j246w3	j25	j256	j25w6	j26
+	j26w3	j26w34	j2k34	j2k5	j2k56	j2k56m4	j2k5h	j2k6
 	j2k6m5	j2k6w3	j2w3	j3	j346w5	j34k6	j36	j3k5
 	j3k56m4	j3k5m4	j3k6	j5	j56	j56w7	j5w6	j6
 

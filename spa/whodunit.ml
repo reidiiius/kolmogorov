@@ -81,7 +81,7 @@ let test_polychrome_keynotes () =
   let name = __FUNCTION__
   and size = List.length (Polychrome.keynotes ()) in
   try
-    assert (size = 86)
+    assert (size = 88)
   with Assert_failure trio ->
     presenter name trio
 
@@ -90,7 +90,7 @@ let test_polychrome_bankroll () =
   let name = __FUNCTION__
   and size = Polychrome.bankroll () in
   try
-    assert (size = 86)
+    assert (size = 88)
   with Assert_failure trio ->
     presenter name trio
 
@@ -202,11 +202,11 @@ let test_polychrome_dominican () =
   abacus.tested <- Int.succ abacus.tested;
   let name = __FUNCTION__
   and exam = ["k157m6"; "k1j6"; "k235m4"; "k256"; "k26"; "k26m5"; "k2j17";
-    "k2j6"; "k56"; "k56m4"; "k6"; "k6m5"; "\n"; "n0"; "n167m4"; "n26w5";
-    "n345"; "n45w2"; "n5w2"; "\n\n"; "j136w7"; "j167w2"; "j17"; "j17w2";
-    "j2"; "j23"; "j236"; "j23k6"; "j246w3"; "j26"; "j26w3"; "j26w34";
-    "j2k56"; "j2k56m4"; "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3"; "j3"; "j34k6";
-    "j36"; "j3k56m4"; "j3k5m4"; "j3k6"; "j6"]
+    "k2j6"; "k2j6h"; "k56"; "k56m4"; "k6"; "k6m5"; "\n"; "n0"; "n167m4";
+    "n26w5"; "n345"; "n45w2"; "n5w2"; "\n\n"; "j136w7"; "j167w2"; "j17";
+    "j17w2"; "j2"; "j23"; "j236"; "j23k6"; "j246w3"; "j26"; "j26w3";
+    "j26w34"; "j2k56"; "j2k56m4"; "j2k6"; "j2k6m5"; "j2k6w3"; "j2w3";
+    "j3"; "j34k6"; "j36"; "j3k56m4"; "j3k5m4"; "j3k6"; "j6"]
   and vary = Polychrome.dominican () in checklist name exam vary
 
 let test_polychrome_marshaled () =
@@ -242,14 +242,14 @@ let test_polychrome_uniforms () =
   and exam = [
     "AgAu"; "AgHg"; "AgMn"; "AgPb"; "AgTi"; "AgUr"; "AuAg";
     "AuAu"; "AuHg"; "AuNp"; "AuPb"; "AuSn"; "AuUr"; "CuFe";
-    "CuHg"; "CuNp"; "CuPb"; "CuTi"; "CuUr"; "FeCu"; "FeFe";
-    "FeMn"; "FeNp"; "FePb"; "FePu"; "FeTi"; "FeUr"; "HgAg";
-    "HgAu"; "HgCu"; "HgHg"; "HgMn"; "HgSn"; "HgTi"; "MnAg";
-    "MnFe"; "MnHg"; "NpAu"; "NpCu"; "NpFe"; "NpSn"; "PbAg";
-    "PbAu"; "PbCu"; "PbFe"; "PbPb"; "PbSn"; "PbTi"; "PuFe";
-    "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn"; "SnTi"; "TiAg";
-    "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn"; "UrAg"; "UrAu";
-    "UrCu"; "UrFe"]
+    "CuHg"; "CuMn"; "CuNp"; "CuPb"; "CuTi"; "CuUr"; "FeCu";
+    "FeFe"; "FeMn"; "FeNp"; "FePb"; "FePu"; "FeTi"; "FeUr";
+    "HgAg"; "HgAu"; "HgCu"; "HgHg"; "HgMn"; "HgSn"; "HgTi";
+    "MnAg"; "MnCu"; "MnFe"; "MnHg"; "NpAu"; "NpCu"; "NpFe";
+    "NpSn"; "PbAg"; "PbAu"; "PbCu"; "PbFe"; "PbPb"; "PbSn";
+    "PbTi"; "PuFe"; "SnAu"; "SnHg"; "SnNp"; "SnPb"; "SnSn";
+    "SnTi"; "TiAg"; "TiCu"; "TiFe"; "TiHg"; "TiPb"; "TiSn";
+    "UrAg"; "UrAu"; "UrCu"; "UrFe"]
   and vary = Polychrome.uniforms () in checklist name exam vary
 
 let test_polychrome_elemental () =
